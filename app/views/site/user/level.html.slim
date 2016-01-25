@@ -1,0 +1,97 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.user-level
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.item-hd.vip-info-title 我的会员信息
+			.level-item
+				.item-hd 我的会员信息
+				.item-bd
+					span.current-level
+						| 我的当前的等级：
+						label #{MemberRule.where(:level=>current_user.member.level).first.title}
+					span.current-growth-value
+						| 我目前的成长值：
+						label #{current_user.member.growth_value}
+						.growth-progress-bar
+							- @member_rules.each_with_index do |rule,index|
+								div.level-box style="width:#{ ((100.to_f)/(@member_rules.length+1)).to_s + '%' };left:#{ ((index.to_f)/(@member_rules.length-1) * 100).to_s + '%' }"
+									- pre_rule = MemberRule.where('id < ?',rule.id).order('id desc').first
+									span.growth class="#{'active' if current_user.member.level >= rule.level}"
+										- if index == 0
+											label 0
+										- else
+											label #{pre_rule.growth.present?? pre_rule.growth + 1 : ''}
+									- next_rule = MemberRule.where('id > ?',rule.id).first
+									- if index != @member_rules.length
+										div.process
+											- if current_user.member.level > rule.level
+												.process-slide style="width:100%"
+											- elsif next_rule.present? and next_rule.growth.present? and current_user.member.growth_value - rule.growth >0
+												.process-slide style="width:#{((current_user.member.growth_value-rule.growth)).to_f/(next_rule.growth-rule.growth)*100}%"
+											- elsif next_rule.blank? and rule.growth.blank? and current_user.member.level == rule.level
+												.process-slide style="width:10%"
+											- elsif current_user.member.level == rule.level
+												.process-slide style="width:#{((current_user.member.growth_value-pre_rule.growth-1)).to_f/(rule.growth-(pre_rule.growth+1))*100}%"
+
+
+									span.member-level
+										= image_tag("#{rule.icon.small}")
+										span #{rule.level}#{rule.title}
+							.level-box
+								- last_rule = MemberRule.last
+								.growth class="#{'active' if last_rule.growth.present? and current_user.member.growth_value > last_rule.growth}"
+									label #{last_rule.growth.present?? last_rule.growth : '' }
+								span.member-level.level-last
+									span 敬请期待
+
+			.growth-role-item
+				.item-hd 成长值发放规则
+				.item-bd
+					table.table
+						colgroup
+							col width="50%" 
+							col width="50%"
+						thead
+							tr
+								th 类别
+								th.score 成长值
+						tbody
+						- @growth_rules.each do |rule|
+							tr
+								-if rule.rule_type == 1
+									td 购物
+									td.score #{rule.condition}元=#{rule.growth_value}成长值
+								- elsif rule.rule_type == 2
+									td 评价
+									td.score 商品评价成功，返#{rule.growth_value}成长值
+								- else
+									td 登录
+									td.score 每日首次在掌上阅冰采购平台登录，返#{rule.growth_value}成长值
+					/ span.operate-tips
+					/ 	label !
+					/ 	| 说明：XXXXXXXXXXXXXX
+			.growth-record-item
+				.item-hd 我的成长记录
+				.item-bd
+					table.table
+						colgroup
+							col width="30%" 
+							col width="50%"
+							col width="20%" 
+						thead
+							tr
+								th 时间
+								th 详情
+								th 成长值
+						tbody
+							- @growth_records.each do |record|
+								tr
+									td #{record.created_at.strftime('%Y-%m-%d %H:%M:%S')}
+									td #{record.description}
+									td.growth-value +#{record.growth}
+			= render partial: '/shared/pagination',locals: {assets:@growth_records}
+
+

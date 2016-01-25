@@ -1,0 +1,45 @@
+.address-form
+	.header 
+		|使用新地址
+		button.close#address-form-close 
+			span &times;
+	.content
+		p.tips
+			span 新增收货地址
+			/ span 电话号码、手机号选填一项，其余为必填项
+		= form_tag("",method:"",id:"create_address")
+			.form-group
+				= label_tag "name","*收货人",class:"control-label"
+				= text_field_tag "name"
+			.form-group
+				= label_tag "zone_name","*所在地区",class:"control-label"
+				.store-selector
+					.text
+						input#zone_name name="zone_name" type="text" data-code="" readonly="readonly" value=""
+					.content
+			.form-group
+				= label_tag "address","*收货地址",class:"control-label"
+				= text_field_tag "address","",class:"address"
+			.form-group
+				= label_tag "zip_code","邮政编号",class:"control-label"
+				= text_field_tag "zip_code"
+			.form-group
+				= label_tag "cellphone","手机号码",class:"control-label"
+				= text_field_tag "cellphone"
+			.form-group
+				= label_tag "mobile","*联系电话",class:"control-label"
+				= text_field_tag "mobile"
+			.form-group
+				= label_tag "email","邮箱",class:"control-label"
+				= text_field_tag "email"
+			.form-group
+				= label_tag "alias_address","地址别名",class:"control-label"
+				= text_field_tag "alias_address"
+				= label_tag "","设置一个易记的名称，如：“送到店里”、“送到公司”",class:"tips"
+			.form-group
+				= label_tag "","",class:"control-label"
+				= check_box_tag "status"
+			    = label_tag "status","设置为默认收货地址"
+			.form-group
+				= label_tag "","",class:"control-label"
+				button.btn.btn-sm#save-address 保存地址

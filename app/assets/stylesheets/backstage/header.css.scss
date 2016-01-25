@@ -1,0 +1,59 @@
+@import '_variables';
+
+
+.header{
+	width: 100%;
+	min-width: 1200px;
+	background-color: $base-color;
+
+	.logo{
+		float: left;
+		width: 380px;
+		height: 31px;
+		margin-top: 7px;
+		background: image_url('backstage/logo.png') no-repeat;
+
+	}
+}
+
+.header-content{
+	width: 1200px;
+	height: 45px;
+	margin: 0 auto;
+	color: #fff;
+	box-sizing: border-box;
+}
+
+
+.user-info{
+	float: right;
+	margin-right: $content-horizonal-padding;
+	line-height: 45px;
+	font-size: 12px;
+
+	.dropdown{
+		height: 45px;
+		margin-left: 35px;
+	}
+
+	.dropdown-menu{
+		right: 0px;
+		width: 70px;
+		border-top: none;
+
+		.menu-item{
+			line-height: normal;
+			a{
+				display: inline-block;
+				height: 100%;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.user-avatar{
+	position: absolute;
+	margin-top: 7px;
+	margin-right: 5px;
+}

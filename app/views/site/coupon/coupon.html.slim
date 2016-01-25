@@ -1,0 +1,73 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.coupon
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			/ .nav
+			/ 	a.nav-btn.btn-group class="#{'active' if params[:status].blank?}" href="/site/coupon/" 全部
+			/ 	a.nav-btn.btn-group class="#{'active' if params[:status] == '0'}" href="/site/coupon/0/" 未使用
+			/ 	a.nav-btn.btn-group class="#{'active' if params[:status] == '1'}" href="/site/coupon/1/" 已使用
+			/ 	a.nav-btn.btn-group class="#{'active' if params[:status] == '2'}" href="/site/coupon/2/" 已过期
+			/ table.table.coupon-list
+			/ 	colgroup
+			/ 		col width="5%" 
+			/ 		col width="36%"
+			/ 		col width="15%" 
+			/ 		col width="20%"
+			/ 		col width="12%"
+			/ 		col width="12%"
+			/ 	thead
+			/ 		tr
+			/ 			th 序号
+			/ 			th 优惠券名称
+			/ 			th 优惠券号码
+			/ 			th 有效时间
+			/ 			th 状态
+			/ 			th 使用日期
+			/ 	tbody
+			/ 		- @list_coupon.each.with_index do |item,index|
+			/ 			tr
+			/ 				td #{index + 1}
+			/ 				td 商家优惠券，优惠 #{item.coupon.price} 元
+			/ 				td AFADF2411FD1
+			/ 				td #{item.coupon.validity_time.strftime("%Y-%m-%d") if !item.coupon.validity_time.blank? }至#{item.coupon.invalidity_time.strftime("%Y-%m-%d") if !item.coupon.invalidity_time.blank?}
+			/ 				td
+			/ 					- if item.status == 1
+			/ 						| 已使用
+			/ 					- if item.status == 0 && item.coupon.validity_time < Time.now
+			/ 						| 已过期
+			/ 					- if item.status == 0 && item.coupon.validity_time > Time.now
+			/ 						a href="javascript:void(0)" 马上使用
+			/ 						a href="javascript:void(0)" 删除
+			/ 				td #{item.use_time.strftime("%Y-%m-%d") if !item.use_time.blank?}
+			ul.coupon-list
+				- if !@list_coupon.blank?
+					- @list_coupon.each do |item|
+						li
+							.coupon-upper
+								p.discount-money
+									span.price-symbol ￥
+									span.amount #{item.coupon.price}
+									span.scope 优惠券
+								p
+									label.lb-use-cond 使用条件：
+									- if !item.coupon.condition_usage.blank?
+										span.use-cond 满#{item.coupon.condition_usage}元
+									- else
+										span.use-cond 不限
+								p
+									label.lb-valid-date 有效时间：
+									span.valid-date #{item.coupon.validity_time.strftime("%Y-%m-%d") if !item.coupon.validity_time.blank? }至#{item.coupon.invalidity_time.strftime("%Y-%m-%d") if !item.coupon.invalidity_time.blank?}
+							p.dealer-name #{item.coupon.dealer.company_name}
+							/ a.now-use-btn href="" 立即使用
+							= link_to "立即使用",site_home_search_of_products_path("dealer"=>item.coupon.dealer.id),class:"now-use-btn"
+							span.integral-value
+								a.delete-coupon href="javascript:void(0)" data-id="#{item.id}" 删除
+				- else
+					p.empty-coupon
+						| 没有优惠券哦!
+						a href="/site/coupon/receive" 赶快领取优惠券吧!
+			- if !@list_coupon.blank?
+				= render partial: 'shared/pagination',locals: {assets: @list_coupon}

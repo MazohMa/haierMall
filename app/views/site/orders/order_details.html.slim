@@ -1,0 +1,166 @@
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo.png"
+			/h1.site-name 掌上阅冰订购商城
+	/ ul.step
+	/ 	li.active
+	/ 		span 1
+	/ 		label 查看采购单
+	/ 	li.active
+	/ 		span 2
+	/ 		label 确认订单信息
+	/ 	li
+	/ 		span 3
+	/ 		label 成功提交订单
+	/ 	li
+	/ 		span 4
+	/ 		label 确认收货
+	/ 	li.last
+	/ 		span 5
+	/ 		label 完成
+
+
+= content_for(:content)
+	.order-details
+		.order-abstract
+			p
+				span
+					| 订单号：
+					label = @order.order_num
+				span.order-status
+					| 状态：
+					label = order_status(@order) || '交易关闭'
+			- if order_status(@order) == '待评价'
+				p
+					| 订单已完成，感谢您在掌上阅冰商城购物，欢迎您对本次交易及所购商品进行评价。
+					a.comment-link href="/site/comment" 马上评价
+		/ .order-tracking
+		/ 	p 订单跟踪
+		/ 	ul
+		/ 		li
+		/ 			label 2015-03-17 14:05:08
+		/ 			span 您提交了订单，请等待系统确认
+		/ 		li
+		/ 			label 2015-03-17 14:05:08
+		/ 			span 您提交了订单，请等待系统确认
+		/ 		li
+		/ 			label 2015-03-17 14:05:08
+		/ 			span 您提交了订单，请等待系统确认
+		.order-info-content
+			.order-title
+				label 订单信息
+				/ span 如有疑问，可咨询
+				/ img src="#"
+			.order-content
+				p
+					label 收货地址：
+					span = "#{@order.order_address.name}, #{@order.order_address.mobile}, #{@order.order_address.address},#{ @order.order_address.zip_code}"
+				/ p
+				/ 	label 买家留言：
+			.seller-info
+				p 卖家信息
+				p
+					span.block-box
+						label 店铺名称：
+						span = @seller_message.company_name
+					span.block-box
+						label 店主姓名：
+						span = @seller_message.user_name
+					span.block-box
+						label 地址：
+						span = @seller_message.user_address
+					span.block-box
+						label 联系电话：
+						span = @seller_message.user_tel
+					span.block-box
+						label 邮箱：
+						span = @seller_message.user_email
+			.order-details-content
+				p 订单信息
+				p
+					span.block-box
+						label 订单编号：
+						span = @order.order_num
+					span.block-box
+						label 成交时间：
+						span = @order.created_at.strftime("%Y-%m-%d %H:%M:%S")
+					span.block-box
+						label 支付方式：
+						span = @order.payment == 1 ? "货到付款" : "支付宝"
+				
+				.goods-information
+					table.cart-list-header
+						colgroup
+							col width="30%" 
+							col width="10%"
+							col width="15%" 
+							col width="15%"
+							col width="15%"
+							col width="15%"
+						thead
+							tr
+								th 商品
+								th 单价（元）
+								th 数量
+								th 优惠
+								th 金额（元）
+								th 状态
+					.cart-item
+						.cart-item-header  卖家：#{@seller_message.company_name}
+						.cart-item-content
+							table.product-table
+								colgroup
+									col width="30%" 
+									col width="10%"
+									col width="15%" 
+									col width="15%"
+									col width="15%"
+									col width="15%"
+								tbody
+									/ tr
+									/ 	td.text-left
+									/ 		.product-info
+									/ 			img.product-img src="http://placehold.it/72x60"
+									/ 			p.product-text 
+									/ 				span.product-title 发地方地方地方地方的
+									/ 				span 包装规格：
+									/ 	td
+									/ 		label.money-number.unit-price 15
+									/ 	td 20
+									/ 	td
+									/ 		label.discount 2.5
+									/ 	td
+									/ 		span.money-number.total-price 300
+									/ 	td
+									/ 		p 已确认收货
+									/ 		button 再次购买
+									- @order.snapshoot_products.each do |item|
+											tr
+												td.text-left
+													.product-info
+														img.product-img src="#{item.picture.blank? ? '/no_image170x170.png' : Rails.application.config.action_controller.asset_host + item.picture.image.url(:small)}"
+														p.product-text 
+															span.product-title title="#{item.title}(#{item.taste})" #{item.title}(#{item.taste})
+															span 包装规格：#{item.specifications.to_s + item.specifications_unit_desc + '*' +item.pack_inside_num.to_s if !item.specifications.nil?&&!item.specifications_unit_desc.nil?&&!item.pack_inside_num.nil? }
+												td
+													/label.money-number.unit-price #{item.order_product_price}
+													label.money-number.unit-price #{ item.order_product_discount.blank? ? item.order_product_price : item.order_product_discount}
+												td #{item.order_product_num}
+												td
+													label.discount #{item_reduce_price(item) }
+												td
+													span.money-number.total-price #{item_should_pay_price(item)}
+												td #{order_status(@order)}
+			.pay-info
+				p 商品总金额：￥ #{format("%0.2f",@order.origin_price)}
+				- @order.order_discount_informations.each do |message|
+					p 优惠： #{message.content}
+				p.pay-money
+					| 您需为订单支付：
+					label.money ￥ #{format("%0.2f",@order.actual_price)}
+					| 元
+
+
+
+		

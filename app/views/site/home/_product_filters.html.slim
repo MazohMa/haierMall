@@ -1,0 +1,38 @@
+.product-filters
+	div.filter-list.brand-conditions
+		div.filter-item-name 品牌：
+		- @brand.each do |item|
+			span.filter-item.more-select-area
+				a href="javascript:void(0)" data-value="#{item.id}" id="brand_id-#{item.id}" #{item.name}
+		- @brand.each do |item|
+			span.filter-item.multiple-select-area 
+				input type="checkbox" data-value="#{item.id}" #{item.name}
+		.filter-operations
+			span.filter-operation.multiple-selection 
+				i.iconfont.icon-add
+				|多选
+			span.filter-operation.more-selection
+				i.iconfont.icon-moreunfold
+				|更多
+		div.button-group
+			button.cancle 取消
+			button.sure 确定
+	div.filter-list.type-conditions
+		div.filter-item-name 商品类型：
+		- @category.each do |item|
+			span.filter-item.more-select-area
+				a href="javascript:void(0)" data-value="#{item.id}" id="category_id-#{item.id}" #{item.category_name}
+		- @category.each do |item|
+			span.filter-item.multiple-select-area 
+				input type="checkbox" data-value="#{item.id}" #{item.category_name}
+		.filter-operations
+			span.filter-operation.multiple-selection 
+				i.iconfont.icon-add
+				|多选
+			span.filter-operation.more-selection 
+				i.iconfont.icon-moreunfold
+				|更多
+		div.button-group
+			button.cancle 取消
+			button.sure 确定
+

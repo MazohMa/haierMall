@@ -1,0 +1,9 @@
+= content_for(:content)
+    .content-header
+        .link-inline
+            .status-link.active
+                a 编辑广告资讯
+    = render 'form'
+= content_for(:footer_js)
+    = javascript_include_tag '/ueditor/ueditor.config.js' 
+    = javascript_include_tag '/ueditor/ueditor.all.js'

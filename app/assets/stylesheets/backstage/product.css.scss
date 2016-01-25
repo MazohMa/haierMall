@@ -1,0 +1,239 @@
+@import '_variables';
+
+.content-header{
+	height: 38px;
+	margin: 0px $content-horizonal-padding;
+	padding-top: 30px;
+	border-bottom: 2px solid $gray-color;
+
+	.link-inline {
+		float: left;
+	}
+
+	.add-product-btn{
+		float: right;
+		width: 130px;
+		height: 36px;
+		margin-top: -3px;
+		margin-right: 15px;
+		background:image_url('backstage/add-product-btn.png') no-repeat;
+	}
+
+}
+
+
+//商品表单
+
+.sub-group{
+	padding-right: 20px;
+	display: inline-block;
+
+	input + input {
+		margin-left: 15px;
+	}
+
+}
+
+
+.attributes-list {
+	li {
+
+		width: 30%;
+	}
+}
+
+.product-form-wrapper {
+	position: relative;
+	padding-bottom: 30px;
+
+
+	.tab-content{
+		padding: 30px 20px 120px 20px;
+		margin-bottom: 30px;
+		border: 1px solid;
+		border-color: transparent $gray-color $gray-color $gray-color
+	}
+
+
+	.divider{
+		margin: 20px 0px;
+	} 
+
+	.form-base-info{
+		.control-label{
+			float: left;
+		}
+
+		.province-code{
+			margin-right: 10px;
+		}
+	}
+
+	.form-extend-info {
+		label{
+			width: 110px;
+		}
+	}
+
+	input + select {
+		margin-left: 10px;
+	}
+
+	.delivery-deadline{
+		margin-right: 5px;
+	}
+
+	.tastes-label{
+		float: left;
+		height: 28px;
+		line-height: 28px;
+	}
+
+	.tastes-group{
+		margin-left: 105px;
+		margin-bottom: 20px;
+	}
+
+
+	.buttons {
+		position: absolute;
+		bottom: 100px;
+		left: 60px;
+
+		.btn-obvious + .btn-obvious {
+			margin-left: 10px;
+		}
+	}
+
+	.wholesales-item{
+		margin-bottom: 20px;
+	}
+
+}
+
+//商品表格
+.products_grid{
+
+	td {
+		&.picture{
+			text-align: left;
+			width: 330px;
+		}
+
+		&.price{
+			>span{
+				display: inline-block;
+				width: 65px;
+			}
+
+			.text-bold{
+				width: 40px;
+				display: inline-block;
+			}
+
+			.price-num{
+				margin-bottom: 5px;
+				text-align: right;
+				color: #c40000;
+				font-weight: bold;
+			}
+		}
+		&.period_of_validity{
+			text-align: center;
+		}
+
+		img{
+			float: left;
+			margin-right: 10px;
+			width: 80px;
+			height: 80px;
+		}
+
+		.btn{
+			line-height: 1;
+		}
+	}
+
+	th{
+		&.picture,&.price{
+			text-align: center;
+		}
+	}
+
+	.title{
+		display: none;
+	}
+
+	.specifications {
+		width: 120px;
+	}
+
+	.wholesales {
+		width: 140px;
+
+		.wholesales-list{
+			display: none;
+		}
+
+		.wholesales-count{
+			span{
+				text-decoration: inherit;
+			}
+
+			&:hover{
+				text-decoration: underline;
+
+			}
+		}
+
+		span{
+			display: inline-block;
+			width: 50%;
+			margin-bottom: 5px;
+		}
+	}
+
+	.brand {
+		width: 82px;
+	}
+
+	.categories {
+		width: 100px;
+	}
+
+	.price {
+		width: 130px;
+		padding-right: 60px;
+	}
+
+	.period_of_validity{
+		>span{
+			display: block;
+			margin: 5px 0px;
+		}
+	}
+
+}
+
+//商品引用
+.shared-grid{
+	.introduce-header{
+		float: right;
+		padding: 0 20px 0px 40px;
+		height: 100%;
+		cursor: pointer;
+		box-sizing: border-box;
+		color: $base-color;
+		text-indent: 10px;
+		border: 1px solid $gray-color;
+		background: image_url('backstage/introduce.png') no-repeat 20px 2px #fff;
+	}
+
+	.datagrid{
+		border-top: none;
+	}
+}
+
+
+
+

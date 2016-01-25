@@ -1,0 +1,122 @@
+= content_for(:grid_operations)
+    = link_to "返回采购商会员列表",backstage_members_path,class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content.member-content
+        a.btn.nav-btn.active 采购商会员设置
+        = link_to "经销商信用设置",backstage_credit_level_rules_new_path,class:"btn nav-btn"
+        .rules-content
+            button.btn.btn-primary#new-member-rule-btn 新增会员等级
+            table.rules-table.member-rules-table
+                thead
+                    th.title 等级名称
+                    th.icon 所属图标
+                    th.condition 满足条件
+                    th.speed 会员权益
+                    th.actions 操作
+                tbody
+                    - @member_rules.each_with_index do |rule,index|
+                        tr
+                            td.title #{rule.title.strip}
+                            td.icon 
+                                = image_tag "#{rule.icon.small}"
+                            td.condition
+                                - if rule.level == 'V0'
+                                    | 注册即为#{rule.title}
+                                - elsif rule.level == 'V1'
+                                    | 交易次数#{rule.transaction_num},且交易金额达到#{rule.transaction_amount}以上，成长值范围1 - #{rule.growth}
+                                - else
+                                    |成长值范围 #{@member_rules[index-1].growth.present?? @member_rules[index-1].growth + 1: 0} - #{rule.growth.present?? rule.growth : '无上限'}
+                                input.growth type="hidden" value="#{rule.growth}"
+                            td.speed 
+                                | 返积分#{rule.speed}倍
+                                input.speed_field type="hidden" value="#{rule.speed}"
+                            td.actions
+                                a.action-link.action-update href="javascript:void(0)" data-value="#{rule.id}" 修改
+            .form-box.growth-rule-box
+                .form-box-header 成长值计算规则
+                .form-box-content
+                    = form_tag(backstage_growth_rules_update_path,method: 'post',id:"growth-rule-form")
+                        - @growth_rules.each_with_index do |rule,index|
+                            .group
+                                = hidden_field_tag :"growth_rule[#{index}][id]",rule.id
+                                = check_box_tag :"growth_rule[#{index}][is_used]",1,rule.is_used,class:"require-one"
+                                - if rule.rule_type == 1
+                                    = label_tag :"growth_rule[#{index}][is_used]","购物",class:'checkbox-label'
+                                    span.condition-title 条件：
+                                    = text_field_tag :"growth_rule[#{index}][condition]",rule.condition,class: "input-sm"
+                                    |&nbsp;&nbsp;元返&nbsp;&nbsp;
+                                    = text_field_tag :"growth_rule[#{index}][growth_value]",rule.growth_value,class:"input-sm"
+                                    |&nbsp;&nbsp;成长值
+
+
+                                - elsif rule.rule_type == 2
+                                    = label_tag :"growth_rule[#{index}][is_used]","评价",class:'checkbox-label'
+                                    span.condition-title 条件：
+                                    |商品评价成功，返&nbsp;&nbsp;
+                                    = text_field_tag :"growth_rule[#{index}][growth_value]",rule.growth_value,class: "input-sm"
+                                    |&nbsp;&nbsp;成长值
+                                - else
+                                    = label_tag :"growth_rule[#{index}][is_used]","登录",class:'checkbox-label'
+                                    span.condition-title 条件：
+                                    |每日首次在掌上阅冰采购平台登录，返&nbsp;&nbsp;
+                                    = text_field_tag :"growth_rule[#{index}][growth_value]",rule.growth_value,class: "input-sm"
+                                    |&nbsp;&nbsp;成长值
+                        button.btn.btn-primary 更新
+
+
+
+= content_for(:footer_js)
+    script id="member-rule-form" type="x-tmpl-mustache"
+        <form accept-charset="UTF-8" action="{{url}}" method="post" class="rule-form member-rule-form" enctype='multipart/form-data'>
+            <input type="hidden" name="authenticity_token" value="{{token}}"/>
+            <input type="hidden" name="member_rule[id]" value="{{id}}"/>
+            <div class="form-group">
+                <label class="control-label">等级名称： </label>
+                <input type="text" name="member_rule[title]" value="{{title}}" class="lg"/>
+            </div>
+            <div class="form-group last-group">
+                <label class="control-label">所属图标： </label>
+                <input type="file" name="member_rule[icon]" value="{{icon}}"/>
+                |{{#id}}
+                    <span class="help-inline">重新上传保存就可替换原来的图标</span>
+                |{{/id}}
+            </div>
+            <dl>
+                <dt> 满足条件 </dt>
+                <dd> 
+                    |{{#isLevelOne}}
+                        <div style="margin-bottom: 10px">
+                            交易次数
+                            <input type="text" name="member_rule[transaction_num]" value="{{transactionNum}}" class="sm"/>
+                            ，且交易额在
+                            <input type="text" name="member_rule[transaction_amount]" value="{{transactionAmount}}" class="sm"/>
+                            以上
+                        </div>
+                    |{{/isLevelOne}}
+                    |{{#isLevelZero}}
+                        在掌上阅冰采购平台注册
+                    |{{/isLevelZero}}
+                    |{{^isLevelZero}}
+                        <div>
+                            成长值
+                            <input type="text" readonly="readonly" value="{{growthLow}}" name="growth-low"> - <input type="text" value="{{growth}}" name="member_rule[growth]"/>
+                            <span class="help-inline">不填写代表无上限</span>
+                        </div>
+                    |{{/isLevelZero}}
+                </dd>
+            </dl>
+            <dl>
+                <dt> 会员权益 </dt>
+                <dd> 
+                    | 返积分
+                    |{{#isLevelZero}}
+                        1.0倍
+                    |{{/isLevelZero}}
+                    |{{^isLevelZero}}
+                        <input type="text" value="{{speed}}" name="member_rule[speed]"/> 倍
+                    |{{/isLevelZero}}
+                </dd>
+            </dl>
+            / <button class="btn btn-primary" type="submit">保存</button>
+        </form>
+        

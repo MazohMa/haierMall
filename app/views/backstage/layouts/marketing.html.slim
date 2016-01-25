@@ -1,0 +1,13 @@
+= content_for (:content)
+	.content-header
+        .link-inline
+            .status-link class="#{current_controller('backstage/premiums','active')}"
+                = link_to "满就送",backstage_premiums_path
+            .status-link class="#{current_controller('backstage/discounts','active')}"
+                = link_to "限时打折",backstage_discounts_path
+            .status-link class="#{current_controller('backstage/collocations','active')}"
+                = link_to "搭配套餐",backstage_collocations_path
+            .status-link class="#{current_controller('backstage/coupons','active')}"
+                = link_to "优惠券",backstage_coupons_path
+    = yield(:marketing_content)
+= render template: "backstage/layouts/backstage"

@@ -1,0 +1,101 @@
+// Place all the styles related to the Backstage::ability controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.create-role-content {
+	border: #aaa thin solid;
+	margin: 0 24px;
+	padding: 15px;
+	.create-title {
+		font-size: 26px;
+		text-align: center;
+		padding: 10px 0;
+		border-bottom: #ccc thin dashed;
+	}
+	ul {
+		list-style: none;
+		li {
+			padding: 5px 0;
+			.row-title {
+				display: inline-block;
+				width: 80px;
+				text-align: right;
+				vertical-align: middle;
+				font-size: 16px;
+			}
+			.row-content {
+				margin-left: 10px;
+				textarea {
+					resize:none;
+					width: 80%;
+					min-height: 100px;
+				}
+			}
+			&.role-distribution,&.remarks {
+				.row-title,.row-content {
+					vertical-align: top;
+				}
+			}
+			&.operate-group {
+			    padding: 20px;
+			    text-align: center;
+			    border-color: #fff;
+			    button + button {
+			        margin-left: 50px;
+			    }
+			    .save-info,.cancle {
+			        width: 120px;
+			        padding: 3px 10px;
+			        background-color: #C40000;
+			        color: #fff;
+			        font-size: 20px;
+			        border:#C90000 thin solid;
+			        outline: none;
+			        -webkit-border-radius: 5px;
+			        -moz-border-radius: 5px;
+			        -ms-border-radius: 5px;
+			        -o-border-radius: 5px;
+			        border-radius: 5px;
+			    }
+			    .cancle {
+			        background-color: #fff;
+			        color: #C40000;
+			    }
+			}
+		}
+	}
+}
+.access_authority_grid {
+	text-align: center;
+	th.row_number,th.remark,th.comment,th.actions {
+		text-align: center;
+	}
+	.checked_all {
+		text-align: left;
+	}
+}
+
+
+.role-distribution .information_center{
+	display: block;
+}
+
+
+.admin_info a{
+	line-height: 30px;
+	display: block;
+	width: 180px;
+	height: 30px;
+}
+
+
+.role-distribution input{
+	height: 30px;
+	float: left;
+	margin-left: auto;
+}
+
+
+
+
+

@@ -1,0 +1,24 @@
+= content_for(:content)
+    .content-header
+        .link-inline
+            .status-link
+                = link_to "信息推送", backstage_notifications_path
+        .link-inline
+            .status-link.active
+                = link_to "广告资讯", backstage_ad_informations_path
+    .grid-operations
+        button.operation-btn#batch-pass type="button" 批量通过
+        button.operation-btn#batch-unpass type="button" 批量下架
+        button.operation-btn#batch-delete type="button" 批量删除
+    .grid-content
+        ul.tabs
+            li.tab-item
+                - if current_user.role == 'admin'
+                    = link_to "我的（#{AdInformation.where(:user_id=>current_user.id).count}）", backstage_ad_informations_path
+                    = link_to "审核资讯（#{@grid.assets.total_count}）", backstage_ad_informations_approve_path,class:'active'
+                - else 
+                    a  全部资讯（#{@grid.assets.total_count}）
+        .tab-content
+            = datagrid_table @grid
+            = render partial: '/shared/pagination',locals: {assets:@grid.assets}
+    = render partial: 'filter_form'

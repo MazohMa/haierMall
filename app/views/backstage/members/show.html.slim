@@ -1,0 +1,87 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",request.referer,class:"operation-btn"
+
+= content_for(:grid_content)
+    .grid-content.member-content
+        .member-info
+            - if params[:role] == 'shopper'
+                span 会员账号：#{@user.mobile}
+                span 会员身份：采购商
+                span 会员等级：#{MemberRule.where('level = ?',@user.member.level).first.title}
+                span 会员成长值：#{@user.member.growth_value}
+                span 当前积分：#{@user.member.integration}
+                span 累计交易金额（元）：#{@user.member.amount}
+                span 交易次数（笔）：#{@user.member.transaction_num}
+                span 注册时间：#{@user.created_at.strftime("%Y-%m-%d %H:%M:%S")}
+                span 上次交易时间：#{@user.member.last_transaction_time.blank? ? '--' : @user.member.last_transaction_time.strftime("%Y-%m-%d %H:%M:%S")}
+            - else
+                span 会员账号：#{@user.mobile}
+                span 会员身份：经销商
+                span 信用等级：#{CreditLevelRule.where('level = ?',@user.member.credit_level).first.title}
+                span 会员信用值：#{@user.member.credit_value}
+                span 累计交易金额（元）：#{@user.member.dealer_amount}
+                span 交易次数（笔）：#{@user.member.dealer_transaction_num}
+                span 注册时间：#{@user.created_at.strftime("%Y-%m-%d %H:%M:%S")}
+                span 上次交易时间：#{@user.member.dealer_last_transaction_time.blank? ? '--' : @user.member.dealer_last_transaction_time.strftime("%Y-%m-%d %H:%M:%S")}
+
+        .base-info
+            p.title 基本信息
+            - if @user.role == 'dealer'
+                .info-group
+                    label 供应商名：
+                    | #{@user.dealer.company_name}
+                .info-group
+                    label 负责人：
+                    | #{@user.dealer.user_name}
+                .info-group
+                    label 地址：
+                    | #{@user.dealer.user_address}
+                .group-inline
+                    .info-group
+                        label 联系电话：
+                        | #{@user.dealer.user_tel}
+                    .info-group
+                        label 移动电话：
+                        | #{@user.dealer.user_phone}
+                    .info-group
+                        label 传真：
+                        | #{@user.dealer.user_fax}
+                .info-group
+                    label 电子邮箱：
+                    | #{@user.dealer.user_email}
+                .info-group
+                    label 所选厂商：
+                    | #{@user.dealer.user_manufacturer}
+                .info-group 
+                    label 认证信息：
+                    | #{@user.string=='审核通过'? '已认证' : '未认证'}
+            - else
+                .info-group
+                    label 店铺名：
+                    | #{@user.shop_owner.company_name}
+                .info-group
+                    label 经营店主：
+                    | #{@user.shop_owner.user_name}
+                .info-group
+                    label 地址：
+                    | #{@user.shop_owner.user_address}
+                .group-inline
+                    .info-group
+                        label 联系电话：
+                        | #{@user.shop_owner.user_tel}
+                    .info-group
+                        label 移动电话：
+                        | #{@user.shop_owner.user_phone}
+                    .info-group
+                        label 传真：
+                        | #{@user.shop_owner.user_fax}
+                .info-group
+                    label 电子邮箱：
+                    | #{@user.shop_owner.user_email}
+                .info-group
+                    label 所选厂商：
+                    | #{@user.shop_owner.user_manufacturer}
+                .info-group 
+                    label 认证信息：
+                    | #{@user.string=='审核通过'? '已认证' : '未认证'}
+

@@ -1,0 +1,77 @@
+= content_for(:content)
+	.cart-filter
+	.cart-list
+		.cart-list-header
+			table.cart-list-header
+				colgroup
+					col width="30%" 
+					col width="10%"
+					col width="15%" 
+					col width="20%"
+					col width="10%"
+					col width="15%"
+				thead
+					tr
+						th.first-cell 
+							input type="checkbox" id="select-all"
+							label for="select-all" 全选（0）
+							span 商品信息
+						th 单价（元）
+						th 数量
+						th 优惠
+						th 金额（元）
+						th 操作
+		- (0..1).each do |item|
+			.cart-item
+				.cart-item-header 
+					input type="checkbox" id="delear_01" 
+					label for="delear_01" 东方时味贸易（北京）有限公司
+				.cart-item-content
+					table.product-table
+						colgroup
+							col width="30%" 
+							col width="10%"
+							col width="15%" 
+							col width="20%"
+							col width="10%"
+							col width="15%"
+						tbody
+						- (0..2).each do |item|
+							tr
+								td.text-left
+									.product-checkbox
+										input type="checkbox"
+									div
+										img.product-img src="http://placehold.it/72x60"
+										p.product-info 
+											span 批发牛奶八喜全脂纯牛奶1L*12盒星巴克咖啡专用
+											span 包装规格：1000ml*12
+								td 115.00
+								td
+								td - -
+								td 2,070.00
+								td
+									a.table-operation href="#" 移入收藏
+									a.table-operation href="#" 删除
+				.cart-item-bottom
+					span.selected-product 已选商品 3 件
+					span.discounted-money
+						|共节省:
+						span.money-number &yen;30
+					span.total-money 
+						|商品金额:
+						span.money-number &yen;4802.8
+	.cart-toolbar
+		.left
+			span.toolbar-item
+					input type="checkbox"
+					label 全选
+			a.toolbar-item href="#" 删除
+			a.toolbar-item href="#" 移入收藏夹
+			a.toolbar-item href="#" 清空采购单
+		.right
+			span.toolbar-item 已选商品4件
+			span.toolbar-item 商品总价：&yen;4802.2
+			button.btn.btn-sm 确认结算
+
+

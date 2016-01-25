@@ -1,0 +1,11 @@
+= content_for(:grid_operations)
+    = link_to '积分规则设置',backstage_integrations_new_path,class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content
+        ul.tabs
+            li.tab-item
+                a 积分记录（#{@grid.assets.total_count}）
+        = datagrid_table @grid
+        = render partial: '/shared/pagination',locals: {assets:@grid.assets}
+    .filter-box
+        = render partial: 'filter_form'

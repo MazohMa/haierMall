@@ -1,0 +1,30 @@
+//buttons
+
+@import './mixins/_button';
+@import '_variables';
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0; 
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base);
+  }
+
+  .btn-form-action{
+  	@include button-variant($btn-default-color,$btn-default-background-color,$btn-default-border-color);
+  	width: $form-group-text-box-width;
+  	letter-spacing: 5px;
+  }
+
+  .btn-inline{
+    .btn + .btn{
+      margin-left: $btn-inline-horizontal-margin;
+    } 
+  }
+

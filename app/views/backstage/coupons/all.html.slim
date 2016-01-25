@@ -1,0 +1,61 @@
+= content_for(:marketing_content)
+    .marketing-content.coupon-content
+        div.content-tips
+            span 你可以设置多张优惠券：
+            = link_to "设置优惠券",backstage_coupons_new_path,class:"btn btn-default"
+        .coupon-list
+            - @coupons.each do |coupon|
+                .list-item
+                    .item-header 
+                        /|#{coupon.price.to_i}元优惠券
+                        - if coupon.title.length > 10
+                            | #{coupon.title}...
+                        - else
+                            | #{coupon.title}
+                        span.coupon-status #{get_status(coupon)}
+                    ul.coupon-infos
+                        li
+                            span 有效期：
+                            |#{coupon.invalidity_time.strftime('%Y年%m月%d日')}
+                        li 
+                            span 领取方式：
+                            |#{get_coupon_type(coupon.get_type.to_i)}
+                        li 
+                            span 每人限领：
+                            |#{coupon.user_get_quantity.to_i == 0?'不限':"#{coupon.user_get_quantity}张"}
+                        li
+                            span 剩余：
+                            |#{coupon.nums - coupon.received_num}张
+                    .functions
+                        - if coupon.get_type != 3
+                            - coupon_status = convert_status(coupon)
+                            - if coupon_status=='ended'
+                                a.btn.btn-delete href="javascript:void(0)" data-value="#{coupon.id}" 删除
+                            - if coupon_status=='standby'
+                                a.btn href="/backstage/coupons/edit/#{coupon.id}" 编辑
+                                - if coupon.get_type.present? and coupon.get_type == 0
+                                    a.btn.generate-qrcode href="javascript:void(0)" data-value="#{coupon.id}" 生成二维码
+                            - if coupon_status=='underway'
+                                a.btn.set-invalid href="javascript:void(0)" data-value="#{coupon.id}" 取消
+                                - if coupon.get_type.present? and coupon.get_type == 0
+                                    a.btn.generate-qrcode href="javascript:void(0)" data-value="#{coupon.id}" 生成二维码
+                        - else
+                            span 优惠券礼包的优惠券不能再进行操作。
+                    .coupon-pre
+                        .pre-top
+                            span.money-num#pre-money #{coupon.price.to_i}
+                            span.money-unit 元
+                            |优惠券
+                        .pre-bottom
+                            span.text-title 使用条件： 
+                            span.text-content#pre-condition-usage #{get_condition_usage(coupon)}
+                            span.text-title 有效期：
+                            span.text-content#pre-validity-time #{coupon.validity_time.strftime('%m月%d日') + ' - '+ coupon.invalidity_time.strftime('%m月%d日')}
+                        span.get-button 点击领取
+        = render partial: '/shared/pagination',locals: {assets:@coupons} 
+        #qrcode
+            span.close &times;
+            img.qrcode-image
+            a.copy-link href="#" 下载此优惠券二维码进行推广
+
+

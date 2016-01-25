@@ -1,0 +1,5 @@
+Rails.application.config.assets.precompile += %w( backstage.css )
+Rails.application.config.assets.precompile += %w( backstage.js )
+Rails.application.config.assets.precompile += %w( site.js )
+Rails.application.config.assets.precompile += %w( site.css )
+Rails.application.config.assets.precompile += %w( backstage/region.js )

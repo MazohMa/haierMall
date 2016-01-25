@@ -1,0 +1,151 @@
+= content_for(:grid_operations)
+    = link_to '返回积分列表',backstage_integrations_path,class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content.member-content
+        .form-box
+            .form-box-header 积分收入
+            .form-box-content
+                = form_tag(backstage_integrations_update_path,method:'post',id:'integration-rule-form')
+                    - @integration_rules.each_with_index do |rule,index|
+                        .group
+                            = hidden_field_tag :"integration_rule[#{index}][id]",rule.id
+                            |交易金额&nbsp;&nbsp;
+                            = text_field_tag :"integration_rule[#{index}][condition]",rule.condition,class:'input-sm'
+                            |&nbsp;&nbsp;元=&nbsp;&nbsp;
+                            = text_field_tag :"integration_rule[#{index}][integration]",rule.integration,class:'input-sm'
+                            |&nbsp;&nbsp;积分
+                    button.btn.btn-primary 更新
+                    span.flash-success.tips-message #{flash[:success]}
+    .grid-content.member-content
+        .form-box
+            .form-box-header 积分支出
+            .form-box-content
+                .grid-operations.integral-expense
+                    .operation-btn 新增兑换商品
+                = datagrid_table @product_grid
+            = render partial: '/shared/pagination',locals: {assets:@product_grid.assets}
+                
+= content_for(:footer_js)
+    script id="add-integral-exchange-form" type="x-tmpl-mustache"
+        <form accept-charset="UTF-8" action="{{url}}" method="post" class="integral-exchange-form" id="integral-exchange-form" enctype='multipart/form-data'>
+            <input type="hidden" name="authenticity_token" value="{{token}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <input type="hidden" name="coupon_id" value="{{couponId}}"/>
+            <div class="form-group">
+                <label class="control-label">商品类型： </label>
+                <select class="product-type" name="product_type" value="{{productType}}">
+                        <option value="2">优惠券</option>
+                        / <option value="1">实物商品</option>
+                </select>
+            </div>
+            | {{#isCoupon}}
+            <div class="coupons-extended active">
+            | {{/isCoupon}}
+            | {{^isCoupon}}
+            <div class="coupons-extended">
+            | {{/isCoupon}}
+        <div class="form-group">
+            <label class="control-label">商品选择： </label>
+            | {{#isUpdate}}
+                {{productSelectTitle}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+            <select class="product-select" name="product_select" value="{{couponId}}">
+                <option value="">请选择</option>
+            - if @coupons.present?
+                - @coupons.each do |coupon|
+                    <option value="#{coupon.id}">#{coupon.title}</option>
+            </select>
+            | {{/isUpdate}}
+        </div>
+        <div class="form-group">
+            <label class="control-label">公司名称：</label>
+            | {{#isUpdate}}
+                {{companyName}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+                <label class="company-name"></lable>
+            | {{/isUpdate}}
+        </div>
+        <div class="form-group">
+            <label class="control-label">总库存： </label>
+            | {{#isUpdate}}
+                {{couponShipment}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+                <label class="shipment"></lable>
+            | {{/isUpdate}}
+        </div>
+        <div class="form-group">
+            <label class="control-label">有效期起止： </label>
+            | {{#isUpdate}}
+                {{couponValidityTime}} 至 {{couponInvalidityTime}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+                <label class="validity_time"></lable>
+            | {{/isUpdate}}
+        </div>
+        <div class="form-group">
+            <label class="control-label">使用条件：</label>
+            | {{#isUpdate}}
+                {{useCondition}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+                <label class="use-condition"></lable>
+            | {{/isUpdate}}
+        </div>
+        <div class="form-group">
+            <label class="control-label">限领张数：</label>
+            | {{#isUpdate}}
+                {{limitGetNumber}}
+            | {{/isUpdate}}
+            | {{^isUpdate}}
+                <label class="limit-get-number"></lable>
+            | {{/isUpdate}}
+        </div>
+            </div>
+            | {{^isCoupon}}
+                <div class="hysical-goods-extended active">
+            | {{/isCoupon}}
+            | {{#isCoupon}}
+                <div class="hysical-goods-extended">
+            | {{/isCoupon}}
+                <div class="form-group">
+                    <label class="control-label">商品名称： </label>
+                    <input type="text" name="title" value="{{title}}" class="lg"/>
+                </div>
+                <div class="form-group last-group">
+                    <label class="control-label">商品图片： </label>
+                    <input type="file" name="image" value="{{image}}"/>
+                    {{^isCoupon}}
+                    {{#id}}
+                        <span class="help-inline">重新上传保存就可替换原来的图标</span>
+                    {{/id}}
+                    {{/isCoupon}}
+                </div>
+                <div class="form-group">
+                    <label class="control-label">商品价值： </label>
+                    <input type="text" name="price" value="{{price}}" class="lg" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />&nbsp;<label class="price-unit">元</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">总库存： </label>
+                    <input type="text" name="shipment" value="{{shipment}}" class="lg" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label">有效期起止： </label>
+                    <input type="text" name="validity_time" id="validity_time" value="{{validityTime}}" class="lg" readonly />&nbsp;至&nbsp;<input type="text" name="invalidity_time" id="invalidity_time" value="{{invalidityTime}}" class="lg" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">每人限领数量： </label>
+                    <input type="text" name="limit_get_number" value="{{limitGetNumber}}" class="lg" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">兑换所需积分： </label>
+                <input type="text" name="integration" value="{{integration}}" class="lg" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />
+            </div>
+            <div class="form-group use-instructions">
+                <label class="control-label">备注说明： </label>
+                <textarea name="description">{{description}}</textarea>
+            </div>
+        </form> 

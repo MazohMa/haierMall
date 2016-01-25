@@ -1,0 +1,40 @@
+//列表
+.notifications_grid{
+    td,th{
+        text-align: center;
+    }
+
+    td{
+        padding-left: 10px;
+    }
+
+    .checked_all{
+        text-align: left;
+        width: 30px;
+    }
+
+    .type{
+        width: 125px;
+    }
+
+    .created_at{
+        width: 130px;
+    }
+
+    .status,.receiver{
+        width: 100px;
+    }
+
+    .actions{
+        width: 100px;
+    }
+
+}
+
+//表单
+.notification-form{
+    .content-error-container{
+        margin-left: 75px;
+        margin-top: 20px;
+    }
+}

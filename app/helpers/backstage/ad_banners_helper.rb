@@ -1,0 +1,2 @@
+module Backstage::AdBannersHelper
+end

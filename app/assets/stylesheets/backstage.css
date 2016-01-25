@@ -1,0 +1,12 @@
+/*
+ * This is a manifest file that'll be compiled into backstage.css, which will include all the files
+ * listed below.
+ *
+ *= require_self
+ *= require_tree ./backstage
+ *= require jquery-steps
+ *= require jquery-tabs
+ *= require jquery-dialogs
+ *= require chat
+ *= require_tree ../../../vendor
+ */

@@ -1,0 +1,177 @@
+v1:
+  verify_code#create:
+    - mobile
+    - op
+  user#shop_owner:
+    - mobile
+    - verify_code
+    - password
+  user#dealer:
+    - company_name
+    - mobile
+    - verify_code
+    - password
+  licence#create:
+    - image
+  user#company_name_verify:
+    - company_name
+  user#login:
+    - mobile
+    - password
+    #- role
+  user#reset_password:
+    - mobile
+    - verify_code
+    - password
+  user#modify_password:
+    - password
+    - new_password
+
+  user#get_coupon_info:
+    - token
+
+  user#get_coupon:
+    - token  
+    - coupon
+
+  user#check_quickmark:
+    - token 
+    - quickmark
+
+  address#add_address:
+    - token
+    - name
+    - mobile
+    - address
+    - status
+    - code
+
+  address#update_address:
+    - token
+    - id
+    - name
+    - mobile
+    - address
+    - status
+    - code
+
+  address#delete_address:
+    - token
+    - id
+
+  address#get_addresses:
+    - token
+
+  order#add_order:
+    - token
+    - cart_record_ids
+    - address_id
+
+  order#update_order_status:
+    - token
+    - order_id
+
+  order#get_orders:
+    - token
+
+  order#search_result:
+    - token 
+
+  order#find_order_premium_coupon:
+    - token
+    - order_id
+
+  order#add_order_assessment:
+    - token
+    - order_id      
+    - stars    
+
+  order#pay_order :
+    - token
+    - order_id
+    - payment
+
+  order#delivery_order :
+    - token
+    - order_id
+
+  order#Receivie_order :
+    - token
+    - order_id
+
+  order#update_order_price :
+    - token
+    - order_id
+    - sn_product
+
+  product#dealer_products:
+    - token
+
+  product#related_products:
+    - product_id
+
+  product#single_product:
+    - product_id 
+
+  product#update:
+    - token
+    - product_id
+
+  picture#create_pic:
+    - token
+    - product_id
+    - image
+
+  picture#delete_pic:
+    - token
+    - image_ids
+
+  wholesale#update:
+    - token
+    - wholesales
+    - product_id
+
+  wholesale#destroy:
+    - token
+    - product_id
+    - wholesale_ids
+
+  wholesale#create:
+    - token
+    - product_id
+    - wholesales
+
+
+  cart_record#get_cart_record:
+    - token 
+
+  cart_record#add_cart_record:
+    - token 
+    - num
+    - product_id
+    - taste_id
+
+  cart_record#update_cart_record:
+    - token
+    - cart_records
+
+  cart_record#delete_cart_record:
+    - token
+    - cart_record_ids
+
+  message#index:
+    - token 
+
+  message#not_read_message:
+    - token
+
+  message#create_message_pic:
+    - token 
+    - image
+
+  coupons#user_coupons:
+    - token
+
+  coupons#index:
+    - type
+

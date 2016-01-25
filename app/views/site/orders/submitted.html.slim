@@ -1,0 +1,91 @@
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo.png"
+			/h1.site-name 掌上阅冰订购商城
+	ul.step
+		li.active
+			span 1
+			label 查看采购单
+		li.active
+			span 2
+			label 确认订单信息
+		li.active
+			span 3
+			label 成功提交订单
+		li
+			span 4
+			label 确认收货
+		li.last
+			span 5
+			label 完成
+= content_for(:content)
+	.order-info-box
+		.message
+			p.em 订单已提交，我们会尽快为您发货
+			p 为保障你的权益，收货时请开箱检查，发现货品异常请不要签收
+		.order-info
+			.header 收货信息
+			.information
+				ul
+					li 
+						label 订单号：
+						sapn #{@order.order_num}
+					li 
+						label 应付金额：
+						sapn.paid
+							em &yen;&nbsp;
+							| #{@order.actual_price}
+					li
+						label 送货至：
+						span
+							| #{@order.order_address.name}&nbsp;&nbsp;#{@order.order_address.mobile}
+							span.address #{@order.order_address.address} 
+					li 
+						label 配送信息：
+						sapn 1 个包裹（共#{@product_num}件商品）
+					li
+						label 优惠信息：
+						- if @order.order_discount_informations.count >0
+							- @order.order_discount_informations.each do |discount_information|
+								- if !discount_information.discount_price.blank?
+								  span.discount-info #{discount_information.content + ',优惠了：' + fmt_dollars(discount_information.discount_price)}
+								- else
+								  span.discount-info #{discount_information.content}
+						- else
+							span.discount-info 暂无优惠
+						/span.discount-info 优惠信息
+	.best-seller-header 热卖商品
+	.best-seller-content
+		ul.product-list
+			- @best_seller.each do |product|
+				li.product-wrapper
+					.product-img
+						a href="/site/product/details/#{product.id}" 
+							img src="#{product.pictures.blank? ? "/no_image310x320.png" : (Rails.application.config.action_controller.asset_host + product.pictures.first.image.url(:middle))}"
+					p
+						span.product-price
+							|￥
+							lable #{fmt_dollars(product.price)}
+						span.product-sales
+							| 成交#{product.sale}件
+					div.wholesale-info
+						ul
+							- product.wholesales.each do |item|
+								li 
+									span.price &yen;#{item.price}
+									span.nums #{item.count}件
+						span.triangle
+					p
+						a.product-name title="#{product.title}" href="/site/product/details/#{product.id}" #{product.title}
+					p
+						span.dealer-name
+							span.dealer title="#{product.dealer.company_name}" #{product.dealer.company_name}
+						- delivery_province = product.delivery_province.gsub("省","")
+						span.dealer-address #{(delivery_province.length > 5  ? (delivery_province.slice(0,3)+"...") : delivery_province) if !product.delivery_province.blank? }
+					p
+						span.authentication
+							= image_tag "icon_v.png"
+						/ span.contact 联系
+					- if product.new_product == 1
+						span.new-product-flag 新品

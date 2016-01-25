@@ -1,0 +1,20 @@
+#filter-forms
+	= form_tag('/backstage/orders/search',method:'get',class:'filter-form')
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			= text_field_tag :snapshoot_products
+		button.btn.btn-primary.filter-submit type="submit" 确定
+
+	= form_tag('/backstage/orders/search',method:'get',class:'filter-form')
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			= text_field_tag :buyer
+		button.btn.btn-primary.filter-submit type="submit" 确定
+
+	= form_tag('/backstage/orders/search',method:'get',class:'filter-form')
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			= text_field_tag :create_at_from,"",class:"time-filter",id:"create-at-from"
+			span.between-text 至
+			= text_field_tag :create_at_to,"",class:"time-filter",id:"create-at-to"
+		button.btn.btn-primary.filter-submit type="submit" 确定

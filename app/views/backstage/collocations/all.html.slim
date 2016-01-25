@@ -1,0 +1,45 @@
+= content_for(:marketing_content)
+    .marketing-content
+        div.content-tips.tips-indent
+            span 你可以设置多个套餐：
+            = link_to "设置套餐",backstage_collocations_new_path,class:"btn btn-default"
+        ul.activity-list.activity-list-collocations
+            - @collocations.each do |collocation|
+                li
+                    .list-box
+                        .list-box-header
+                            .state class="#{get_status_style(collocation)}" #{get_status_text(collocation)}
+                            .title #{collocation.title}
+                        .list-box-content
+                            - total_origin_price =0
+                            - collocation.collocation_contents.each_with_index do |content,index|
+                                - product =Product.find_by_id(content.product_id)
+                                .product
+                                    img src="#{product.blank? or product.pictures.blank? ? Picture.default_image.image.url(:small) : product.pictures.first.image.url(:small)}"
+                                    span.title title="#{product.title}" #{product.title}
+                                    span.origin-price 原价：￥#{format("%.2f",content.num*content.original_price)}
+                                    - total_origin_price += (content.num*content.original_price)
+                                - if index== collocation.collocation_contents.size-1
+                                    span.operator.operator-equal
+                                - else    
+                                    span.operator.operator-plus
+                            p.total-price-wrapper
+                                span.total-price ￥#{format("%.2f",collocation.price)}
+                                
+                                span.discount 节省：￥#{format("%.2f",total_origin_price-collocation.price).to_f}
+                        .list-box-bottom
+                            input.collocation-id name="collocation-id" type="hidden" value="#{collocation.id}"
+                            - if collocation.status.to_i == 0
+                                a.btn.btn-primary href="/backstage/collocations/edit/#{collocation.id}" 更改设置
+                                button.btn.btn-primary.btn-enable 启动活动
+                                button.btn.btn-primary.btn-delete 删除套餐
+                            - elsif collocation.status.to_i == 1
+                                button.btn.btn-primary.btn-disable 取消活动
+                            - else
+                                button.btn.btn-primary.btn-enable 启动活动
+                                button.btn.btn-primary.btn-delete 删除套餐
+            =render partial: '/shared/pagination',locals: {assets:@collocations} 
+
+
+
+

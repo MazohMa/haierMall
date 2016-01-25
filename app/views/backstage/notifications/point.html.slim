@@ -1,0 +1,25 @@
+= content_for(:content)
+    .content-header
+        .link-inline
+            .status-link.active
+                = link_to "信息推送", backstage_notifications_path
+        .link-inline
+            .status-link
+                = link_to "广告资讯", backstage_ad_informations_path
+    .grid-operations
+        - if current_user.role == 'admin'
+            button.operation-btn#batch-delete type="button" 批量删除
+    .grid-content
+        ul.tabs
+            li.tab-item
+                a href="/backstage/notifications" 信息（#{@notification_count}）
+            li.tab-item
+                a.active href="/backstage/notifications/point" 点对点（#{@chats_grid.assets.total_count}）
+               
+        .tab-content
+            #tab-chat
+                = datagrid_table @chats_grid
+                = render partial: '/shared/pagination',locals: {assets:@chats_grid.assets}
+    = render partial: '/shared/chat'
+= content_for(:footer_js)
+    = javascript_include_tag '/webuploader/webuploader.min.js'

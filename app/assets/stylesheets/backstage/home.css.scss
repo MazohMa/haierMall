@@ -1,0 +1,130 @@
+.home-wrapper {
+	padding:10px;
+	.metro-box {
+		border: #ccc thin solid;
+		.metro-head {
+			padding: 5px;
+			background-color: #efefef;
+			border-bottom: #ccc thin solid;
+		}
+		.metro-content {
+			padding: 10px;
+			ul.cake-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				margin-right: -8px;
+				li {
+					display: inline-block;
+					width: 196px;
+					height: 106px;
+					background-color: #0491e3;
+					margin-right: 8px;
+					vertical-align: top;
+					color: #fff;
+					text-align: center;
+					p {
+						margin: 8px 0;
+					}
+					.value {
+						font-size: 30px;
+					}
+					.ratio {
+						span + span {
+							margin-left: 15px;
+						}
+						span {
+							label {
+								color: #C40000;
+								margin-left: 2px;
+							}
+						}
+						
+					}
+				}
+			}
+		}
+	}
+	.chat-wrapper {
+		margin-right: -14px;
+		overflow: hidden;
+		.metro-box {
+			display: inline-block;
+			float: left;
+			margin-top: 10px;
+			width: 516px;
+			margin-right: 14px;
+			min-height: 410px;
+			.metro-content {
+				.chat-tools {
+					text-align: right;
+					ul.chat-date {
+						display: inline-block;
+						list-style: none;
+						padding: 0;
+						margin: 0;
+						overflow: hidden;
+						border: #ccc thin solid;
+						li + li {
+							border-left: #ccc thin solid;
+						}
+						li {
+							display: inline-block;
+							float: left;
+							width: 64px;
+							height: 23px;
+							line-height: 23px;
+							text-align: center;
+							cursor: pointer;
+							color: #444;
+							&.active,&:hover {
+								background-color: #0491e3;
+								color: #fff;
+							}
+						}
+					}
+					.date-range {
+						text-align: center;
+						input {
+							width: 120px;
+							padding: 3px 6px;
+							vertical-align: middle;
+						}
+						button {
+							width: 60px;
+							margin-left: 5px;
+							vertical-align: middle;
+						}
+					}
+					.cycle-list {
+						list-style: none;
+						padding: 0;
+						margin: 0;
+						text-align: center;
+						margin-top: 10px;
+						li {
+							display: inline-block;
+							width: 50px;
+							height: 20px;
+							line-height: 20px;
+							border: #ccc thin solid;
+							-webkit-border-radius: 5px;
+							-moz-border-radius: 5px;
+							-ms-border-radius: 5px;
+							-o-border-radius: 5px;
+							border-radius: 5px;
+							cursor: pointer;
+							&.active,&:hover {
+								background-color: #0491e3;
+								color: #fff;
+							}
+						}
+						li + li {
+							margin-left: 10px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

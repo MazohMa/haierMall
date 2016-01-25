@@ -1,0 +1,15 @@
+= content_for (:content)
+    .content-header
+        .link-inline
+            .status-link class="#{current_controller('backstage/admin_messages','active')}"
+                = link_to "用户管理",backstage_admin_messages_list_path
+            .status-link class="#{current_controller('backstage/ability','active')}"
+                = link_to "角色管理",backstage_ability_index_path
+            .status-link class="#{current_controller('backstage/members','active') ||current_controller('backstage/member_rules','active') || current_controller('backstage/credit_level_rules','active')}"
+                = link_to "会员管理",backstage_members_path(:"members_grid[role]"=>"shop_owner")
+            .status-link class="#{current_controller('backstage/integrations','active')}"
+                = link_to "积分管理",backstage_integrations_path
+    .grid-operations
+        = yield(:grid_operations)
+    = yield(:grid_content)
+= render template: "backstage/layouts/backstage"

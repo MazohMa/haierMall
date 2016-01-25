@@ -1,0 +1,19 @@
+= content_for(:content)
+    .content-header
+            .link-inline
+                .status-link.active
+                    a 查看广告资讯
+    .information-content
+        h3.title #{@ad_information.title}
+        p.publish-info 
+            span 发布人：#{@ad_information.user.username}
+            span 发布时间：#{@ad_information.updated_at.strftime("%Y-%m-%d %H:%M:%S")}
+            span 类型：#{@ad_information.ad_type}
+        div.content-body
+            == @ad_information.content
+        - if current_user.role == 'admin' and (@ad_information.approve_status.to_i == 0)
+            button.btn.btn-obvious.obvious-primary#approve-pass data-value="#{@ad_information.id}" 通过
+            button.btn.btn-obvious.obvious-outline#approve-unpass data-value="#{@ad_information.id}" 下架
+        - if current_user.role == 'admin' and (@ad_information.approve_status.to_i == 1)
+            button.btn.btn-obvious.obvious-outline#approve-unpass data-value="#{@ad_information.id}" 下架
+        button.btn.btn-obvious.obvious-default#go-back  返回

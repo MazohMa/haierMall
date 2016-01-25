@@ -1,0 +1,150 @@
+.product-selection{
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+
+    .selection-form{
+        float: right;
+        position: relative;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        border: 2px solid #0491e3;
+
+        .brand-selection{
+            position: absolute;
+            left: -100px;
+            top: 6px;
+        }
+
+        .category-selection{
+            position: absolute;
+            left: -200px;
+            top: 6px;
+        }
+    }
+
+    .products{
+        margin-top: 75px;
+        .tips{
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            font-size: 16px;
+        }
+    }
+
+    .pagination{
+        float: right;
+        clear: both;
+
+        a{
+            padding: 4px 8px;
+        }
+    }
+
+    .product-selection-grid{
+
+        width: 100%;
+
+        th,td{
+            border: 1px solid #e5e5e5;
+            padding: 10px;
+        }
+
+        .btn{
+            padding: 4px 12px;
+            width: auto;
+            font-size: 13px;
+            line-height: 1;
+        }
+
+        .btn + .btn{
+            margin-left: 10px;
+        }
+
+        .grid-checkbox,.wholesale,.price,.operations{
+            text-align: center;
+        }
+
+        .grid-checkbox{
+            width: 10px;
+            padding-right: 0px;
+            border-right: none;
+        }
+
+        .name{
+            width: 250px;
+            border-left: none;
+
+            img{
+                width: 60px;
+                height: 60px;
+                margin-right: 10px;
+                float: left;
+            }
+
+            p{
+                margin: 0px;
+            }
+        }
+
+        .wholesales-wrapper{
+            width: 145px;
+            margin: 0px auto;
+            
+            >span{
+                width: 65px;
+                display: inline-block;
+            }
+        }
+
+        .wholesales{
+            width: 122px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+
+           .text-bold{
+                width: 36px;
+                display: inline-block;
+            }
+
+        }
+
+        .shipments{
+            width: 82px;
+            text-align: center;
+        }
+
+        .operations{
+            width: 128px;
+        }
+
+        .price-num{
+            margin-bottom: 3px;
+            margin-left: 15px;
+            color: #c40000;
+        }
+    }
+
+    .btn-added{
+        cursor: auto;
+    }
+
+    .batch-wrapper{
+        height: 50px;
+        line-height: 50px;
+        float: right;
+
+        .btn{
+            line-height: 1;
+        }
+
+        .btn + .btn{
+            margin-left: 10px;
+        }
+    }
+
+    .hide{
+        display: none;
+    }
+}

@@ -1,0 +1,82 @@
+#计量单位
+measurement:
+  - id : 1
+    name: '盒'
+  - id : 2
+    name: '个'
+  - id : 3
+    name: '箱'
+  - id : 4
+    name: '袋'
+
+
+
+#净含量单位
+net_wt:
+  - id : 1
+    name: 'g'
+  - id : 2
+    name: 'ml'
+  - id : 3
+    name: 'mg'
+
+
+#规格单位
+specifications:
+  - id : 1
+    name: 'g'
+  - id : 2
+    name: 'ml'
+  - id : 3
+    name: 'mg'
+
+#支付方式
+payment:
+  - id : 1
+    name: '货到付款'
+  # - id : 2
+  #   name: '支付宝'
+  # - id : 3
+  #   name: '微信支付'
+
+
+#发货期限
+delivery_deadline:
+  - id : 1
+    name: '1天内'
+  - id : 2
+    name: '3天内'
+  - id : 3
+    name: '7天内'
+
+#包装种类
+pack_way:
+  - id : 1
+    name: '罐'
+  - id : 2
+    name: '盒'
+  - id : 3
+    name: '袋'
+
+#保质期 
+exp:
+  - id : 1
+    name: '5天'
+  - id : 2
+    name: '10天'
+  - id : 3
+    name: '1个月'
+  - id : 4
+    name: '3个月'
+  - id : 5
+    name: '6个月'
+  - id : 6
+    name: '12个月'
+  - id : 7 
+    name: '24个月'
+  - id : 8
+    name: '36个月'
+
+
+
+

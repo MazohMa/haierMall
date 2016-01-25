@@ -1,0 +1,9 @@
+= content_for(:content)
+	.content-header
+		.link-inline
+			.status-link.active
+				a 预览商品
+	.grid-operations
+		a.operation-btn#cancel-preview href="/backstage/product/edit/#{@product_id}" 取消预览
+	.grid-content
+		iframe#previewIframe name="previewIframe" frameborder = "0" scrolling="no" width="100%" onload="this.height=previewIframe.document.body.scrollHeight" src = "/site/product/preview/#{@product_id}"

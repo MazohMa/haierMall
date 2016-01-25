@@ -1,0 +1,29 @@
+@import '_variables';
+.information-content{
+    margin: 50px 100px;
+    .title{
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .publish-info{
+        text-align: center;
+        margin-top: 30px;
+        span{
+            display: inline-block;
+            margin-right: 50px;
+        }
+    }
+
+    .content-body{
+        margin-top: 60px;
+    }
+
+    .btn{
+        margin-right: 30px;
+        margin-top: 30px;
+        line-height: 1;
+        color: #fff;
+        background-color: $color-base;
+    }
+}

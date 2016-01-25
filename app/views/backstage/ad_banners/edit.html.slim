@@ -1,0 +1,11 @@
+= content_for(:header_css)
+	= stylesheet_link_tag '/colorpicker/css/jquery.bigcolorpicker.css'
+	= stylesheet_link_tag '/webuploader/webuploader.css'
+
+= content_for(:ad_content)
+    .marketing-content
+        = render 'form'
+
+= content_for(:footer_js)
+	= javascript_include_tag '/colorpicker/js/jquery.bigcolorpicker.js'
+	= javascript_include_tag '/webuploader/webuploader.min.js' 

@@ -1,0 +1,117 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+
+= content_for(:nav_top)
+	= render 'site/shared/nav'
+
+= content_for(:content)
+	
+	p.classify-details
+		span 所有分类
+		- if !@brand_id.blank?
+			span.sepatate-icon >
+			a#brand-ids
+				| 品牌：#{@brand_id}
+				span.delete-classify ×
+		- if !@category_id.blank?
+			span.sepatate-icon >
+			a#category-ids
+				| 类型：#{@category_id}
+				span.delete-classify ×
+		span.product-included 商品收录 #{@product.total_count} 件
+	
+	
+	= render 'product_filters'
+
+	.sortord-line 
+		.sortord-left
+			ul
+				li class="#{"active" if !params[:comprehensive_num].blank? }"
+					- if !params[:comprehensive_num].blank? && params[:comprehensive_num] == "DESC"
+						a.sortord-item href="javascript:void(0)" data-key="comprehensive_num" data-value="ASC" 综合排序
+					- else
+						a.sortord-item href="javascript:void(0)" data-key="comprehensive_num" data-value="DESC" 综合排序
+				li class="#{"active" if !params[:sale_num].blank? }"
+					- if !params[:sale_num].blank? && params[:sale_num] == "DESC"
+						a.sortord-item href="javascript:void(0)" data-key="sale_num" data-value="ASC" 销量
+					- else
+						a.sortord-item href="javascript:void(0)" data-key="sale_num" data-value="DESC" 销量
+				li class="#{"active" if !params[:popular_num].blank? }"
+					- if !params[:popular_num].blank? && params[:popular_num] == "DESC"
+						a.sortord-item href="javascript:void(0)" data-key="popular_num" data-value="ASC" 人气
+					- else
+						a.sortord-item href="javascript:void(0)" data-key="popular_num" data-value="DESC" 人气
+				li class="#{"active" if !params[:price_num].blank? }"
+					- if !params[:price_num].blank? && params[:price_num] == "DESC"
+						a.sortord-item href="javascript:void(0)" data-key="price_num" data-value="ASC" 价格
+					- else
+						a.sortord-item href="javascript:void(0)" data-key="price_num" data-value="DESC" 价格
+			div.price-area
+				input.input-sm.bottom-price id="order_price_min" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" type="text" placeholder="￥" value=@price_min -
+				input.input-sm.top-price id="order_price_max" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" type="text" placeholder="￥" value=@price_max
+				a href="javascript:void(0)" id="search_price" 确定
+		.sortord-right
+			ul
+				li
+					a.prev-page <
+					span.pages
+						label.currentPage #{@product.current_page}
+						| /
+						label #{@product.total_pages}
+					a.next-page >
+				/ li
+				/ 	a
+				/ 		=image_tag "web-1_21.png"
+				/ li
+				/ 	a
+				/ 		=image_tag "web-1_21.png"
+				/ li
+				/ 	a
+				/ 		| 发货地
+				/ 		span.caret
+		.sortord-right
+			.choosezone
+				= select_tag :province,options_for_select(@provinces.map { |c| [c[:name], c[:code]]} , @selected_province_code),class:"province"
+				= select_tag :city,options_for_select(@cities.map { |c| [c[:name], c[:code]]} , @selected_city_code),class:"city"
+				= select_tag :area,options_for_select(@districts.map { |c| [c[:name], c[:code]]} , @selected_district_code),class:"area"
+				a href="javascript:void(0)" id="search_zone" 确定
+	ul.product-list
+		- @product.each do |item|
+			li.product-wrapper
+				.product-img 
+					a href="/site/product/details/#{item.id}"
+						img src="#{item.pictures.first == nil ? '/no_image170x170.png' : (item.pictures.first.image.middle.url)}"
+				p
+					span.product-price
+						|￥
+						lable #{fmt_dollars(item.price)}
+					span.product-sales
+						| 成交#{item.sale}件
+				div.wholesale-info
+					ul
+						- find_product_wholesale(item.wholesales).each do |itm|
+							li
+								span.price &yen;#{itm[0]}
+								span.nums #{itm[1]}件
+					span.triangle
+				p
+					a.product-name title="#{item.title}" href="/site/product/details/#{item.id}" #{item.title}
+				p
+					span.dealer-name
+						span.dealer title="#{item.dealer.company_name}"
+							= image_tag "web-1_21.png"
+							| #{item.dealer.company_name}
+					- delivery_province = item.delivery_province.gsub("省","")
+					span.dealer-address #{(delivery_province.length > 5  ? (delivery_province.slice(0,3)+"...") : delivery_province) if !item.delivery_province.blank? }
+				p
+					span.authentication
+						= image_tag "icon_v.png"
+					/ span.contact
+					/ 	= image_tag "web-1_23.png"
+				- if item.new_product == 1
+					span.new-product-flag 新品
+				
+	= render partial: 'shared/pagination',locals: {assets: @product}
+
+
+

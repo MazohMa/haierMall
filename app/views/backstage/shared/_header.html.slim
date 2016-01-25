@@ -1,0 +1,17 @@
+.header
+	.header-content
+		a.logo href="#{current_user.role == "dealer" ? '/backstage/home/index' : '/backstage/admin_messages/list'}"
+		.user-info
+			= image_tag('backstage/user-avatar.png',class:"user-avatar")
+			.dropdown
+				a href="javascript:void(0)" 
+					|#{current_user.username}
+					span.caret.btn-icon
+				ul.dropdown-menu
+					li.menu-item
+						a href="/site/home/index" 进入商城
+					- if current_user.role == "dealer"
+						li.menu-item
+							a href="/backstage/user/setting" 帐号设置
+					li.menu-item 
+						a href="/users/sign_out" 退出

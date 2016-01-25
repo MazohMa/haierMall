@@ -1,0 +1,36 @@
+doctype 5
+html lang='zh_CN'
+	head
+		title 掌上阅冰管理平台
+		meta charset="utf-8"
+	    meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE"
+		= stylesheet_link_tag 'backstage', media: 'all'
+		/ = stylesheet_link_tag 'http://at.alicdn.com/t/font_1426667865_7462828.css'
+		= yield(:header_css)
+		= csrf_meta_tags
+	body id="#{controller_name}-#{action_name}"
+		= render ('backstage/shared/header')
+		- if !flash[:error].blank?
+			div.flash-notice
+				| #{flash[:error]}
+				button.close &times;
+		.content-wrapper	
+			.nav-bar
+				- if current_user.role == 'dealer'
+					a.nav-bar-item.product-self class="#{current_controller('backstage/product','active') if params[:action].to_s!='shared' and params[:action].to_s!='search_shared'}" href="/backstage/product/self?status=1"
+
+					a.nav-bar-item.product-shared class="#{current_path('/backstage/product/shared','active') || current_path('/backstage/product/search_shared','active')}" href="/backstage/product/shared"
+					a.nav-bar-item.orders class="#{current_controller('backstage/orders','active')}" href="/backstage/orders"
+					a.nav-bar-item.marketing class="#{current_controller('backstage/marketing','active')||current_controller('backstage/premiums','active')||current_controller('backstage/discounts','active')||current_controller('backstage/collocations','active')||current_controller('backstage/coupons','active')}" href="/backstage/marketing"
+				a.nav-bar-item.information class="#{current_controller('backstage/notifications','active') or current_controller('backstage/ad_informations','active')}" href="/backstage/notifications"
+				- if current_user.role == 'admin'
+					a.nav-bar-item.user-center class="#{current_controller('backstage/admin_messages','active') || current_controller('backstage/members','active')||current_controller('backstage/integrations','active') || current_controller('backstage/member_rules','active') || current_controller('backstage/credit_level_rules','active')}" href="/backstage/admin_messages/list"
+					a.nav-bar-item.system-setting class="#{current_controller('backstage/ad_banners','active')}"  href="/backstage/ad_banners/index"
+					
+			.main-content
+				= yield(:content)
+		.footer
+			= render 'shared/footer'
+
+		= javascript_include_tag 'backstage'
+		= yield(:footer_js)

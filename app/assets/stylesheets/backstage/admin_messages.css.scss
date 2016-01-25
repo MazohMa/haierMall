@@ -1,0 +1,301 @@
+// Place all the styles related to the backstage::AdminMessages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.admin_messages_grid{
+    text-align: center;
+
+    thead{
+        th{
+            text-align: center;
+        }
+    }
+
+    tr{
+
+        td{
+            vertical-align: middle;
+            padding: 10px 0px;
+        }
+    }
+
+    .btn{
+        line-height: 1;
+    }
+
+    .passed-btn{
+        background: none;
+        cursor: auto;
+    }
+}
+
+
+.admin-message-content{
+    .list-user-info{
+        overflow: hidden;
+        dt,dd{
+            display: inline-block;
+            height: 40px;
+            margin: 0px;
+            padding: 0px 20px;
+            line-height: 40px;
+            float: left;
+            border: 1px solid #ccc;
+            border: 1px solid #ccc;
+        }
+
+        dd + dt{
+            margin-left: -1px;
+        }
+
+        dt{
+            width: 100px;
+            background-color: #f3f3f3;
+        }
+
+        dd{
+            width: 150px;
+            border-left: none;
+        }
+    }
+
+    .info-tips{
+        margin-top: 30px;
+        font-size: 15px;
+    }
+
+    .register-info{
+        padding: 20px;
+        border: 1px solid #ccc;
+
+        .info-group{
+            margin-bottom: 20px;
+        }
+
+        .info-inline{
+            .info-group{
+                display: inline-block;
+                width: 300px;
+            }
+        }
+
+        .title{
+            width: 100px;
+            margin-right: 50px;
+            display: inline-block;
+            text-align: right;
+        }
+
+        .authorization-pictures{
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+
+            .picture-item{
+                .item-tips{
+                    margin-top: 10px;
+                    text-align: center;
+                }
+            }
+
+            .picture{
+                width: 200px;
+                height: 200px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .btn-pass,.btn-unpass,.btn-back{
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .btn-pass{
+        margin-right: 20px;
+    }
+}
+
+#admin_messages-new_user {
+    .main-content {
+        position: relative;
+        margin: 0 24px;
+        width: auto;
+        .setting-title {
+            font-size: 26px;
+            text-align: center;
+        }
+        .last-login-time {
+            padding: 20px 0;
+        }
+        .operate-edit {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-image: image_url('backstage/edit-icon.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            cursor: pointer;
+            &:hover {
+                background-image: image_url('backstage/edit-icon-hover.png');
+            }
+        }
+        .setting-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            &>li {
+                border-bottom: #ccc thin solid;
+                color: #333;
+                .list-title {
+                    font-size:20px;
+                    padding: 15px 0;
+                    .title {
+                        display: inline-block;
+                        width: 12%;
+                        vertical-align: top;
+                        color: #999;
+                    }
+                    .content {
+                        display: inline-block;
+                        vertical-align: top;
+                        ul {
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .password {
+                            label.focus-text {
+                                color: #FF2200;
+                            }
+                            label.password-tips {
+                                display: block;
+                                padding: 0;
+                                margin-top: 10px;
+                                font-size: 14px !important;
+                                color: #A1A1A1;
+                            }
+                        }
+                    }
+                    /* .operate,.pack-up,.change-password {
+                        float: right;
+                        vertical-align: top;
+                        font-size: 16px;
+                    }
+                    .pack-up {
+                        display: none;
+                    } */
+                }
+                .sub-setting-list {
+                    /*display: none;*/
+                    list-style: none;
+                    padding: 10px 0;
+                    margin: 0;
+                    border-top:#ccc 1px dashed;
+                    &>li {
+                        padding: 12px 0;
+                        font-size: 16px;
+                        .row-title {
+                            display: inline-block;
+                            width: 18%;
+                            text-align: right;
+                        }
+                        .row-content {
+                            margin-left: 10px;
+                            select {
+                                margin-right: 25px;
+                                width: 120px;
+                            }
+                            label + label {
+                                margin-left: 20px;
+                            }
+                            button+button {
+                                margin-left: 20px;
+                            }
+                            .address {
+                                width: 500px;
+                            }
+                            .distribution-area-item {
+                                display: inline-block;
+                                min-width: 530px;
+                            }
+                            &.upload-image {
+                                display:inline-block;
+                                position:relative;
+                                input {
+                                    vertical-align:middle;
+                                }
+                                input + input {
+                                    margin-left:15px;
+                                }
+                                .browse-file-btn,.upload-btn {
+                                    border:none;
+                                    outline:none;
+                                    background-color:#3591E7;
+                                    height:32px;
+                                    width:88px;
+                                    texta-align:center;
+                                    color:#fff;
+                                }
+                                .file-input {
+                                    position:absolute;
+                                    top:0;
+                                    left:0px;
+                                    margin:0;
+                                    width:320px;
+                                    height:32px;
+                                    opacity: 0;
+                                    cursor:pointer;
+                                }
+                            }
+
+                        }
+                    }
+                    &.manufacturer-box {
+                        .other-manufacturer {
+                            outline: none;
+                            border-color:transparent;
+                            border-bottom: #ccc thin solid;
+                        }
+                    }
+                    &.add-distribution-area-list>.add-item:first-child .delete-new-distribution-area {
+                        display: none;
+                    }
+                }
+                &.operate-group {
+                    /*display: none;*/
+                    padding: 20px;
+                    text-align: center;
+                    border-color: #fff;
+                    button + button {
+                        margin-left: 50px;
+                    }
+                    .save-info,.cancle {
+                        width: 120px;
+                        padding: 3px 10px;
+                        background-color: #C40000;
+                        color: #fff;
+                        font-size: 20px;
+                        border:#C90000 thin solid;
+                        outline: none;
+                        -webkit-border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        -ms-border-radius: 5px;
+                        -o-border-radius: 5px;
+                        border-radius: 5px;
+                    }
+                    .cancle {
+                        background-color: #fff;
+                        color: #C40000;
+                    }
+                }
+            }
+        }
+
+    }
+ }

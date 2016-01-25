@@ -1,0 +1,45 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.comment
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			/ ul.integral-role-tips
+			/ 	li
+			/ 		| 积分规则升级啦！认真评价可获 100 积分奖励！
+			/ 		a 积分规则»
+			/ 	li 极速评价积分奖励活动已经结束，后续将会推出更多评价送积分活动，敬请期待！
+			/ 	li 您有 2 个待评价的订单。 现在评价，赢取 114 积分。
+			- if @comment_list.blank?
+				p 暂无相关数据
+			- else
+				- @comment_list.each do |item|
+					.comment-item-hd
+						span 订单号：#{item.order_num}
+						a #{item.snapshoot_products.first.nil? ? '--':item.snapshoot_products.first.dealer}
+						= image_tag "icon_call_1.png",class:"contact-merchant"
+					.comment-item-bd
+						ul
+							li
+								.product-info
+									image src="#{item.snapshoot_products.first.picture == nil ? '/no_image310x320.png' : (item.snapshoot_products.first.picture.image.middle.url)}"
+									/p.product-name 批发牛奶 八喜全脂纯牛奶1L*12盒星巴克咖啡专用牛奶 1000ml*12 原味
+								.comment-content
+									/ p.comment-integral 评价可得100积分奖励
+									p.comment-star
+										label 我的总体评价
+										span.star-list
+											label.star
+											label.star
+											label.star
+											label.star
+											label.star
+									.text-input
+										textarea placehold="输入" maxlength="50"
+										p.input-tips 
+											/ | * 请上传原创、真实、合法的图片，如果发现用户上传的图片有侵权内容，海尔有权先行删除
+											label.word-limit
+												em 0
+												| /50
+									a.comment-btn data-id="#{item.id}" 发表评论

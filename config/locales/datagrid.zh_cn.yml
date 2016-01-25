@@ -1,0 +1,36 @@
+zh-cn:
+  datagrid:
+    no_results:
+      "&mdash;&mdash;"
+    table:
+      order:
+        asc: "&uarr;"
+        desc: "&darr;"
+    form:
+      search: "搜索"
+      reset: "重置"
+    filters:
+      integer:
+        range_format:
+          "%{from_input}<span class=\"separator integer\"> - </span>%{to_input}"
+      date:
+        range_format:
+          "%{from_input}<span class=\"separator date\"> - </span>%{to_input}"
+      datetime:
+        range_format:
+          "%{from_input}<span class=\"separator datetime\"> - </span>%{to_input}"
+
+      eboolean:
+        "yes": "是"
+        "no": "否"
+
+      xboolean:
+        "yes": "是"
+        "no": "否"
+
+      dynamic:
+        operations:
+          ">=": "&ge;"
+          "<=": "&le;"
+          "=": "="
+          "=~": "&asymp;"

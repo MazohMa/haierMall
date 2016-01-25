@@ -1,0 +1,55 @@
+#filter-forms
+    = form_tag(request.path,method:'get',class:'filter-form')
+        .filter-group
+            ul.filter-list
+                li
+                    = check_box_tag :type_0,"广告",false,name:'ad_informations_grid[ad_type][]'
+                    = label_tag :type_0,"广告"
+                li
+                    = check_box_tag :type_1,"活动",false,name:'ad_informations_grid[ad_type][]'
+                    = label_tag :type_1,"活动"
+                li
+                    = check_box_tag :type_2,"新品",false,name:'ad_informations_grid[ad_type][]'
+                    = label_tag :type_2,"新品"
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(request.path,method:'get',class:'filter-form')
+        .filter-group
+            = text_field_tag :"ad_informations_grid[title]"
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(request.path,method:'get',class:'filter-form')
+        .filter-group
+            = text_field_tag :"ad_informations_grid[updated_at]","",id:"updated_at"
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(request.path,method:'get',class:'filter-form')
+        .filter-group
+            ul.filter-list
+                - if params[:action] == 'all'
+                    li
+                        = check_box_tag :release_status_0,0,false,name:'ad_informations_grid[release_status][]'
+                        = label_tag :release_status_0,'未发布'
+                li
+                    = check_box_tag :release_status_1,1,false,name:'ad_informations_grid[release_status][]'
+                    = label_tag :release_status_1,'已发布'
+                li
+                    = check_box_tag :release_status_2,2,false,name:'ad_informations_grid[release_status][]'
+                    = label_tag :release_status_2,'已下架'
+                li
+                    = check_box_tag :release_status_3,3,false,name:'ad_informations_grid[release_status][]'
+                    = label_tag :release_status_3,'已取消'
+        button.btn.btn-primary.filter-submit type="submit" 确定
+    = form_tag(request.path,method:'get',class:'filter-form')
+        .filter-group
+            ul.filter-list
+                li
+                    = check_box_tag :approve_status_0,0,false,name:'ad_informations_grid[approve_status][]'
+                    = label_tag :approve_status_0,"#{params[:action] == 'all'? '审核中' : '未审核'}"
+                li
+                    = check_box_tag :approve_status_1,1,false,name:'ad_informations_grid[approve_status][]'
+                    = label_tag :approve_status_1,'通过'
+                li
+                    = check_box_tag :approve_status_2,2,false,name:'ad_informations_grid[approve_status][]'
+                    = label_tag :approve_status_2,'不通过'
+        button.btn.btn-primary.filter-submit type="submit" 确定

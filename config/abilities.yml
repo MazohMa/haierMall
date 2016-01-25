@@ -1,0 +1,301 @@
+server:
+  - name : '信息中心'
+    description : 'information_center'
+    oprtation : 
+      - name : '消息推送'
+        description : 'information_push'
+        oprtation :
+          - name : '信息'
+            description : 'information'
+            oprtation :
+              - id : 1
+                name : '查看信息'
+                oprtation :
+                  - 'backstage/notifications#all'
+              - id : 2
+                name : '推送新信息'
+                oprtation :
+                  - 'backstage/notifications#new'
+              - id : 3
+                name : '批量推送信息'
+                oprtation :
+                  - 'backstage/notifications#push'
+              - id : 4
+                name : '批量删除信息'
+                oprtation :
+                  - 'backstage/notifications#destroy'
+          - name : '点对点'
+            description : 'one_to_one'
+            oprtation :
+              - id : 5
+                name : '查看列表信息'
+                oprtation :
+                  - 'backstage/notifications#point'
+              - id : 6
+                name : '回复信息'
+                oprtation :
+                  - 'backstage/notifications#send_message'
+                  - 'backstage/notifications#get_record'
+                  - 'backstage/notifications#get_new_record'
+              - id : 7
+                name : '删除信息'
+                oprtation :
+                  - 'backstage/notifications#batch_destroy_message'
+      - name : '广告资讯'
+        description : 'advertising_info'
+        oprtation :
+          - id : 8
+            name : '广告资讯列表'
+            oprtation :
+              - 'backstage/ad_informations#all'
+          - id : 9
+            name : '修改/编辑资讯'
+            oprtation :
+              - 'backstage/ad_informations#edit'
+          - id : 10
+            name : '添加资讯'
+            oprtation :
+              - 'backstage/ad_informations#new'
+          - id : 11
+            name : '批量发布资讯'
+            oprtation :
+              - 'backstage/ad_informations#publish'
+          - id : 12
+            name : '批量取消发布资讯'
+            oprtation :
+              - 'backstage/ad_informations#cancelpublish'
+          - id : 13
+            name : '批量删除资讯'
+            oprtation :
+              - 'backstage/ad_informations#destroy'
+      - name : '会员管理'
+        description : 'members_info'
+        oprtation :
+              - id : 14
+                name : '会员列表'
+                oprtation :
+                  - 'backstage/members#all'
+              - id : 15
+                name : '会员详情查看'
+                oprtation :
+                  - 'backstage/members#show'
+              - id : 16
+                name : '采购商会员规则设置'
+                oprtation :
+                  - 'backstage/member_rules#new'
+              - id : 17
+                name : '经销商会员规则设置'
+                oprtation :
+                  - 'backstage/credit_level_rules#new'
+      - name : '积分管理'
+        description : 'integrations_info'
+        oprtation :
+          - id : 18
+            name : '积分规则设置'
+            oprtation :
+              - 'backstage/integrations#new'
+          - id : 19
+            name : '会员积分列表'
+            oprtation :
+              - 'backstage/integrations#all'
+          - id : 20
+            name : '详细记录'
+            oprtation :
+              - 'backstage/integrations#show'
+  - name : '系统设置'
+    description : 'setting_info'
+    oprtation : 
+      - name : '用户管理'
+        description : 'users_info'
+        oprtation :
+          - id : 21
+            name : '创建用户'
+            oprtation :
+              - 'backstage/admin_messages#new_user'
+          - id : 22
+            name : '批量删除用户'
+            oprtation :
+              - 'backstage/admin_messages#destroy'
+          #- id : 23
+          #  name : '批量导入用户'
+          #  oprtation :
+          #    - 'backstage/notifications#push'
+      #- name : '角色管理'
+      #  description : 'role_info'
+      #  oprtation :
+      #    - id : 24
+      #      name : '创建角色'
+      #      oprtation :
+      #        - 'backstage/notifications#all'
+      #    - id : 25
+      #      name : '批量删除角色'
+      #      oprtation :
+      #        - 'backstage/notifications#new'
+  - name : '我的商品库'
+    description : 'my_product_info'
+    oprtation : 
+      - name : '出售中的商品'
+        description : 'oneline_product_info'
+        oprtation :
+          - id : 26
+            name : '批量下架商品'
+            oprtation :
+              - 'backstage/product#product_operation'
+          - id : 27
+            name : '批量删除商品'
+            oprtation :
+              - 'backstage/product#product_operation'
+      - name : '线下商品库'
+        description : 'outline_product_info'
+        oprtation :
+          - id : 28
+            name : '批量上架商品'
+            oprtation :
+              - 'backstage/product#product_operation'
+      - name : '回收站'
+        description : 'recycle_info'
+        oprtation :
+          - id : 30
+            name : '还原商品'
+            oprtation :
+              - 'backstage/product#product_operation'
+          - id : 31
+            name : '永久删除商品'
+            oprtation :
+              - 'backstage/product#product_operation'
+          - id : 32
+            name : '添加商品'
+            oprtation :
+              - 'backstage/product#new'
+          - id : 33
+            name : '搜索查询商品'
+            oprtation :
+              - 'backstage/product#search'
+  - name : '商品引用'
+    description : 'product_shared_info'
+    oprtation : 
+      - id : 34
+        name : '商品引用'
+        oprtation :
+          - 'backstage/product#shared'
+  - name : '订单管理'
+    description : 'orders_info'
+    oprtation : 
+      - id : 35
+        name : '查看订单列表'
+        oprtation :
+          - 'backstage/orders#index'
+          - 'v1/order#get_orders'
+      - id : 36
+        name : '订单发货'
+        oprtation :
+          - 'backstage/orders#delivery_order'
+          - 'v1/order#delivery_order'
+      - id : 37
+        name : '删除订单'
+        oprtation :
+          - 'backstage/orders#remove_seller_orders'
+      - id : 38
+        name : '确定收货'
+        oprtation :
+          - 'backstage/orders#receivie_orders'
+          - 'v1/order#receivie_order'
+      - id : 39
+        name : '关闭交易'
+        oprtation :
+          - 'backstage/orders#destroy_orders'
+          - 'v1/order#update_order_status'
+  - name : '营销管理'
+    description : 'marketing_management'
+    oprtation : 
+      - name : '满就送'
+        description : 'premium_zons'
+        oprtation :
+          - id : 40
+            name : '创建满就送活动'
+            oprtation :
+              - 'backstage/premiums#new'
+          - id : 41
+            name : '查看活动列表'
+            oprtation :
+              - 'backstage/premiums#all'
+          - id : 42
+            name : '删除满就送活动'
+            oprtation :
+              - 'backstage/premiums#destroy'
+      - name : '限时打折'
+        description : 'limitimes_info'
+        oprtation :
+          - id : 43
+            name : '创建打折活动'
+            oprtation :
+              - 'backstage/discounts#new'
+          - id : 44
+            name : '查看打折活动列表'
+            oprtation :
+              - 'backstage/discounts#all'
+          - id : 45
+            name : '删除打折活动'
+            oprtation :
+              - 'backstage/discounts#destroy'
+      - name : '搭配套餐'
+        description : 'packages_info'
+        oprtation :
+          - id : 46
+            name : '创建搭配套餐'
+            oprtation :
+              - 'backstage/collocations#new'
+              - 'backstage/collocations#create'
+          - id : 47
+            name : '查看活动列表'
+            oprtation :
+              - 'backstage/collocations#all'
+          - id : 48
+            name : '编辑活动列表'
+            oprtation :
+              - 'backstage/collocations#edit'
+              - 'backstage/collocations#update'
+          - id : 49
+            name : '启动/取消活动'
+            oprtation :
+              - 'backstage/collocations#enable'
+              - 'backstage/collocations#disable'
+          - id : 50
+            name : '删除搭配套餐'
+            oprtation :
+              - 'backstage/collocations#destroy'
+      - name : '店铺优惠券'
+        description : 'coupon'
+        oprtation :
+          - id : 51
+            name : '创建优惠券'
+            oprtation :
+              - 'backstage/coupons#new'
+              - 'backstage/coupons#create'
+          - id : 52
+            name : '查看优惠券列表'
+            oprtation :
+              - 'backstage/coupons#all'
+          - id : 53
+            name : '删除优惠券'
+            oprtation :
+              - 'backstage/coupons#destroy'
+  #- name : '用户管理'
+  #  description : 'user_manager'
+  #  oprtation :
+  #    - id : 54
+  #      name : '账户审核列表'
+  #      oprtation :
+  #        - 'backstage/admin_messages#list'
+  #    - id : 55
+  #      name : '查看审核信息'
+  #      oprtation :
+  #        - 'backstage/admin_messages#show'
+  #    - id : 56
+  #      name : '审核权限'
+  #      oprtation :
+  #        - 'backstage/admin_messages#approve'
+  #        - 'backstage/admin_messages#unapprove'
+    
+
+

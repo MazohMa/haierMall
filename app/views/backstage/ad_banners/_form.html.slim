@@ -1,0 +1,51 @@
+
+= form_for @ad_banner,{:url=>@ad_banner.new_record? ? backstage_ad_banners_create_path : backstage_ad_banners_update_path,:html=>{:class=>'resource-form ad-banner-form',:id=>'ad-banner-form'}} do |f|
+    p.form-title 设置广告位
+    = f.hidden_field :id
+
+    .form-inline
+        = f.label :ad_location_type,"<i>*</i>广告位名：".html_safe,class:"control-label "
+        = f.select :ad_location_type,options_for_select(AdLocation.all.map { |c| [c.title, c.ad_location_type]},@ad_banner.new_record?? '1': @ad_banner.ad_location_type),{},{:class=>"sm"}
+        span.help-inline.obvious.for-full-tip
+    .form-inline
+        = f.label :title,"<i>*</i>广告名：".html_safe,class:"control-label"
+        = f.text_field :title
+
+    .form-inline
+        = f.label :manufacturer_id,"<i>*</i>广告厂商：".html_safe,class:"control-label "
+        = f.select :manufacturer_id,options_for_select(Manufacturer.all.map { |c| [c.name, c.id]},@ad_banner.new_record?? '1': @ad_banner.manufacturer_id),{},{:class=>"sm"}
+
+    .form-inline.color_picker
+        = f.label :color,"<i>*</i>背景颜色：".html_safe,class:"control-label"
+        = f.text_field :color, name: 'ad_banner[color]' 
+
+	.form-inline
+		= hidden_field_tag "product-images","",name:"images"
+		= hidden_field_tag "is_has_picture","#{@ad_banner.ad_banner_picture.present? ? true : false}",name:"is_has_picture" 
+		label.control-label <i>*</i>广告图片：
+		span.help-inline.obvious 注：请采用高清图片，建议采用图片尺寸为：1084 × 338像素
+		.webuploader-wrapper.block-indent
+			.uploader-list.clearfix
+				- if @ad_banner.new_record?
+					.file-item.thumbnail
+						.picker
+							span.add-btn
+				- else
+					- if picture = @ad_banner.ad_banner_picture
+						.file-item.thumbnail data-value="#{picture.id}"
+							span.close.remove-this &times;
+							= image_tag(picture.image.thumb.url)
+			.uploader-btns
+				button.btn.btn-sm.btn-default#upload 开始上传
+	.form-inline.hide-product-div#ad-product-select-div
+		= f.label :product_id,"<i>*</i>对应商品：".html_safe,class:"control-label "
+		input.btn.btn-default#add_product_to_ad type= "button" value="选择商品"
+		= f.label :product_id, "#{@ad_banner.new_record? ? '&nbsp;' : @product_name}".html_safe, class:"show-select-product"
+		= f.hidden_field :product_id, :id => "select-product-id"
+		.activity-box-content#product-content
+		
+
+    .bottom-buttons
+        input.btn.btn-obvious.obvious-primary type="submit" value="#{@ad_banner.new_record? ? '完成创建' : '保存'}"
+        a.btn.btn-obvious.obvious-default href="/backstage/ad_banners/index" 取消
+

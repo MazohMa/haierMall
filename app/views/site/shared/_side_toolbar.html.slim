@@ -1,0 +1,196 @@
+.side-toolbar 
+	.side-icon
+		div.me
+			a href="/site/user/operate/"
+				=image_tag "user-icon.png",{:class=>"side-toolbar-icon"}
+				span 我
+				div.mine
+					p 您好，#{current_user.username}！
+					span.triangle
+		div
+			a href="/site/coupon/"
+				=image_tag "coupon-icon.png",{:class=>"side-toolbar-icon"}
+				span 券
+		div
+			a href="/site/favorite/goods/"
+				=image_tag "favorite-dealer-icon.png",{:class=>"side-toolbar-icon"}
+				span 收藏
+		/ div
+		/ 	a href="/site/favorite/dealer/"
+		/ 		=image_tag "favorite-dealer-icon.png",{:class=>"side-toolbar-icon"}
+		/ 		span 商家 
+		hr style="margin:0 3px;"
+		div.shoppinglist#shoppinglist
+			=image_tag "shop-cart.png",{:class=>"side-toolbar-icon"}
+			span 采购单
+			- if !records.blank? && records.length > 0
+				span.amount-circle-tips #{count_goods_of_records(records)}
+		hr style="margin:0 3px;"
+		div.recently-chat#recently-chat
+			=image_tag "message.png",{:class=>"side-toolbar-icon"}
+			/ span.no-read-num
+		span.gotop
+			| TOP
+			span.triangle
+
+.side-overlay 
+	.side-head 
+		span 采购单
+		=image_tag "del.png",{:style=>"width:30px;cursor:pointer",:id=>"del"}
+	hr style="clear:both;"
+	.side-opt
+		span
+			a href="/site/cart" 查看采购单
+	.side-content
+		- records.each do |item|
+			.content-item
+				.content-name
+					label 
+						input type="checkbox"
+						| #{item[0]}
+				.content-list
+					- item[1].each do |cart_product|
+						.content-list-item
+							.content-left
+								input type="checkbox" data-id="#{cart_product.id}"
+								img src="#{ cart_product.product.pictures.blank?? '/no_image170x170.png' : cart_product.product.pictures.first.image.url(:small) }"
+							.content-right
+								a href="/site/product/details/#{cart_product.product.id}"
+									span #{cart_product.product.title}(#{fmt_taste(cart_product.taste_id).title})
+								input type="hidden" name="taste_id" value="#{cart_product.taste_id}"
+								div
+								    | 数量：
+								    span #{cart_product.num}
+								    input type="hidden" name="num" value="#{cart_product.num}"
+								    input type="hidden" name="min_num" value="#{cart_product.product.wholesales.order("count ASC").first.count}"
+									span.price
+										| ￥
+										label #{sprintf("%0.2f",cart_product.num*(find_product_price(cart_product.product.id,cart_product.num))*Order.find_limit_time_only_discount(cart_product.product_id))}
+	.side-total
+		span.count
+			| 已选商品
+			label 0
+			| 件
+		.price 
+			|商品总价：
+			span
+				| ￥
+				label 0.00
+	= form_tag "/site/cart/update_cart_record", id:"submitCart", style:"display:none;"
+	    = token_field
+		input name="cart_records" value=""
+	.side-bottom#settle 确认结算
+.recently-chat-box
+	.side-head 
+		span 最近对话
+		=image_tag "del.png",{:style=>"width:30px;cursor:pointer",:id=>"close-recently-chat"}
+	hr style="clear:both;"
+	.side-content
+		ul.chat-list
+			li data-senderId="1" data-sender="1"
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+			li
+				.chat-list-left
+					=image_tag "user_head.png"
+				.chat-list-middle
+					p.user-name 翔之鸿食品有限公司
+					p.message 谢谢光临，欢迎再来
+				.chat-list-right
+					p.chat-time 13:10
+					span.no-read-num 2
+
+= render partial: 'shared/chat'
+                
+/暂时保留
+/.web-chat
+/    .chat-box
+/        .chat-head
+/            img.user-img src="#"
+/            span.user-title
+/        .chat-left
+/        	.chat-content
+/        	    .chat-history
+/        	        div.more-history-message
+/        	            a href="javascript:void(0)" 查看更多
+/        	        ul.history-message-list
+/        	    .chat-tools
+/        	        .uploader-img
+/        	    .chat-send-message-box
+/        	        textarea
+/        	.chat-footer
+/        	    button.close-chat 关闭
+/        	    button.send-message 发送
+/        .chat-right 1233
+= content_for(:footer_js)
+	= javascript_include_tag "/aq/jquery.Roc_AQ.min.js" 
+	= javascript_include_tag '/webuploader/webuploader.min.js'

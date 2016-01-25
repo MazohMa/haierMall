@@ -1,0 +1,22 @@
+= content_for(:ad_content)
+    .ad-content-info
+    	.info-title 设置广告位
+    	.info-group
+        	span.ad_location 广告位名：
+            | #{@ad_banner.ad_location.title}
+        .info-group
+        	span.title 广告名：
+            | #{@ad_banner.title}
+        .info-group
+        	span.manufacturer 广告厂商：
+            | #{@ad_banner.manufacturer.name}
+        .info-group
+        	span.color 背景颜色：
+            | #{@ad_banner.color}
+        .info-group
+			span.image 广告图片：
+			img src="#{@ad_banner.ad_banner_picture.image.url}"
+		.info-group.bottom-buttons
+            span
+	        a.btn.btn-obvious.obvious-primary href="/backstage/ad_banners/edit/#{@ad_banner.id}" 编辑
+	        a.btn.btn-obvious.obvious-default href="/backstage/ad_banners/index" 返回

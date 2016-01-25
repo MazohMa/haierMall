@@ -1,0 +1,186 @@
+@import 'variables';
+
+//订单详情
+.order-details{
+	color: #666;
+
+	.info-title{
+		font-size: 15px;
+		color: $base-color;
+	}
+
+	.order-info{
+		margin-bottom: 20px;
+		.discount-info{
+			margin-left: 10px;
+			margin-top: 20px;
+		}
+	}
+
+	.order-num {
+		padding-left: 10px;
+		margin: 0px;
+		height: 35px;
+		line-height: 35px;
+	}
+
+	.order-status {
+		height: 80px;
+		width: 670px;
+		padding: 0px;
+		margin-left: auto;
+		margin-right: auto;
+
+		li{
+			list-style: none;
+			float: left;
+			height: 80px;
+		}
+
+		.current-arrow,.not-current-arrow{
+			width: 188px;
+		}
+
+		.current-arrow{
+			background: image_url('web-02.png') no-repeat center 18px;
+		}
+
+		.not-current-arrow{
+			background: image_url('web-03.png') no-repeat center 18px;
+		}
+
+		.current-round,.not-current-round{
+			width: 52px;
+		}
+
+		.current-round{
+			background: image_url('web-05.png') no-repeat -8px 18px;
+		}
+
+		.not-current-round{
+			background: image_url('web-04.png') no-repeat -8px 18px;
+		}
+	}
+
+	.buyer-info {
+		padding-bottom: 20px;
+		border-top: 1px solid $gray-color;
+		border-bottom: 1px solid $gray-color;
+
+		p{
+			margin-bottom: 0px;
+			margin-left: 10px;
+		}
+	}
+
+	.product-info {
+		p {
+			margin: 0px;
+			padding-left: 10px;
+			height: 35px;
+			line-height: 35px;
+		}
+	}
+
+	.order-comment{
+		margin: 20px;
+	}
+
+	.stars{
+		height: 42px;
+		line-height: 42px;
+		margin-bottom: 10px;
+
+		.star{
+			float: left;
+			width: 42px;
+			height: 42px;
+		}
+		.star-solid{
+			background: image_url('icon_score_2.png') no-repeat;
+		}
+
+		.star-hollow{
+			background: image_url('icon_score_1.png') no-repeat;
+		}
+	}
+
+	.comment{
+		width: 680px;
+		height: 60px;
+	}
+
+	.list {
+		margin-left: 10px;
+		li{
+			min-width: 25%;
+			float: left;
+			margin-top: 20px;
+		}
+	}
+
+	.times{
+		margin-left: 116px;
+		margin-top: -10px;
+		margin-bottom: 20px;
+
+		span{
+			display: inline-block;
+			width: 130px;
+		}
+		span + span {
+			margin-left: 56px;
+		}
+	}
+
+	table{
+		width: 100%;
+	}
+
+	thead{
+		// background-color: #ccc;
+	}
+
+	th,td{
+		padding: 10px;
+		border: 1px solid $gray-color;
+		text-align: center;
+	}
+
+	th.product-name{
+		width: 300px;
+	}
+
+	td.product-name{
+		text-align: left;
+	}
+}
+
+//订单表格
+.orders_grid {
+	th{
+		&.order_num{
+			text-align: center;
+		}
+	}
+
+	td{
+		padding-right: 20px;
+	}
+
+	.order_num{
+		width: 168px;
+	}
+
+	.snapshoot_products{
+		width: 300px;
+	}
+
+	.buyer{
+		width: 190px;
+	}
+
+	.created_at{
+		width: 130px;
+	}
+}

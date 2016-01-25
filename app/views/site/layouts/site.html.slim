@@ -1,0 +1,110 @@
+doctype 5
+html lang='zh_CN'
+	head
+		title 掌上阅冰订购网站
+		meta charset="utf-8"
+	    meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE"
+		= stylesheet_link_tag 'site', media: 'all'
+		= csrf_meta_tags
+	body id="#{controller_name}-#{action_name}"
+	.header
+		- if @show_side_toolbar
+			= render partial: 'site/shared/side_toolbar',locals: {records:find_cart_records()}
+		.site-nav
+			.site-operations
+				.operations-left
+					li
+						a href="/" 商城首页
+					li
+						a href="http://hereice.com/" 资产管理
+					/ .dropdown
+					/ 	a href="#" 
+					/ 		|掌上阅冰
+					/ 		span.caret
+					/ 	.qrcode-lg
+					/ 		=image_tag "u795.png"
+					/ 		span.qrcode-text 手机掌上阅冰，为你而生
+				ul.operations-right
+					li 
+						- if current_user.blank?
+							a href="/users/sign_in" 登录
+						- else
+							- if current_user.role == "dealer"
+								a #{current_user.dealer.company_name unless current_user.dealer.blank?}
+							- else
+								- if current_user.role == "shop_owner"
+									a #{current_user.shop_owner.company_name unless current_user.shop_owner.blank?}
+								- else
+									a #{current_user.mobile}
+					li
+						- if current_user.blank?
+							a href="/users/sign_up" 注册
+						- else
+							a href="/users/sign_out" 注销
+					li.dropdown
+						a href="/site/orders/order_list/"
+							|我的订单
+							span.caret
+						ul.menu-list
+							li
+								a href="/site/orders/order_list/" 已买到的商品
+							li
+								a href="/site/comment/" 评价商品
+					li.dropdown
+						a href="/site/favorite/goods/"
+							|我的收藏
+							span.caret
+						ul.menu-list
+							li
+								a href="/site/favorite/goods/" 收藏的商品
+							/ li
+							/ 	a href="/site/favorite/dealer/" 收藏的经销商
+					- if !current_user.blank? && current_user.role == "dealer" && current_user.string == "审核通过"
+						li.dropdown
+							a href="/backstage/home/index" 进入卖家中心
+					- elsif !current_user.blank? && current_user.role == "admin"
+						li.dropdown
+							a href="/backstage/admin_messages/list" 进入管理后台
+								
+					li
+						a href="/site/user/message/"
+							| 消息通知
+						-if no_read_in_message_center > 0
+							- if no_read_in_message_center > 99
+								span.message-noti-tips 99+
+							- else
+								span.message-noti-tips #{no_read_in_message_center}
+					/ li.dropdown
+					/ 	a href="#"
+					/ 		|客户服务
+					/ 		span.caret
+					/ 	ul.menu-list
+					/ 		li
+					/ 			a href="javascript:void(0)" 联系客服
+					/ 		li
+					/ 			a href="javascript:void(0)" 帮助中心
+		.logo-line
+			.logo-line-content
+				= yield(:logo_line)
+		= yield(:nav_top)
+		
+	.content.clearfix
+		= yield(:content)
+	.footer
+		= render 'shared/footer'
+
+= javascript_include_tag 'site'
+= javascript_include_tag "/validate/jquery.validate.min.js" 
+= yield(:footer_js)
+
+
+
+
+
+
+
+
+
+
+
+

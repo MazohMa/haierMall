@@ -1,0 +1,117 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.my-order
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.nav
+				a.nav-btn.btn-group class="#{'active' if params[:status].blank?}" href="/site/orders/order_list" 所有订单
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '0'}" href="/site/orders/order_list/0"
+						| 待付款
+						label #{@count_by_list[0]}
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '1'}" href="/site/orders/order_list/1"
+						| 待发货
+						label #{@count_by_list[1]}
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '2'}" href="/site/orders/order_list/2"
+						| 待收货
+						label #{@count_by_list[2]}
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '3'}" href="/site/orders/order_list/3"
+						| 待评价
+						label #{@count_by_list[3]}
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '4'}" href="/site/orders/order_list/4"
+						| 已评价
+						label #{@count_by_list[4]}
+				a.nav-btn.btn-group class="#{'active' if params[:status] == '5'}" href="/site/orders/order_list/5"
+						| 已取消
+						label #{@count_by_list[5]}
+			.order-list
+				table.cart-list-header
+					colgroup
+						col width="30%" 
+						col width="10%"
+						col width="10%" 
+						col width="10%"
+						col width="15%"
+						col width="15%"
+						col width="10%"
+					thead
+						tr
+							th 商品
+							th 单价（元）
+							th 数量
+							th 实付款（元）
+							th 下单时间					
+							th 交易详情
+							th 交易操作
+				.cart-item
+					- @order_list.each do |item|
+						.cart-item-header
+							span 订单号：#{item.order_num}
+							a #{item.snapshoot_products.first.nil? ? '--':item.snapshoot_products.first.dealer}
+							= image_tag "icon_call_1.png",class:"contact-merchant"
+						.cart-item-content
+							table.product-table
+								colgroup
+									col width="50%" 
+									col width="10%"
+									col width="15%"
+									col width="15%"
+									col width="10%" 
+								tbody
+									tr
+										td
+											table
+												colgroup
+													col width="300px" 
+													col width="100px"
+													col width="20%"
+												tbody
+													- item.snapshoot_products.each do |sna_product|
+														tr
+															td.text-left
+																.product-info
+																	a.order-product-link href="/site/product/details/#{sna_product.product_id}"
+																		img.product-img src="#{sna_product.picture == nil ? '/no_image310x320.png' : (sna_product.picture.image.middle.url)}"
+																	p.product-text 
+																		a.order-product-link.product-title href="/site/product/details/#{sna_product.product_id}" title="#{sna_product.brand} #{sna_product.title}(#{sna_product.taste})" #{sna_product.brand} #{sna_product.title}(#{sna_product.taste})
+																		span 包装规格：
+															td  
+																-if sna_product.order_product_discount.present?
+																	del #{sna_product.order_product_price}
+																	| #{sna_product.order_product_discount}
+																-else
+																	|#{sna_product.order_product_price}
+
+															td #{sna_product.order_product_num}
+										td
+											| ￥#{item.actual_price}
+											| <br>
+											| 货到付款
+										td
+											| #{item.created_at.strftime("%Y-%m-%d")}
+											| <br>
+											| #{item.created_at.strftime("%H:%M:%S")}
+										td 
+											a href="/site/orders/order_details?id=#{item.id}" 订单详情
+										td															
+											- if item.status_for_now == 0  
+														a href="/site/orders/o_order_info?id=#{item.id}" 付款 
+														<br>
+														a.cancel_order data-value="#{item.id}" 取消订单 
+														<br>
+											- if item.status_for_now == 1 || item.status_for_now == 2 || item.status_for_now == 3 || item.status_for_now == 4 
+														a.shop_again data-value="#{item.id}" 再次购买	 
+														<br>
+											- if item.status_for_now == 2
+														a.receivie_order data-value="#{item.id}" 确认收货 
+														<br>
+											- if item.status_for_now == 3
+														a.comment_order href="/site/comment?order_id=#{item.id}" 评价 
+														<br>
+											- if item.status_for_now == 4 || item.status_for_now == 5
+														a.delete_order data-value="#{item.id}" 删除 
+														<br>
+
+
+				= render partial: 'shared/pagination',locals: {assets: @order_list}

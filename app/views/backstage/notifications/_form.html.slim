@@ -1,0 +1,36 @@
+= form_for @notification,{:url=>@notification.new_record?? backstage_notifications_create_path : backstage_notifications_update_path,:html=>{:class=>'resource-form border-form notification-form',:id=>"notification-form"}} do |f|
+    - if @notification.status.to_i == 1
+        .overlay
+    = f.hidden_field :id
+    .form-group
+        = f.label :title,"<i>*</i>标题：".html_safe,class:"control-label"
+        = f.text_field :title,class:"lg"
+    .form-group
+        = f.label :notification_type,"<i>*</i>类型：".html_safe,class:"control-label"
+        = f.radio_button :notification_type,"资讯活动",:checked=>@notification.notification_type.blank? || @notification.notification_type == '资讯活动'
+        = label_tag :type_1,"资讯活动",class: "radio-label"
+        = f.radio_button :notification_type,"站内通知",:checked=>@notification.notification_type == '站内通知'
+        = label_tag :type_2,"站内通知",class: "radio-label"
+        = f.radio_button :notification_type,"积分优惠",:checked=>@notification.notification_type == '积分优惠'
+        = label_tag :type_3,"积分优惠",class: "radio-label"
+    .form-group
+        = f.label :receiver_scope,"<i>*</i>推送对象：".html_safe,class: "control-label"
+        = f.radio_button :receiver_scope,"0",:checked=>(@notification.receiver_scope.blank? || @notification.receiver_scope.to_i == 0)
+        = label_tag :receiver_0,"所有用户",class: "radio-label"
+        = f.radio_button :receiver_scope,"1"
+        = label_tag :receiver_1,"采购商",class: "radio-label"
+        = f.radio_button :receiver_scope,"2"
+        = label_tag :receiver_2,"供应商",class: "radio-label"
+    .form-group
+        = f.label :content,"<i>*</i>内容：".html_safe,class: "control-label pull-left"
+        .ueditor-wrapper
+            = f.hidden_field(:content)
+            = f.hidden_field(:content_text)
+            <!-- 加载编辑器的容器 -->
+            script id="ueditor-container" name="content" type="text/plain"
+    .content-error-container
+    .bottom-buttons
+        = f.hidden_field :status
+        input.btn.btn-obvious.obvious-primary#push-btn type="submit" value= "保存并推送"
+        input.btn.btn-obvious.obvious-outline#save-btn type="submit" value= "保存"
+        a.btn.btn-obvious.obvious-default href="/backstage/notifications" 取消

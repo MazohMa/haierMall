@@ -1,0 +1,21 @@
+- @page_title = title (@role.new_record? ?  '添加角色': '修改角色')
+- @page_title_icon = 'add_admin_title'
+- if @role.new_record?
+  - breadcrumb [{url: roles_path, label: '角色列表'}, '创建角色']
+- else
+  - breadcrumb [{url: roles_path, label: '角色列表'},{url: role_path(@role.id), label: @role.name}, '编辑']
+
+= simple_form_for @role, :url => (@role.new_record? ? roles_path : role_path(@role)) do |f|
+  .add_info_box
+    .add_info_box_title 权限信息
+    .add_info_box_content
+      = f.input :name
+      = f.input :server_abilities,collection: @current_user.owner_server_abilities,value: ["1"], as: :check_boxes, item_wrapper_class: "ability_label checkbox-inline", checked: @role.server_abilities_as_arr   
+      = f.input :mobile_abilities,collection: @current_user.owner_mobile_abilities, as: :check_boxes, item_wrapper_class: "ability_label checkbox-inline", checked: @role.mobile_abilities_as_arr
+      = f.input :remark, as: :text, input_html: {rows: 5}
+  .add_info_btn_box
+    = f.submit (@role.new_record? ? '创建' : '修改'), class: 'distribution_submit add_info_btn' ,disable_with: '保存中，请稍等...'
+
+
+- content_for :footer_js do
+      = javascript_include_tag '/js/role_checkall.js'

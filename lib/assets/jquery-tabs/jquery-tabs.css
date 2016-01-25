@@ -1,0 +1,36 @@
+
+.tabs{
+	margin: 0px;
+	height: 40px;
+	padding: 0px;
+	background-color: #0491e3;
+}
+
+.tab-item{
+	float: left;
+	list-style: none;
+	color:#fff;
+	text-align: center;
+}
+
+.tab-item .active{
+	background-color: #0a6dc4;
+}
+
+.tab-item a{
+	height: 40px;
+	padding-left: 40px;
+	padding-right: 40px;
+	color: inherit;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 40px;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.tab-content{
+	background-color: #fff;
+
+}
+

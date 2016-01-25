@@ -1,0 +1,21 @@
+zh_cn:
+
+  api:
+    mess:
+      invalidate_request: 非法请求
+      invalidate_post_request: 非法操作
+      invalidate_params: 非法参数
+      something_wrong_try_again: 网络异常请重试
+      user_not_exist: 用户不存在
+
+  admin:
+    mess:
+      create_successfully: 添加成功
+      fail_to_create: 添加失败
+      update_successfully: 修改成功
+      fail_to_update: 修改失败
+      destroy_successfully: 删除成功
+      fail_to_destroy: 删除失败
+      destroying: '后台正在删除中...'
+      doing: '后台程序正在努力处理中，需要一点时间，请稍后...'
+      send_message_successfully: '站内信发送成功'

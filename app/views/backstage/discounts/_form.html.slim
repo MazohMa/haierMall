@@ -1,0 +1,57 @@
+= form_for @discount,{:url=>@discount.new_record? ? backstage_discounts_create_path : backstage_discounts_update_path,:html=>{:class=>"resource-form discount-form",:id=>'discount-form'}} do |f|
+    p.form-title 设置限时打折
+    .form-group
+        = f.hidden_field :id
+        = f.label :title,"<i>*</i>促销名称：".html_safe,class:"control-label"
+        = f.text_field :title,class:"lg"
+        = f.hidden_field :activity_product_ids,id:'products'
+        input#products-json type="hidden" value="#{@selected_products.to_json if !@selected_products.blank?}"
+    div.activity-box#step-one-box
+        .activity-box-header
+            span 第一步 设置促销时段
+        .activity-box-content
+            .form-group
+                = f.label :validity_time,"开始时间："
+                = f.text_field :validity_time,class:"md",id:"validity-time"
+            .form-group
+                = f.label :invalidity_time,"结束时间："
+                = f.text_field :invalidity_time,class:"md",id:"invalidity-time"        
+
+    div.activity-box
+        .activity-box-header
+            span 第三步 设置限时打折
+        .activity-box-content
+            .form-inline
+                span 批量设置：
+                .form-group
+                    = f.label :discount,"限时折扣"
+                    = f.text_field :discount,class:"sm",id:"discount"
+                    span.follow-text 折
+                / .form-group
+                /     = f.label :max_nums,"每人限购"
+                /     = f.text_field :max_nums,class:"sm",id:"limit-num"
+                /     span.follow-text 件
+            table.selected-product-grid
+                thead
+                    tr
+                        th.name 商品
+                        th.wholeasales 价格
+                        th.discount 折扣
+                        th.discount-price 折后价
+                        / th.limit-num 每人限购
+                        th.operator 操作
+                tbody#selected-product-tbody
+                    tr.no-data
+                        td colspan="100%" ——
+    span#no-product-error
+    div.bottom-buttons
+        input.btn.btn-obvious.obvious-primary#submit-btn type="submit" value="完成设置"
+        / input.btn.btn-obvious.obvious-outline type="button" value="预览"
+        a.btn.btn-obvious.obvious-default href="/backstage/discounts" 取消
+
+/html不允许嵌套form,同时为了解决表单验证的问题
+div.activity-box#step-two-box
+    .activity-box-header
+        span 第二步 选择宝贝
+    .activity-box-content#step-two-content
+        

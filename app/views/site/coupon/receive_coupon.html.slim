@@ -1,0 +1,36 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.receive-coupon
+		- if @coupons.count > 0
+			- @list_coupon.each do |coupon|
+				.dealer-company-name 优惠券领取（#{coupon.first }）
+				ul.coupon-list
+					- coupon.last.each do |item|
+						li
+							.coupon-upper
+								p.discount-money
+									span.price-symbol ￥
+									span.amount #{item.price}
+									span.scope 优惠券
+								p
+									label.lb-use-cond 使用条件：
+									span.use-cond #{get_condition_usage(item)}
+								p
+									label.lb-valid-date 有效时间：
+									span.valid-date #{item.validity_time.strftime("%Y-%m-%d") if !item.validity_time.blank? }至#{item.invalidity_time.strftime("%Y-%m-%d") if !item.invalidity_time.blank?}
+								p.soon-receive
+									a href="javascript:void(0)" data-id="#{item.id}" 立即领取
+								- if current_user.user_get_coupon_informations.where(:coupon_id => item.id).count >= item.user_get_quantity  && item.user_get_quantity > 0
+									.have-received
+										= image_tag("received.png")
+								- elsif current_user.user_get_coupon_informations.where(:coupon_id => item.id).count > 0 && item.nums <= item.received_num
+									.have-received
+										= image_tag("received.png")
+								- elsif item.nums <= item.received_num
+									.have-received
+										= image_tag("received_all.png")
+			= render partial: 'shared/pagination',locals: {assets: @coupons}
+		- else
+			p.empty-coupon
+				| 对不起!暂无优惠券哦!

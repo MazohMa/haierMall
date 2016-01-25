@@ -1,0 +1,207 @@
+doctype 5
+html lang='zh_CN'
+	head
+		title 掌上阅冰管理平台
+		meta charset="utf-8"
+	    meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE"
+		= stylesheet_link_tag 'backstage', media: 'all'
+		= csrf_meta_tags
+	body id="#{controller_name}-#{action_name}" class="user-setting"
+		= render ('backstage/shared/header')
+		.content-wrapper
+			.head-content
+				a href="/backstage/home/index" <&nbsp;&nbsp;返回平台
+			.main-content
+				.setting-title 账号信息
+				span.operate-edit title="编辑"
+				.last-login-time 上&nbsp;次&nbsp;登&nbsp;录：&nbsp;#{@user.last_sign_in_at.strftime("%Y-%m-%d %H:%M:%S")}
+				.login-mobile 登&nbsp;录&nbsp;手&nbsp;机：&nbsp;#{@user.mobile}
+				= form_tag("/backstage/user/update_account_information",method:'post',id:"update-account-info")
+					ul.setting-list
+						li
+							.list-title
+								span.title 个人资料
+								span.content #{@dealer.user_name}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list
+								li
+									span.row-title 姓名：
+									span.row-content
+										input value="#{@dealer.user_name}" name="username"
+								/li
+									/span.row-title 性&nbsp;&nbsp;&nbsp;&nbsp;别：
+									/span.row-content
+										/label
+											/input type="radio" name="sex" value=""
+											/| 男
+										/label
+											/input type="radio" name="sex" value="" checked="checked"
+											/| 女
+						/li
+							/.list-title
+								/span.title 帐号密码
+								/span.content
+									/div.password
+										/span 强度：
+										/label.focus-text 中
+										/label.password-tips 建议您定期更换密码，且设置一个包含数字和字母，并长度超过6位以上的密码。
+								/button.change-password 修改密码
+						li
+							.list-title
+								span.title 公司名称
+								span.content #{@dealer.company_name}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list
+								li
+									span.row-title 更改名称：
+									span.row-content
+										input value="#{@dealer.company_name}" name="company_name"
+						li
+							.list-title
+								span.title 公司地址
+								span.content #{@dealer.user_address}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list
+								li
+									span.row-title 地址：
+									span.row-content
+										input value="#{@dealer.user_address}" class="address" name="address"
+						li
+							.list-title
+								span.title 配送区域
+								span.content
+									ul
+										- @delivery_areas.each_with_index do |delivery_area,index| 
+											li 区域#{index+1}   #{delivery_area.province_name}/#{delivery_area.city_name}/#{delivery_area.district_name}&nbsp;&nbsp;(省/市/区)
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list.distribution-area-list
+								- @delivery_areas.each_with_index do |delivery_area,index|
+									li
+										span.row-title 配送区域#{index+1}：
+										span.row-content
+											label.distribution-area-item
+												| #{delivery_area.province_name} &nbsp;&nbsp;&nbsp;&nbsp;
+												| #{delivery_area.city_name}&nbsp;&nbsp;&nbsp;&nbsp;
+												| #{delivery_area.district_name}
+												| &nbsp;&nbsp;(省/市/区)
+											button.delete-distribution-area data-id="#{delivery_area.id}" 删除
+							input type="hidden" name="deleteDistributionArea"
+							ul.sub-setting-list.add-distribution-area-list
+								li.add-item
+									span.row-title 新增区域1：
+									span.row-content
+										| 省：
+										select.province name="distribution[0]province"
+										| 市：
+										select.city name="distribution[0]city"
+										| 区：
+										select.area name="distribution[0]area"
+										button.add-distribution-area type="button" 添加
+										button.delete-new-distribution-area 删除
+						li
+							.list-title
+								span.title 联系邮箱
+								span.content #{@dealer.user_email}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list
+								li
+									span.row-title 当前邮箱：
+									span.row-content #{@dealer.user_email}
+								li
+									span.row-title 新邮箱：
+									span.row-content
+										input value="#{@dealer.user_email}" name="email"
+						li
+							.list-title
+								span.title 座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机
+								span.content #{@dealer.user_phone}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list.phone-list
+								li
+									span.row-title 座机：
+									span.row-content
+										input value="#{@dealer.user_phone}" name="phone"
+										/input value="086" class="country-code"
+										/| &nbsp;&nbsp;-&nbsp;&nbsp;
+										/input value="0755" class="area-number"
+										/| &nbsp;&nbsp;-&nbsp;&nbsp;
+										/input value="84120000" class="phone-number"
+										/button.add-phone 添加
+										/button.delete-phone 删除
+						li
+							.list-title
+								span.title 传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真
+								span.content #{@dealer.user_fax}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list.phone-list
+								li
+									span.row-title 传真：
+									span.row-content
+										input value="#{@dealer.user_fax}" name="fax"
+						li
+							.list-title
+								span.title 代理厂商
+								span.content #{@dealer.user_manufacturer}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list.manufacturers-box
+								li
+									span.row-title 代理厂商：
+									span.row-content.manufacturers
+										- @dealer_manufacturers.each do |item|
+											a href="javascript:void(0)"
+												span.manufacturer-name #{item}
+												label.detele-manufacturer 一
+										span.add-manufacturer
+											button type="button"
+												em +
+										- if @dealer_manufacturers.length > 0
+												label.error.tips-manufacturers
+										- else
+												label.error.tips-manufacturers 请选择代理厂商
+									input type="hidden" name="manufacturers" value=""
+
+						li
+							.list-title
+								span.title 认证信息
+								span.content #{current_user.string}
+								/button.operate 编辑
+								/button.pack-up 收起
+							ul.sub-setting-list.manufacturers-box
+								li
+									span.row-title 认证信息：
+									span.row-content.authorization
+										span.authorization-text #{current_user.string}
+										- if !current_user.user_authorization_pics.first.blank?
+											/ img src="http://placehold.it/150x100"
+											img src="#{current_user.user_authorization_pics.first.image.url}"
+									
+						li.operate-group
+							button.cancle type="button" onclick="window.location.href = window.location.href;" 取消
+							button.save-info type="submit" 保存
+					.add-manufacturer-box
+						.manufacturer-box
+							.box-hd
+								| 请选择新厂商（可多选）
+								label.close-box ×
+							.box-bd
+								.manufacturer-list
+									- @manufacturers.each do |item|
+										span #{item.name}
+								.other-manufacturer
+									| 其他：
+									input type="text" name="otherManufacturer"
+							.box-ft
+								button.cancle type="button" 取消
+								button.sure type="button" 确定
+		.footer
+			= render 'shared/footer'
+
+		= javascript_include_tag 'backstage'

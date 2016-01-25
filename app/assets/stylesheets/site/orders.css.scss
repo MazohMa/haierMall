@@ -1,0 +1,621 @@
+// Place all the styles related to the site::orders controller here.
+// They will automatically be included in site.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import '_variables';
+
+//立即订购
+.address-box,.order-box,.payment-bo {
+	width: $content-width;
+	.header {
+		padding:10px 15px;
+		border-bottom:#ccc 2px solid;
+		font-size:20px;
+		font-weight:bolder;
+	}
+}
+
+.address-box{
+	.btn{
+		padding:0;
+		font-size: 16px;
+		outline-color: transparent;
+		background-color:transparent;
+		color:$color-base;
+		text-decoration:underline;
+	}
+	.btn + .btn {
+		margin-left:20px;
+	}
+	.information {
+		padding:10px 20px 30px 20px;
+		label.error-msg {
+			margin-left:5px;
+			color:$color-error;
+		}
+	}
+	ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+		margin-right:-10px;
+		overflow:hidden;
+		li {
+			position:relative;
+			float:left;
+			display:inline-block;
+			width:240px;
+			padding:10px 10px 25px 10px;
+			margin:10px;
+			border:#ccc 3px solid;
+			color:#666;
+			font-size:16px;
+			cursor:pointer;
+			-webkit-border-top-right-radius: 20px;
+			-moz-border-top-right-radius: 20px;
+			-ms-border-top-right-radius: 20px;
+			-o-border-top-right-radius: 20px;
+			border-top-right-radius: 20px;
+			-webkit-border-bottom-left-radius: 20px;
+			-moz-border-bottom-left-radius: 20px;
+			-ms-border-bottom-left-radius: 20px;
+			-o-border-bottom-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+			&:hover,&.active {
+				border-color:$color-base;
+			}
+			.addr-hd {
+				padding-bottom:5px;
+				margin-bottom:5px;
+				border-bottom:#ccc thin solid;
+				.addr-telephone {
+					float:right;
+					line-height:25px;
+				}
+			}
+			.addr-bd {
+				min-height:65px;
+				span {
+					display:inline;
+					margin-right: 3px;
+					word-break: break-all;
+					word-wrap: break-word;
+				}
+				.addr-address {
+					display:inlinblock;
+					min-height:65px;
+				}
+				.operate {
+					position:absolute;
+					bottom:2px;
+					left:20px;
+					a {
+						font-size:14px;
+						color:#666;
+						&:hover {
+							color:$color-base;
+						}
+					}
+					a + a {
+						margin-left:10px;
+					}
+				}
+				.set-default {
+					a {
+						font-size:14px;
+						color:#aaa;
+						cursor:pointer;
+						&:hover {
+							color:$color-base;
+						}
+					}
+				}
+			}
+			.default-addr {
+				position:absolute;
+				bottom:0;
+				right:0;
+				display:inline-block;
+				padding:2px 5px;
+				font-size:12px;
+				background-color:rgba(200,200,200,.3);
+			}
+		}
+	}
+}
+.payment-box {
+	.information {
+		padding:10px 20px 30px 30px;
+		ul{
+			list-style:none;
+			margin:0;
+			padding:0;
+			li {
+				padding:10px 15px;
+				border-bottom:#ccc thin solid;
+				font-size:16px;
+				height:30px;
+				line-height:30px;
+				label {
+					display:inline-block;
+					width:135px;
+					margin-left:15px;
+					img {
+						vertical-align: middle;
+					}
+				}
+				span {
+					color:#aaa;
+				}
+			}
+		}
+	}
+}
+.order-box{
+	padding-bottom: 10px;
+	overflow:hidden;
+	.order-summary{
+		float: right;
+		text-align: right;
+		border:$color-outstanding 2px solid;
+		padding: 10px 10px 10px 30px;
+		min-width:300px;
+		ul{
+			list-style:none;
+			margin:0;
+			padding:0;
+			li{
+				font-size:14px;
+				color:#666;
+				margin-bottom:10px;
+				&.paid {
+					em {
+						font-style: normal;
+						font-size:22px;
+						font-weight:bolder;
+					}
+					span {
+						font-size:22px;
+						font-weight:bolder;
+						color:$color-outstanding;
+					}
+				}
+				&.address,&.user {
+					span{
+						font-weight:bolder;
+						color:#333;
+					}
+				}
+			}
+			// li+li {
+			// 	margin:0;
+			// }
+		}
+	}
+	input[type='checkbox'] {
+		display:none;
+	}
+	.pay-btn-group {
+		clear:right;
+		overflow:hidden;
+		.btn-submit {
+			float: right;
+			display:inline-block;
+			padding: 5px 60px;
+			color: #fff;
+			font-size: 22px;
+			background-color: $color-outstanding;
+			outline:none;
+			cursor: pointer;
+		}
+		.temporary-no-pay {
+			float:right;
+			display:inline-block;
+			padding:5px 10px;
+			line-height:36px;
+			cursor: pointer;
+			margin-right:20px;
+			font-size:18px;
+			color:$color-base;
+			text-decoration:underline;
+			&:hover {
+				color:#0a6dc4;
+			}
+		}
+	}
+	.order-discount {
+		border:#ccc thin solid;
+		padding:10px;
+		margin-bottom:10px;
+		.discount-full-box,.discount-coupon-box {
+			display:inline-block;
+			width:48%;
+			vertical-align: top;
+			.full-text,.coupon-text {
+				font-weight:bolder;
+				display: inline-block;
+				width: 100px;
+			}
+			ul {
+				list-style:none;
+				li {
+					padding:5px 0;
+					input,label {
+						display:inline;
+						vertical-align:middle;
+					}
+					label + label {
+						margin-left:20px;
+					}
+				}
+			}
+		}
+		.show-full,.show-coupon {
+			margin-left:20px;
+			color:$color-base;
+		}
+		
+		.use-coupon-list,.use-full-list {
+			display:none;
+		}
+		.use-coupon-list.active,.use-full-list.active {
+			display:block;
+		}
+
+	}
+
+}
+
+
+
+//订单提交成功
+
+.order-info-box {
+	.message {
+		padding: 20px 0;
+		text-align: center;
+		p {
+			margin: 0px;
+		}
+		p + p {
+			margin-top: 10px;
+			font-size: 14px;
+		}
+		.em{
+			color:$color-base;
+			font-size: 20px;
+			font-weight: bolder;
+		}
+	}
+	.order-info {
+		.header {
+			padding: 10px 15px;
+			border-bottom: #ccc 2px solid;
+			font-size: 20px;
+			font-weight: bolder;
+		}
+		.information {
+			padding:10px 20px 30px 30px;
+			font-weight: bold;
+			ul>li>label {
+				display: inline-block;
+				width:100px;
+				color:#aaa;
+				font-weight:normal;
+			}
+			ul{
+				list-style:none;
+				margin:0;
+				padding:0;
+				li {
+					padding:5px 10px;
+					span {
+						font-size: 14px;
+						span.address {
+							margin-left:25px;
+						}
+
+					}
+					.paid {
+						font-size:22px;
+						font-weight: bolder;
+						color: $color-outstanding;
+						em {
+							color:#666;
+							font-style:normal;
+						}
+					}
+					.address{
+
+					}
+					.discount-info {
+						color: $color-outstanding;
+					}
+					span.discount-info + span.discount-info {
+						margin-left:10px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.best-seller-header{
+	padding: 10px 15px;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.best-seller-content{
+	padding-left: 20px;
+
+	border: 1px solid #ddd;
+	.product-wrapper{
+		margin: 20px 15px 20px 0px;
+	}
+}
+
+.store-selector {
+	position: relative;
+	display: inline-block;
+	margin-left:-4px;
+	a {
+		text-decoration: none;
+	}
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	.content {
+		display: none;
+		width: 360px;
+		min-width: 330px;
+		position: absolute;
+		top: 30px;
+		left: 0;
+		font-size: 12px;
+		background-color: #fff;
+		border:#ccc thin solid;
+		padding:5px;
+	}
+	.content>.close {
+		position: absolute;
+		top: -10px;
+		right: -10px;
+		width: 20px;
+		height: 20px;
+		background-color: #ddd;
+		text-align: center;
+		line-height: 20px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-ms-border-radius: 10px;
+		-o-border-radius: 10px;
+		border-radius: 10px;
+		font-size: 20px;
+		color: #fff;
+		cursor: pointer;
+		opacity:1;
+	}
+	ul.tab {
+		border-bottom: #ccc thin solid;
+		padding-left: 20px;
+	}
+	ul.tab>li {
+		display: inline-table;
+		background-color: #fff;
+	}
+	ul.tab>li.active {
+		border: #ccc thin solid;
+		margin-bottom: -1px;
+		border-bottom-color: transparent;
+	}
+	ul.tab>li>a{
+		display: inline-block;
+		width: 70px;
+		padding: 5px 2px;
+		text-align: center;
+	}
+	.mc {
+		display: none;
+		padding: 20px;
+	}
+	.mc.active {
+		display: block;
+	}
+	.mc>.area-list {
+		overflow: hidden;
+	}
+	.mc>.area-list>li {
+		display: inline-block;
+		float: left;
+		width: 105px;
+		padding: 5px 0;
+		text-align: left;
+	}
+	.mc>.area-list>li>a {
+		padding: 2px 3px;
+	}
+	.mc>.area-list>li.active>a {
+		color: #fff;
+		background-color: #ff4a00;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		-ms-border-radius: 2px;
+		-o-border-radius: 2px;
+		border-radius: 2px;
+	}
+}
+//我的订单
+.my-order {
+	.right {
+		.nav {
+			line-height:35px;
+			span {
+				display:inline-block;
+				a {
+					display:block;
+					width:130px;
+					height:35px;
+					line-height:35px;
+					font-size:18px;
+					text-align:center;
+					cursor:pointer;
+				}
+				&:hover>a,&.active>a {
+					color:#fff;
+					background-color:$color-base;
+				}
+			}
+			span + span,span:first-of-type {
+				border-right:#ccc thin solid;
+			}
+		}
+		.order-list {
+			margin-top:10px;
+			th>select {
+				background-color:#6DBFF7;
+				border:none;
+				outline:none;
+				cursor:pointer;
+			}
+			.cart-item {
+				.cart-item-header {
+					background-color:$color-base;
+					span {
+						font-size:14px;
+						color:#fff;
+					}
+					a {
+						margin-left:20px;
+						font-size:14px;
+						color:#fff;
+					}
+					.contact-merchant {
+						vertical-align:middle;
+						margin-left:5px;
+						width:23px;
+						height:17px;
+					}
+				}
+
+				.cart-item-content{
+					margin-bottom: 20px;
+				}
+
+				.product-table {
+					td {
+						padding:0;
+						border:#ccc thin solid;
+						td {
+							padding:10px;
+							border:none;
+						}
+						&>p {
+							margin:5px 0;
+						}
+						a {
+							cursor:pointer;
+						}
+					}
+					.product-title {
+						display: inline-block;
+						margin-left:5px;
+						max-width:190px;
+					}
+				}
+			}
+		}
+	}
+}
+
+//订单详情
+.order-details {
+	border:#ccc thin solid;
+	p {
+		margin: 8px 0;
+	}
+	.order-abstract,.order-tracking,.order-content,.seller-info,.order-details-content {
+		margin:0 15px;
+		padding: 5px 0;
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+	}
+	.order-tracking,.seller-info,.order-details-content {
+		border-top:#ccc thin solid;
+	}
+	.order-abstract {
+		.order-status {
+			margin-left: 20px;
+			label {
+				color:#FD9A00;
+			}
+		}
+
+		.comment-link{
+			color: $color-base;
+			&:hover{
+				text-decoration: underline;
+			}
+		}
+	}
+	.order-tracking {
+		li {
+			padding: 5px 0;
+		}
+	}
+	.order-info-content {
+		.order-title {
+			height: 35px;
+			line-height: 35px;
+			background-color: #EFEFEF;
+			padding: 5px 15px;
+			margin-top: 20px;
+			span {
+				margin-left: 20px;
+			}
+		}
+	}
+	.seller-info {
+		.block-box {
+			display: inline-block;
+			span {
+				margin-left: 10px;
+			}
+
+		}
+		.block-box + .block-box{
+			margin-left: 30px;
+		}
+	}
+	.order-details-content {
+		.block-box {
+			display: inline-block;
+			width: 25%;
+
+		}
+		.goods-information {
+			thead {
+				background-color: #EFEFEF;
+			}
+		}
+	}
+	.pay-info {
+		margin: 0 15px;
+		p {
+			text-align: right;
+		}
+		.pay-money {
+			font-size: 18px;
+			.money {
+				color: $color-outstanding;
+				font-size: 24px;
+				font-weight: bolder;
+			}
+		}
+	}
+}

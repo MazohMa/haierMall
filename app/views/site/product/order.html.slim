@@ -1,0 +1,61 @@
+= content_for(:logo_line)
+
+= content_for(:content)
+	.box.address-box
+		.box-header 收货信息
+		.box-content
+			ul.list.list-vertical
+				li 
+					label 收货人：
+					|王小二
+				li 
+					label 收货地址：
+					|广东省 广州市 荔湾区 广东省广州市荔湾区 XXXX101房
+				li 
+					label 邮编：
+					|510300
+				li 
+					label 联系方式：
+					|13798765222
+			button.btn.btn-sm 使用新地址
+			button.btn.btn-sm 管理收货地址
+
+	.box.order-box.clearfix
+		.box-header 确认订单
+		.box-content
+			table.product-table
+				colgroup
+					col width="30%" 
+					col width="10%"
+					col width="20%" 
+					col width="20%"
+					col width="20%"
+				thead
+					tr
+						th 商品
+						th 单价（元）
+						th 数量
+						th 优惠（元）
+						th 金额（元）
+				tbody
+					tr
+						td.text-left colspan="5" 卖家：东方时味贸易（北京）有限公
+					tr
+						td.text-left
+							img.product-img src="http://placehold.it/72x60"
+							p.product-info 
+								span 批发牛奶八喜全脂纯牛奶1L*12盒星巴克咖啡专用
+								span 包装规格：1000ml*12
+						td 115.00
+						td
+						td - -
+						td 2,070.00
+			.order-summary
+				ul.list.list-vertical
+					li 货物品种：1种
+					li 数量总计：18件
+					li 货品总金额：2，070.00元
+					li 应付总额（含运费）：3，476.00元
+			button.btn.btn-submit 提交订单
+
+

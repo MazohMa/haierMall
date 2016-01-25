@@ -1,0 +1,79 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",backstage_coupon_packages_index_path,class:"operation-btn"
+= content_for(:grid_content)
+	.coupon-packages-content
+		= form_tag("/backstage/coupon_packages/create",multipart: true,method:'post',id:"create-grif-info")
+			ul
+				li
+					span.row-title 优惠券礼包名：
+					span.row-content
+						input type="text" value="" name="grif_name"
+				li.list-inline
+					span.row-title 礼包价值：
+					span.row-content
+						label.gift-value 以下优惠券价值总和
+						input type="hidden" name="gift_value" value="0" id="gift-value"
+						label.unit 元
+					span.row-title 总额：
+					span.row-content
+						label.gift-total 礼包价值*总领取量
+						label.unit 元
+				li
+					span.row-title 总领取量：
+					span.row-content
+						input type="text" value="" name="total_quantity" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" id="total-quantity"
+						label.unit 张
+						input type="hidden" value="" id="max-total_quantity"
+				li
+					span.row-title 生效时间：
+					span.row-content
+						input type="text" value="#{(Time.new).strftime('%Y/%m/%d')}" name="validity_time" id="validity-time" readonly="readonly"
+				li
+					span.row-title 结束时间：
+					span.row-content
+						input type="text" value="" name="invalidity_time" id="invalidity-time"
+						input type="hidden" value="" id="max-invalidity-time"
+				li
+					span.row-title 每人限领：
+					span.row-content
+						input type="text" value="" name="limit_collar" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" 
+						label.unit 张
+			.select-coupon-list
+				.coupon-item
+					span.delete-item ×
+					.info-title 添加优惠券1
+					.info-inline
+						span.row-title 选择优惠券：
+						span.row-content
+							select.select-coupon name="select_coupon[0]"
+								option value="" --请选择--
+								- @coupons.each do |item|
+									option value="#{item.id}" #{item.title}
+						span.row-title 供应商：
+						span.row-content
+							label.dealer-name
+					.info-inline
+						span.row-title 优惠券面额：
+						span.row-content
+							label.coupon-money
+							label.unit 元
+					.info-inline
+						span.row-title 限制条件：
+						span.row-content
+							label.lismit-condition
+					.info-inline
+						span.row-title 领取量：
+						span.row-content
+							label.user-get-quantity
+					.info-inline
+						span.row-title 生效时间：
+						span.row-content
+							label.validity_time
+						span.row-title 失效时间：
+						span.row-content
+							label.invalidity_time
+			button.btn.btn-default.add-coupon type="button" 添加优惠券
+
+			.bottom-buttons
+			    input.btn.btn-obvious.obvious-primary type="submit" value="保存"
+			    a.btn.btn-obvious.obvious-default href="/backstage/coupon_packages/index" 取消

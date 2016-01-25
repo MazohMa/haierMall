@@ -1,0 +1,22 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",backstage_ability_index_path,class:"operation-btn"
+= content_for(:grid_content)
+	.create-role-content
+		.create-title 创建角色
+		= form_tag("/backstage/ability/create",method:'post',id:"create-role-info")
+			ul
+				li
+					span.row-title 角色名称：
+					span.row-content 
+						input type="text" value="" name="access_authority[remark]"
+				li.role-distribution
+					span.row-title 权限分配：
+					/span.row-content
+					=  auth_format(@all_abilities["server"]).html_safe
+				li.remarks
+					span.row-title 备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：
+					span.row-content 
+						textarea name="access_authority[comment]"
+				li.operate-group
+	                    button.cancle type="button" onclick="window.location.href='/backstage/ability/index';" 取消
+	                    button.save-info type="submit" 保存

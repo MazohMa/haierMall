@@ -1,0 +1,27 @@
+@import "_variables";
+
+.list{
+	margin: 0px;
+	padding: 0px;
+
+	li{
+		list-style: none;
+	}
+
+	&.list-vertical{
+		li + li{
+			margin-top: $list-horizontal-margin-vertical;
+		}
+
+	}
+
+	&.list-horizontal{
+		li{
+			margin-top: $list-vertical-margin-vertical;
+			margin-left: $list-vertical-margin-horizontal;
+			float: left;
+	
+		}
+	}
+	
+}

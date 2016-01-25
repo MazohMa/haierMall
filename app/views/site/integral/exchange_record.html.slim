@@ -1,0 +1,68 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.integral
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.integral-content
+				.integral-hd
+					span.cuttent-integral
+						| 您当前的积分是
+						label 350
+						| 分
+					span.overdue-integral
+						| 年底将有
+						label 0
+						| 积分过去至
+						label 2015年12月31日
+				.nav
+					a.nav-btn.btn-alone href="/site/integral/" 积分明细
+					a.nav-btn.btn-alone.active href="/site/integral/exchange_record/" 兑换记录
+					a.nav-btn.btn-alone.exchange-shop href="/site/integral/exchange_gift/"  兑换超值商品及优惠券
+				.exchange-list
+					table.table
+						colgroup
+							col width="18%" 
+							col width="46%"
+							col width="10%" 
+							col width="14%"
+							col width="12%"
+						thead
+							tr
+								th 时间
+								th 兑换商品
+								th 使用积分
+								th 有效期至
+								th 状态
+						tbody
+							tr
+								td 2015-02-18 11:02:44
+								td 评价-XXXXXX商品
+								td +122
+								td 2015-10-16
+								td 已发物流
+							tr
+								td 2015-02-18 11:02:44
+								td 评价-XXXXXX商品
+								td +122
+								td 2015-10-16
+								td 已发物流
+							tr
+								td 2015-02-18 11:02:44
+								td 评价-XXXXXX商品
+								td +122
+								td 2015-10-16
+								td 已发物流
+							tr
+								td 2015-02-18 11:02:44
+								td 评价-XXXXXX商品
+								td +122
+								td 2015-10-16
+								td 已发物流
+							tr
+								td 2015-02-18 11:02:44
+								td 评价-XXXXXX商品
+								td +122
+								td 2015-10-16
+								td 已发物流

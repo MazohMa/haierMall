@@ -1,0 +1,58 @@
+= form_for @premiums,{:url=>@premiums.new_record?? backstage_premiums_create_path : backstage_premiums_update_path,:html=>{class:"resource-form premiums-form",id:"premiums-form"}} do |f|
+    p.form-title 设置满就送
+    = f.hidden_field :id
+    .form-group
+       = f.label :title,"<i>*</i>活动名称：".html_safe,class: 'control-label'
+       = f.text_field :title,class: 'lg'
+    .form-group
+        label.control-label 
+            i *
+            |活动时间：
+        = f.text_field :validity_time,id: 'validity-time'
+        span.in-between-text 至
+        = f.text_field :invalidity_time,id: 'invalidity-time'
+    .form-group
+        = f.label :assign_brand,"<i>*</i>指定品牌：".html_safe,class: 'control-label'
+        = f.select :assign_brand,options_for_select(Brand.all.map { |b| [b.name, b.id] },@premiums.assign_brand),{prompt:"请选择"},{:class=>"sm"}
+    = f.fields_for :premium_zon_contents do |contents_form|
+        .discount-box
+            - if contents_form.index > 0
+                span.close &times;
+                = contents_form.hidden_field :_destroy,class:"destroy"
+            .form-group
+                = contents_form.label :price ,"<i>*</i>优惠条件：".html_safe,class: "control-label"
+                span.ahead-text 买家消费满
+                = contents_form.text_field :price,class: "sm has-follow-text price"
+                span.follow-text 元
+            .form-group    
+                label.control-label.detail-describe 
+                    i *
+                    |优惠内容：
+                .discount-box-detail
+                    .detail-item
+                        = radio_button_tag :"discount-type-#{contents_form.index}",1,(get_discount_type(contents_form.object)==1),class: "discount-type"
+                        label.item-label 减
+                        = contents_form.text_field :decrease_cash,class: "sm has-follow-text decrease-cash"
+                        span.follow-text 元
+                    .detail-item
+                        = radio_button_tag :"discount-type-#{contents_form.index}",2,(get_discount_type(contents_form.object)==2),class: "discount-type"
+                        label.item-label 送礼品
+                        = contents_form.text_field :give_gifts,class: "lg give-gifts"
+                    .detail-item
+                        = radio_button_tag :"discount-type-#{contents_form.index}",3,(get_discount_type(contents_form.object)==3),class: "discount-type"
+                        label.item-label 送积分
+                        = contents_form.text_field :integration,class: "sm has-follow-text integration"
+                        span.follow-text 分
+                    .detail-item
+                        = radio_button_tag :"discount-type-#{contents_form.index}",4,(get_discount_type(contents_form.object)==4),class: "discount-type"
+                        label.item-label 送优惠券
+                        = contents_form.select :coupon_id,options_for_select(@coupons.map {|c| [c.title,c.id]},contents_form.object.coupon_id),{prompt:"请选择"},{class:"sm coupon"}
+    button.btn.btn-default#add-discount type="button" 添加优惠层
+    .form-group
+        = f.label :remark,"优惠备注：",class: 'control-label'
+        = f.text_field :remark,class: 'remark'
+    .bottom-buttons
+        button.btn.btn-obvious.obvious-primary#submit-btn 完成设置
+        a.btn.btn-obvious.obvious-default href="/backstage/premiums" 取消
+
+

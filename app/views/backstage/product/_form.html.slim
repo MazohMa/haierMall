@@ -1,0 +1,194 @@
+	ul.tabs
+		li.tab-item
+			a href="#base-info" 基本信息
+		li.tab-item
+			a href="#extend-info" 扩展信息
+		li.tab-item
+			a href="#details" 图文详情
+	.tab-content
+		<!-- 基本信息 start -->
+		#base-info
+			= form_for @product,{:url=> @product.new_record? ? backstage_product_create_path : backstage_product_update_path,:html => {:id =>'form-base-info',:class=>'resource-form form-base-info'}} do |f|
+				.form-inline
+					.form-group 
+						= f.hidden_field :id,id:"product_id_1"
+						= f.label :title,"<i>*</i>商品名称：".html_safe,class:"control-label"
+						= f.text_field :title,class:"lg"
+				.form-inline
+					.form-group
+						= label_tag :category,"<i>*</i>商品类型：".html_safe,class:"control-label"
+						/ = collection_select(:category,:id,Category.all,:id,:category_name,{:include_blank =>"请选择",multiple:true})
+						= select_tag :category,options_for_select(Category.all.map { |c| [c.category_name, c.id]} , @product.category_as_arr),prompt:"请选择",class:"sm"
+				.form-inline
+					.form-group
+						= f.label :brand_id,"<i>*</i>品牌：".html_safe,class:"control-label"
+						=f.select :brand_id,options_for_select(Brand.all.map { |b| [b.name, b.id] },@product.brand_id),{prompt:"请选择"},{:class=>"sm"}
+
+				.form-inline
+					.form-group
+						= f.label :price,"<i>*</i>建议零售价：".html_safe,class:"control-label"
+						= f.text_field :price,class:"md"
+				.form-inline
+					.form-group
+						= f.label :period_of_validity,"<i>*</i>信息有效期：".html_safe,class:"control-label"
+						= f.text_field :period_of_validity,class:"md date-select"
+				.form-inline
+					.form-group
+						= label_tag :is_share,"分享：",class:"control-label"
+						= f.radio_button :is_share,"1",:checked=>@product.is_share.to_i==1
+						= label_tag :is_share_1,"是",class:"radio-label"
+						= f.radio_button :is_share,"0",:checked=>(@product.is_share.to_i==0 or @product.is_share.blank?)
+						= label_tag :is_share_0,"否",class:"radio-label"
+						span.help-inline.obvious 分享以后，其他商家可对此商品数据进行引用操作
+				.form-inline
+					.form-group
+						= label_tag :new_product,"新品：",class:"control-label"
+						= f.radio_button :new_product,"1",:checked=>@product.new_product.to_i==1
+						= label_tag :new_product_1,"是",class:"radio-label"
+						= f.radio_button :new_product,"0",:checked=>(@product.new_product.to_i==0 or @product.new_product.blank?)
+						= label_tag :new_product_0,"否",class:"radio-label"
+				.form-inline
+					= hidden_field_tag "product-images","",name:"images"
+					label.control-label 商品图片：
+					span.help-inline.obvious 为保证最佳效果，请上传分辨率300*300以上的图片
+					.webuploader-wrapper.block-indent
+						.uploader-list.clearfix
+							- if @product.new_record?
+								- (0..4).each do |item|
+									.file-item.thumbnail
+										.picker
+											span.add-btn
+							- else
+								- @product.pictures.each do |picture|
+									.file-item.thumbnail data-value="#{picture.id}"
+										span.close.remove-this &times;
+										= image_tag(picture.image.thumb.url)
+								- if @product.pictures.count < 5
+									- (@product.pictures.count..4).each do |item|
+										.file-item.thumbnail
+											.picker
+												span.add-btn
+						.uploader-btns
+							button.btn.btn-sm.btn-default#upload 开始上传
+				.divider
+				.form-inline
+					.form-group
+						= f.label :measurement_desc,"<i>*</i>计量单位：".html_safe,class:"control-label"						
+						= f.select :measurement_desc,options_for_select(Unit.get_measurement_unit,@product.measurement_desc),{prompt:"请选择"},{class:"sm"}
+				= f.fields_for :wholesales do |wholesales_form|
+					.form-inline.wholesales-item
+						.form-group id="wholesales-item-#{wholesales_form.index}"
+							- if wholesales_form.index==0
+								= label_tag :wholesales_1,"<i>*</i>起批量#{num_to_cn(wholesales_form.index+1)}：".html_safe,class:"control-label"
+							- else
+								= label_tag :wholesales_1,"起批量#{num_to_cn(wholesales_form.index+1)}：",class:"control-label"
+							.sub-group
+								= wholesales_form.text_field :count,class:"sm"
+									| &minus;
+									input.shorter type="number" 
+							= wholesales_form.label :price,"价格："
+							= wholesales_form.text_field :price,class:"sm wholesale-price"
+				.form-inline
+					label.control-label.tastes-label
+						i *
+						|商品规格：
+					= f.fields_for :tastes do |tastes_form|
+						.tastes-group
+							.sub-group
+								= tastes_form.text_field :title,{class:"sm taste-field",placeholder:"口味"}
+								= tastes_form.text_field :shipments,{class:"sm",placeholder:"库存量"}
+							- if tastes_form.index == 0
+								button.btn.btn-default.btn-sm#add-tastes 添加口味
+								span.help-inline.obvious#tastes-help （最多可添加10种）
+				.form-inline
+					.form-group#delivery-address
+						label.control-label
+							i *
+							|发货地：
+						=f.select :province_code,options_for_select(Province.all.map { |c| [c.name, c.province_code] },@product.province_code),{prompt:"请选择"},{class:"province-code"}
+						=f.select :city_code,options_for_select(@product.cities),prompt:"请选择"
+				.form-inline
+					.form-group
+						label.control-label
+							i *
+							|发货期限：
+						= f.text_field :delivery_deadline_desc,class:"sm delivery-deadline"
+						= label_tag :day,"小时"
+						span.help-inline.obvious （自买家确定支付之日起多少小时发货）
+				.form-inline
+					.form-group
+						label.control-label
+							i *
+							|支付方式：
+						= f.collection_check_boxes(:payment,Unit.get_payment_unit,:first,:last , checked:1 ) do |b|
+							.checkbox
+								= b.check_box
+								= b.label
+		<!-- 基本信息 end -->
+
+		<!-- 扩展信息 start -->
+		#extend-info style="display:none" 
+			= form_for @product,{:url=> @product.new_record? ? backstage_product_create_path : backstage_product_update_path,:html=>{id:"form-extend-info",class:"form-extend-info resource-form"}} do |f|
+				.form-inline
+					.form-group
+						= f.hidden_field :id,id:"product_id_1"
+						label.control-label 产品标准号：
+						= f.text_field :product_standard_num
+				.form-inline
+					.form-group
+						label.control-label 生产许可证编号：
+						= f.text_field :production_license_num
+				.form-inline
+					.form-group
+						label.control-label 箱内数量：
+						= f.text_field :pack_inside_num
+				.form-inline
+					.form-group
+						label.control-label 净含量：
+						= f.text_field :net_wt
+						= f.select(:net_wt_unit_desc,options_for_select(Unit.get_net_wt_unit,@product.net_wt_unit_desc),{prompt: "请选择"},{class:"sm"})
+				.form-inline
+					.form-group
+						label.control-label 计量：
+						= f.text_field :specifications
+						= f.select(:specifications_unit_desc,options_for_select(Unit.get_specifications_unit,@product.specifications_unit_desc),{prompt: "请选择"},{class:"sm"})
+				.form-inline
+					.form-group
+						label.control-label 包装种类：
+						= f.select(:pack_way_desc,options_for_select(Unit.get_pack_way_unit,@product.pack_way_desc),{prompt: "请选择"},{class:"sm"})
+				.form-inline
+					.form-group
+						label.control-label 原料与配料：
+						= f.text_field(:material)
+				.form-inline
+					.form-group
+						label.control-label 原产地：
+						= f.text_field(:country_of_origin)
+				.form-inline
+					.form-group
+						label.control-label 生产厂家：
+						= f.text_field(:manufacturer_message)
+				.form-inline
+					.form-group
+						label.control-label 生产日期：
+						= f.text_field :date_of_production,class:"date-select"
+				.form-inline
+					.form-group
+						label.control-label 保质期：
+						= f.select(:exp_desc,options_for_select(Unit.get_exp_unit,@product.exp_desc),{prompt: "请选择"},{class:"sm"})
+
+		<!-- 扩展信息 end -->
+		#details style="display:none"
+			= form_for @product,{:url=> @product.new_record? ? backstage_product_create_path : backstage_product_update_path,:html=>{:id=>"form-details",:class=>"resource-form"}} do |f|
+				= f.hidden_field :id,id:"product_id_3"
+			    = f.hidden_field(:graphic_information)
+				<!-- 加载编辑器的容器 -->
+			    script id="ueditor-container" name="product[graphic_information]" type="text/plain"
+	div
+	  input type="hidden" id="_current_province" value="#{@province_code}"
+ 	  input type="hidden" id="_current_city" value="#{@city_code}"
+ 	  input type="hidden" id="min_shipment" 
+
+
+
+

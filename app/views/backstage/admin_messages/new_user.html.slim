@@ -1,0 +1,130 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",backstage_admin_messages_list_path,class:"operation-btn"
+= content_for(:grid_content)
+    .main-content
+        .setting-title 账号信息
+        = form_tag("/backstage/admin_messages/create_user",multipart: true,method:'post',id:"create-account-info")
+            ul.setting-list
+                li
+                    .list-title
+                        span.title 个人资料
+                    ul.sub-setting-list
+                        li
+                            span.row-title 角色选择：
+                            span.row-content 
+                                select name="role_select"
+                                    - @roles.each do |role|
+                                        option value="#{role[0]}" #{role[1]}
+                        li
+                            span.row-title 登录手机：
+                            span.row-content 
+                                input value="" name="mobile"
+                        li
+                            span.row-title 登录密码：
+                            span.row-content 
+                                input value="" type="password" name="password"
+                        li
+                            span.row-title 姓名：
+                            span.row-content
+                                input value="" name="username"
+                li
+                    .list-title
+                        span.title 公司名称
+                    ul.sub-setting-list
+                        li
+                            span.row-title 公司/店铺名称：
+                            span.row-content
+                                input value="" name="company_name"
+                li
+                    .list-title
+                        span.title 公司地址
+                    ul.sub-setting-list
+                        li
+                            span.row-title 地址：
+                            span.row-content
+                                input value="" class="address" name="address"
+                li
+                    .list-title
+                        span.title 配送区域
+                    ul.sub-setting-list.add-distribution-area-list
+                        li.add-item
+                            span.row-title 新增区域1：
+                            span.row-content
+                                | 省：
+                                select.province name="distribution[0]province"
+                                | 市：
+                                select.city name="distribution[0]city"
+                                | 区：
+                                select.area name="distribution[0]area"
+                                button.add-distribution-area type="button" 添加
+                                button.delete-new-distribution-area type="button" 删除
+                li
+                    .list-title
+                        span.title 联系邮箱
+                    ul.sub-setting-list
+                        li
+                            span.row-title 邮箱：
+                            span.row-content
+                                input value="" name="email"
+                li
+                    .list-title
+                        span.title 座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机
+                    ul.sub-setting-list.phone-list
+                        li
+                            span.row-title 座机：
+                            span.row-content
+                                input value="" name="phone"
+                li
+                    .list-title
+                        span.title 传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真
+                    ul.sub-setting-list.phone-list
+                        li
+                            span.row-title 传真：
+                            span.row-content
+                                input value="" name="fax"
+                li
+                    .list-title
+                        span.title 认证方式
+                    ul.sub-setting-list
+                        li
+                            span.row-title 认证方式：
+                            span.row-content
+                                select name="user_model_num"
+                                    option value="0" 身份证
+                                    option value="1" 营业执照
+                                    option value="2" 经营许可证
+                        li
+                            span.row-title 上传证件：
+                            span.row-content.upload-image 
+                                input.image-url#textfield type="text"
+                                input.browse-file-btn type="button" value="上传证件"
+                                input.file-input type="file" name="image" size="28" onchange="document.getElementById('textfield').value=this.value"
+                                /input.upload-btn type="button" value="上传"
+
+                li
+                    .list-title
+                        span.title 代理厂商
+                    ul.sub-setting-list.manufacturer-box
+                        li
+                            span.row-title 代理厂商：
+                            span.row-content
+                                span.agent-manufacturers
+                                    label
+                                        input type="checkbox" name="manufacturers" value="伊利" 伊利
+                                    label
+                                        input type="checkbox" name="manufacturers" value="蒙牛" 蒙牛
+                                    label
+                                        input type="checkbox" name="manufacturers" value="雀巢" 雀巢
+                                    label
+                                        input type="checkbox" name="manufacturers" value="光明" 光明
+                                    label
+                                        input#other-manufacturer type="checkbox" name="manufacturers" value="" 其他：
+                                        input.other-manufacturer type="text" onKeyUp="document.getElementById('other-manufacturer').value=this.value;getManufacturers();"
+                                input type="hidden" name="user_manufacturer" value=""
+                                span#user-manufacturer-error
+                
+                li.operate-group
+                    button.cancle type="button" onclick="window.location.href='/backstage/admin_messages/list';" 取消
+                    button.save-info type="submit" 保存
+    .footer
+        = render 'shared/footer'

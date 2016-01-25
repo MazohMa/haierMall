@@ -1,0 +1,64 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.favorite
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.goods-dealer-nav.nav
+				a.nav-btn.btn-alone.active href="/site/favorite/goods/" 收藏的商品
+				/ a.nav-btn.btn-alone href="/site/favorite/dealer/" 收藏的经销商
+				/.operations
+					/a 全选
+					/a 加入采购单
+					/a 删除
+			.goods-type
+				a class="#{'active' if params[:category].blank?}" href="/site/favorite/goods"
+					| 全部（
+					label #{@products_count}
+					|）
+				- @categories.each do |category|
+					a class="#{'active' if params[:category].to_i == category.last["id"]}" href="/site/favorite/goods?category=#{category.last["id"]}"
+						| #{category.first}（
+						label #{category.last["count"]}
+						| ）
+			ul.product-list
+				- @filter_products.each do |item|
+					li.product-wrapper
+						div.delete-box
+							.delete-btn-bg
+							.delete-btn.close data-value="#{item.id}" title="删除商品" &times;
+						.product-img
+							a href="/site/product/details/#{item.id}"
+								img src="#{item.pictures.first == nil ? '/no_image170x170.png' : (item.pictures.first.image.middle.url)}"
+						p
+							span.product-price
+								|￥
+								lable #{fmt_dollars(item.price)}
+							span.product-sales
+								| 成交#{item.sale}件
+						div.wholesale-info
+							ul
+								- find_product_wholesale(item.wholesales).each do |itm|
+									li
+										span.price &yen;#{itm[0]}
+										span.nums #{itm[1]}件
+							span.triangle
+						p
+							a.product-name title="#{item.title}" href="/site/product/details/#{item.id}" #{item.title}
+						p
+							span.dealer-name
+								span.dealer title="#{item.dealer.company_name}"
+									= image_tag "web-1_21.png"
+									| #{item.dealer.company_name}
+							- delivery_province = item.delivery_province.gsub("省","")
+							span.dealer-address #{(delivery_province.length > 5  ? (delivery_province.slice(0,3)+"...") : delivery_province) if !item.delivery_province.blank? }
+						p
+							span.authentication
+								= image_tag "icon_v.png"
+							/ span.contact
+							/ 	= image_tag "web-1_23.png"
+						
+			/ = render partial: 'shared/pagination',locals: {assets: @filter_products}
+
+

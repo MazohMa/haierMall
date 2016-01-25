@@ -1,0 +1,202 @@
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo.png"
+			/h1.site-name 掌上阅冰订购商城
+	ul.step
+		li.active
+			span 1
+			label 查看采购单
+		li.active
+			span 2
+			label 确认订单信息
+		li
+			span 3
+			label 成功提交订单
+		li
+			span 4
+			label 确认收货
+		li.last
+			span 5
+			label 完成
+= content_for(:content)
+  	= form_tag({controller:"orders",action:"pay_order"}, method: "post")
+		.address-box
+			.header 收货信息
+			.information
+				ul.addr-list
+					li.active
+						.addr-hd
+							span.addr-name
+								label #{@order.order_address.name}
+								| &nbsp;&nbsp;(收)
+							span.addr-telephone #{@order.order_address.mobile}
+						.addr-bd title="#{(@order.order_address.address || '') + "  " + (@order.order_address.zip_code || '') }"
+							.addr-address
+								span.addr-zone-name
+								span.addr-street #{@order.order_address.address}
+								span.addr-zip-code #{@order.order_address.zip_code}
+		.payment-box
+			.header 支付方式
+			.information
+				ul
+					li
+						input type="radio" name="payment_type" id="type-alipay" value="2"
+						label for="type-alipay"
+							=image_tag "logo-06.png"
+						span 请提前下载支付宝钱包客户端
+					li
+						input type="radio" checked="checked" name="payment_type" value="1" id="type-cod"
+						label for="type-cod" 货到付款
+						span 送货上门后再付款
+
+					/li
+						/input type="radio" name="paymentType"
+						/label 货到付现金
+						/span 送货上门后再付款，请您准备好现金
+					/li
+						/input type="radio" name="paymentType"
+						/label 货到刷卡
+						/span 支持斯玛特（smart）卡，杉德卡及有银联标志的银行卡、信用卡、借记卡
+		.order-box
+			.header 确认订单
+			.information
+				table.cart-list-header
+					colgroup
+						col width="30%" 
+						col width="10%"
+						col width="20%" 
+						col width="20%"
+						col width="20%"
+					thead
+						tr
+							th 商品
+							th 单价（元）
+							th 数量
+							th 优惠
+							th 金额（元）
+				.cart-item
+					.cart-item-header  卖家：#{@dealer.company_name}
+					input type="hidden" id="dealer_id" value="#{ @dealer.id if @dealer.present?}"
+					.cart-item-content
+						table.product-table
+							colgroup
+								col width="30%" 
+								col width="10%"
+								col width="20%" 
+								col width="20%"
+								col width="20%"
+							tbody
+							  - @order.snapshoot_products.each do |item|
+								tr
+									td.text-left
+										.product-info
+											img.product-img src="#{item.picture.blank? ? '/no_image170x170.png' : Rails.application.config.action_controller.asset_host + item.picture.image.url}"
+											p.product-text 
+												span.product-title title="#{item.title}(#{item.taste})" #{item.title}(#{item.taste})
+												- @s_product = Product.find_by_id(item.product_id)
+												- if !@s_product.blank?
+													span 包装规格：#{@s_product.specifications + @s_product.specifications_unit + '*' +@s_product.pack_inside_num if !@s_product.specifications.nil?&&!@s_product.specifications_unit.nil?&&!@s_product.pack_inside_num.nil? }
+												-else
+													span 包装规格： - -
+									td
+										label.money-number.unit-price #{ item.order_product_discount.blank? ? item.order_product_price : item.order_product_discount}
+									td #{item.order_product_num}
+									td
+										label.discount #{item_reduce_price(item)}
+									td
+										span.money-number.total-price #{item_should_pay_price(item)}
+					.cart-item-bottom
+						span.selected-product
+							| 货品种类
+							label.item-counts #{@order.snapshoot_products.count}
+							| 种
+						span.selected-product
+							| 数量总计
+							label.item-nums #{@total_product_count}
+							| 件
+						span.discounted-money
+							|共节省:
+							span.money-number
+								|&yen;
+								label.all-total-discount #{@order.origin_price - @order.actual_price}
+						span.total-money 
+							|商品金额:
+							span.money-number
+								| &yen;
+								label.each-business-total #{@order.origin_price}
+				/ .order-coupon
+				/ 	label 可用优惠券
+				/ 	a.show-coupon href="javascript:void(0)" 显示优惠券
+				/ 	ul.use-coupon-list
+				/ 		li
+				/ 			label
+				/ 				input type="checkbox"
+				/ 				span.coupon-name 优惠券名称
+				/ 				span.coupon-time 优惠券时间
+				/ 		li
+				/ 			label
+				/ 				input type="checkbox"
+				/ 				span.coupon-name 优惠券名称
+				/ 				span.coupon-time 优惠券时间
+				-if @order.collocation_title.blank?
+					.order-discount
+						.discount-full-box
+							label.full-text 可用满就送：
+							a.show-full href="javascript:void(0)" 显示满就送
+							ul.use-full-list
+								- if !@premium_zon_info.blank?
+								  - @premium_zon_info.each do |info|
+									li
+									  label
+										  input type="checkbox" name="fullId" value="#{info[:id]}"
+										  input type="hidden" name="fullMoney" value="#{info[:price]}"
+										  span.coupon-name #{info[:content]}
+										  span.coupon-time
+								- else
+									li
+										label
+											暂无优惠信息
+
+						.discount-coupon-box
+								label.coupon-text 可用优惠券：
+								a.show-coupon href="javascript:void(0)" 显示优惠券
+								ul.use-coupon-list
+									- if !@coupon_info.blank?
+									  - @coupon_info.each do |info|
+										li
+										  label
+											  input type="checkbox" name="couponId" value="#{info[:id]}"
+											  input type="hidden" name="couponMoney" value="#{info[:price]}"
+											  span.coupon-name #{info[:content]}
+											  span.coupon-time
+									- else
+										li
+											label
+												暂无可用的优惠券
+
+
+				.order-summary
+					ul.list
+						li.paid
+							| 实付款：
+							em &yen;&nbsp;
+							input type="hidden" value="#{@order.actual_price}"
+							span #{@order.actual_price}
+						li.address
+							| 寄送至：
+							span #{@order.order_address.address}
+						li.user
+							|收货人：
+							span.user-name #{@order.order_address.name}
+							| &nbsp;&nbsp;
+							span.telephone #{@order.order_address.mobile}
+				.pay-btn-group
+					= token_field
+					input type="hidden" name="order_id" value="#{@order.id}"
+					input type="hidden" name="premium_id" value=""
+					input type="hidden" name="coupon_id" value=""
+					button.btn.btn-submit 结算
+				/ input type="hidden" name="address_id" value="#{@order.order_address.id if @order.order_address.present?}"
+				
+	= render '/site/addresses/address_form'

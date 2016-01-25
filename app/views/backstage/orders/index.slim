@@ -1,0 +1,24 @@
+= content_for(:grid_operations)
+	button.operation-btn#refresh 刷新
+	- status = params[:status]
+	- if status.blank? || status.to_i == 4 || status.to_i == 5 
+			button.operation-btn#delete-order 删除
+	- if status.blank? || status.to_i == 1
+			button.operation-btn#deliver-goods 发货
+	- if status.blank? || status.to_i == 0
+			button.operation-btn#close-order 关闭交易
+	- if status.to_i == 2
+			button.operation-btn#receipted-goods 确认收货
+
+= content_for(:grid_content)
+	.grid-content
+		.grid-header
+			span 全部（#{@grid.assets.total_count}）
+		= datagrid_table @grid
+		= render partial: '/shared/pagination',locals: {assets:@grid.assets}
+		.filter-box
+			= render partial: 'filter_form'
+
+
+
+

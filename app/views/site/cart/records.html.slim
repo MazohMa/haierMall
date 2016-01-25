@@ -1,0 +1,158 @@
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo.png"
+			/h1.site-name 掌上阅冰订购商城
+	ul.step
+		li.active
+			span 1
+			label 查看采购单
+		li
+			span 2
+			label 确认订单信息
+		li
+			span 3
+			label 成功提交订单
+		li
+			span 4
+			label 确认收货
+		li.last
+			span 5
+			label 完成
+
+= content_for(:content)
+	.cart-filter
+		span.records-title 采购单
+		.store-selector
+			/ .text
+			/ 	input type="text" data-code="100010/20001" value="广东/广州" readonly="true"
+			/ 	span.caret
+			.content
+		a.keep-shopping href="/" 继续采购&nbsp;》
+	.cart-list
+		.cart-list-header
+			table.cart-list-header
+				colgroup
+					col width="30%" 
+					col width="10%"
+					col width="15%" 
+					col width="20%"
+					col width="10%"
+					col width="15%"
+				thead
+					tr
+						th.first-cell 
+							/ input type="checkbox" id="select-all"
+							/ label for="select-all" 全选（0）
+							span 商品信息
+						th 单价（元）
+						th 数量
+						th 优惠
+						th 金额（元）
+						th 操作
+		- if @list_dealer.blank?
+			div.empty-tips 您的购物车空空的哦！赶快添加商品吧！
+		- @list_dealer.each do |item|
+			.cart-item
+				.cart-item-header 
+					label
+						input type="checkbox"
+						| #{item[0]}
+				.cart-item-content
+					table.product-table
+						colgroup
+							col width="30%" 
+							col width="10%"
+							col width="15%" 
+							col width="20%"
+							col width="10%"
+							col width="15%"
+						
+						- item[1].each do |cart_product|
+							tr
+								td.text-left
+									.product-checkbox
+										- if fmt_taste(cart_product.taste_id).shipments  > 0
+											input type="checkbox" data-id="#{cart_product.id}"
+										- else
+											| &nbsp;
+									.product-info
+										img.product-img src="#{ cart_product.product.pictures.blank? ? "/no_image170x170.png" : (Rails.application.config.action_controller.asset_host + cart_product.product.pictures.first.image.url(:small)) }"
+										p.product-text 
+											a href="/site/product/details/#{cart_product.product.id}"
+												span.product-title title="#{cart_product.product.title}(#{fmt_taste(cart_product.taste_id).title})" #{cart_product.product.title}(#{fmt_taste(cart_product.taste_id).title})
+											input type="hidden" name="taste_id" value="#{cart_product.taste_id}"
+											span 包装规格：#{cart_product.product.specifications.to_s + cart_product.product.specifications_unit_desc + '*' +cart_product.product.pack_inside_num.to_s if !cart_product.product.specifications.nil?&&!cart_product.product.specifications_unit_desc.nil?&&!cart_product.product.pack_inside_num.nil? }
+								td
+									label.money-number.unit-price #{sprintf("%0.2f",find_product_price(cart_product.product.id,cart_product.num))}
+									- cart_product.product.wholesales.order("count ASC").each do |item|
+										input.wholesale-price type="hidden" data-nums="#{item.count}" data-price="#{item.price}"
+								td 
+									p.min-num-error class="#{cart_product.num < cart_product.product.wholesales.order("count ASC").first.count ? "show" : "" }"
+										label !
+										span 数量不满足商家批发规则
+									span.count-nums.nums-md
+										a class="num-reduce #{"disable-reduce" if(cart_product.num <= 1)}" -
+										input name="num" value="#{cart_product.num}"
+										a.num-increase +
+									- if fmt_taste(cart_product.taste_id).shipments  <= 0
+										p.stock-warning 卖完了
+									- elsif fmt_taste(cart_product.taste_id).shipments  < 20
+										p.stock-warning 库存紧张
+									- else
+										p.product-stock 
+											| (库存
+											label #{fmt_taste(cart_product.taste_id).shipments}
+											| 件,
+											label
+											| #{cart_product.product.wholesales.order("count ASC").first.count}件起批)
+									input type="hidden" name="min_num" value="#{cart_product.product.wholesales.order("count ASC").first.count}"
+								td
+									| #{"商品限时折扣优惠，打" if Order.find_limit_time_only_discount(cart_product.product_id) != 1}
+									label.discount #{Order.find_limit_time_only_discount(cart_product.product_id)==1 ? "--" : Order.find_limit_time_only_discount(cart_product.product_id)*10}
+									| #{"折" if Order.find_limit_time_only_discount(cart_product.product_id) != 1}
+								td
+									span.money-number.total-price #{sprintf("%0.2f",cart_product.num*(find_product_price(cart_product.product.id,cart_product.num))*Order.find_limit_time_only_discount(cart_product.product_id))}
+									del.discount-money  #{sprintf("%0.2f",cart_product.num*(find_product_price(cart_product.product.id,cart_product.num))) if Order.find_limit_time_only_discount(cart_product.product_id) != 1}
+								td
+									span.table-operation
+										a.table-operation.collect-product href="javascript:void(0)" data-id="#{cart_product.product.id}" 移入收藏
+										a.table-operation.delete-product href="javascript:void(0)" data-id="#{cart_product.id}" 删除
+									
+				.cart-item-bottom
+					span.selected-product
+						| 已选商品
+						label.item-counts 0
+						| 件
+					span.discounted-money
+						|共节省:
+						span.money-number
+							|&yen;
+							label.all-total-discount 0.00
+					span.total-money 
+						|商品金额:
+						span.money-number
+							| &yen;
+							label.each-business-total 0.00
+	.cart-toolbar
+		.left
+			/span.toolbar-item
+				input type="checkbox"
+				label 全选
+			a.toolbar-item href="javascript:void(0)" id="emptySelect" 清空所选
+			a.toolbar-item href="javascript:void(0)" id="favorSelected" 移入收藏夹
+			a.toolbar-item href="javascript:void(0)" id="emptyCart" 清空采购单
+		.right
+			span.toolbar-item
+				| 已选商品
+				label.cart-counts 0
+				| 件
+			span.toolbar-item
+				| 商品总价：
+				label.money-number
+					|&yen
+					label.cart-total 0.00
+			= form_tag "/site/cart/update_cart_record", id:"submitCart", style:"display:none;"
+				input name="cart_records" value=""
+				= token_field
+			a#settle 结算

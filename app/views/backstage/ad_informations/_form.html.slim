@@ -1,0 +1,28 @@
+= form_for @ad_information,{:url=>@ad_information.new_record?? backstage_ad_informations_create_path : backstage_ad_informations_update_path,:html=>{:class=>'resource-form border-form ad_information-form',:id=>"ad_information-form"}} do |f|
+    - if @ad_information.release_status.to_i == 1
+        .overlay
+    = f.hidden_field :id
+    .form-group
+        = f.label :title,"<i>*</i>标题：".html_safe,class:"control-label"
+        = f.text_field :title,class:"lg"
+    .form-group
+        = f.label :ad_type,"<i>*</i>类型".html_safe,class:"control-label"
+        = f.radio_button :ad_type,"广告",:checked => (@ad_information.new_record? or @ad_information.ad_type == '广告')
+        = label_tag :"ad_type_1","广告资讯",class:"radio-label"
+        = f.radio_button :ad_type,"活动",:checked => @ad_information.ad_type == '活动'
+        = label_tag :"ad_type_2","活动",class:"radio-label"
+        = f.radio_button :ad_type,"新品",:checked => @ad_information.ad_type == '新品'
+        = label_tag :"ad_type_3","新品",class:"radio-label"
+    .form-group
+        = f.label :content,"<i>*</i>内容：".html_safe,class: "control-label pull-left"
+        .ueditor-wrapper
+            = f.hidden_field(:content)
+            = f.hidden_field(:content_text)
+            <!-- 加载编辑器的容器 -->
+            script id="ueditor-container" name="ad_information[content]" type="text/plain"
+    .content-error-container
+    .bottom-buttons
+        = f.hidden_field :release_status
+        input.btn.btn-obvious.obvious-primary#push-btn type="submit" value= "保存并发布"
+        input.btn.btn-obvious.obvious-outline#save-btn type="submit" value= "保存"
+        a.btn.btn-obvious.obvious-default href="/backstage/ad_informations" 取消

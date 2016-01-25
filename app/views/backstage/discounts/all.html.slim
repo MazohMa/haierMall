@@ -1,0 +1,46 @@
+= content_for(:marketing_content)
+    .marketing-content
+        div.content-tips.tips-indent
+            span 你可以设置多个限时打折：
+            = link_to "设置限时打折",backstage_discounts_new_path,class:"btn btn-default"
+        ul.activity-list.activity-list-discount
+            - @discounts.each do |discount|
+                li
+                    .list-box
+                        .list-box-header
+                            .title #{discount.title}
+                            .state class="#{get_status_style_1(discount)}" #{get_status_text_1(discount)}
+                        .list-box-content
+                            p.discount-summary
+                                span 
+                                    |折扣
+                                    span.number #{discount.discount}
+                                    |折
+                                span 
+                                    |每人限购
+                                    span.number #{discount.max_nums}
+                                    |件
+                                span 
+                                    |共
+                                    span.number #{discount.activity_product_ids.split(',').count}
+                                    |件商品
+                            - products= Product.where(:id=>discount.activity_product_ids.split(','))
+                            - products.each do |product|
+                                .product
+                                    img src="#{product.blank? or product.pictures.blank? ? Picture.default_image.image.url(:small) : product.pictures.first.image.url(:small)}"
+                                    span.title title="#{product.title}" #{product.title}
+                                    span.origin-price 原价：#{product.price}
+                        .list-box-bottom
+                            - discount_status= convert_status(discount)
+                            -if discount_status== "standby"
+                                a.btn.btn-primary href="/backstage/discounts/edit/#{discount.id}" 更改设置
+                                button.btn.btn-primary.btn-delete data-value="#{discount.id}" type="button" 删除
+                            - elsif discount_status== "underway"
+                                button.btn.btn-primary.btn-cancel data-value="#{discount.id}" type="button" 取消优惠
+                            - else
+                                button.btn.btn-primary.btn-delete data-value="#{discount.id}" type="button" 删除
+        = render partial: 'shared/pagination',locals: {assets: @discounts}
+= content_for(:footer_js)
+    = javascript_include_tag '/jquery-countdown/jquery.countdown.js'
+
+        

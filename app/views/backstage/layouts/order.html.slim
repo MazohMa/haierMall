@@ -1,0 +1,23 @@
+= content_for (:content)
+	.content-header
+		.link-inline
+			.status-link class="#{'active' if params[:status].blank?}"	
+				= link_to "所有订单", backstage_orders_path
+			.status-link class="#{'active' if !params[:status].blank? and params[:status].to_i == 0}"	
+				= link_to "待买家付款", backstage_orders_path(:status=>0)
+			.status-link class="#{'active' if params[:status].to_i==1}"	
+				= link_to "待发货", backstage_orders_path(:status=>1)
+			.status-link class="#{'active' if params[:status].to_i==2}"	
+				= link_to "已发货", backstage_orders_path(:status=>2)
+			.status-link class="#{'active' if params[:status].to_i==3}"	
+				= link_to "待评价", backstage_orders_path(:status=>3)
+			.status-link class="#{'active' if params[:status].to_i==4}"	
+				= link_to "已评价", backstage_orders_path(:status=>4)
+			.status-link class="#{'active' if params[:status].to_i==5}"	
+				= link_to "交易关闭", backstage_orders_path(:status=>5)
+		.search-panel
+			= render partial:'backstage/shared/search_form',locals:{search_url:'/backstage/orders/search',search_txt:'搜订单'}
+	.grid-operations
+		= yield(:grid_operations)
+	= yield(:grid_content)
+= render template: "backstage/layouts/backstage"

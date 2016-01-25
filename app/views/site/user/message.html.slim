@@ -1,0 +1,40 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.user-message
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.message-item
+				.item-hd 消息通知
+				.item-bd
+					.operate
+						label
+							input type="checkbox"
+							| 全选本页
+						a#markRead href="javascript:void(0)" 标记为已读
+						a#deleteMsg href="javascript:void(0)" 删除
+
+					.message-list
+						.history
+							- @group_month.each do |item|
+								.history-date
+									ul
+										h2.first
+											a href="javascript:void(0)" #{item}
+										- find_group_messages(item).each do |notification|
+											li class="#{'green' if notification_is_read(notification)}"
+												h3
+													| #{notification.created_at.strftime("%m.%d")}
+													span #{notification.created_at.strftime("%H:%M:%S")}
+												dl
+													dt
+														input type="checkbox" data-id="#{notification.id}" 
+														a href="/site/user/show_notification/#{notification.id}" #{notification.title}
+														span #{notification.content_text.length > 30 ? (notification.content_text.slice(0,30)+"...") : notification.content_text}
+			= render partial: 'shared/pagination',locals: {assets: @notifications}
+										
+
+												
+
+

@@ -1,0 +1,12 @@
+= content_for(:header_css)
+    = stylesheet_link_tag '/webuploader/webuploader.css'
+
+= content_for(:marketing_content)
+    .marketing-content
+        = render 'form'
+
+= content_for(:footer_js)
+    = javascript_include_tag '/ueditor/ueditor.config.js' 
+    = javascript_include_tag '/ueditor/ueditor.all.js'
+    = javascript_include_tag '/webuploader/webuploader.min.js'
+

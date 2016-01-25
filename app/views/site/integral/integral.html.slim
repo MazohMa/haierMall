@@ -1,0 +1,49 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.integral
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.integral-content
+				.integral-hd
+					span.cuttent-integral
+						| 您当前的积分是
+						label #{current_user.member.integration}
+						| 分
+					/ span.overdue-integral
+					/ 	| 年底将有
+					/ 	label 0
+					/ 	| 积分过去至
+					/ 	label 2015年12月31日
+				.nav
+					a.nav-btn.btn-alone.active href="/site/integral/" 积分明细
+					a.nav-btn.btn-alone href="/site/integral?type=2" 兑换记录
+					a.nav-btn.btn-alone.exchange-shop href="/site/integral/exchange_product?type=1"  兑换超值商品及优惠券
+				.integral-details
+					table.table.integral-details-table
+						colgroup
+							col width="18%" 
+							col width="52%"
+							col width="15%" 
+							col width="15%"
+						thead
+							tr
+								th 时间
+								th 详情
+								th 交易明细
+								th 剩余积分
+						tbody
+							- if @integration_records.blank?
+								tr
+									td colspan="4" 暂无记录
+							- else
+								- @integration_records.each do |record|
+									tr
+										td #{record.created_at.strftime("%Y-%m-%d %H:%M:%S")}
+										td #{record.description}
+										td #{record.integration}
+										td #{record.remaining_integration}
+					= render partial: '/shared/pagination',locals: {assets:@integration_records}
+							
+					/ p 交易明细和剩余积分无法对上，有可能是您删除了订单。

@@ -1,0 +1,23 @@
+= content_for(:content)
+    / .content-header
+    /     .link-inline
+    /         .status-link.active
+    /             = link_to "信息推送", backstage_notifications_path
+    /     .link-inline
+    /         .status-link
+    /             = link_to "广告资讯", backstage_ad_informations_path
+    / .grid-operations
+    /     - if current_user.role == 'admin'
+    /         = link_to "推送新信息", backstage_notifications_new_path,class:'operation-btn'
+    /         button.operation-btn#batch-push type="button" 批量推送
+    /         button.operation-btn#batch-delete type="button" 批量删除
+    / .grid-content
+    /     ul.tabs
+    /         li.tab-item
+    /             a.active href="/backstage/notifications" 信息（#{@grid.assets.total_count}）
+    /         / li.tab-item
+    /         /     a href="/backstage/notifications/point" 点对点（#{@chats_count}）
+    /             /@grid.assets.total_count}
+        
+    = datagrid_table @grid
+    = render partial: '/shared/pagination',locals: {assets:@grid.assets}

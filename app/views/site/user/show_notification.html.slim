@@ -1,0 +1,22 @@
+= content_for(:logo_line)
+    = render 'site/shared/logo_line'
+= content_for(:content)
+    .user-message
+        .left
+            = render 'site/shared/menu_tree'
+        .right
+            .information-content
+                h3.title #{@notification.title}
+                p.publish-info
+                    - if current_user.role == 'admin'
+                        - if @notification.receiver_scope.to_i == 0
+                            span 发送对象：所有用户
+                        - elsif @notification.receiver_scope.to_i == 1
+                            span 发送对象：采购商
+                        - else
+                            span 发送对象：经销商
+                    span 推送时间：#{@notification.updated_at.strftime("%Y-%m-%d %H:%M:%S")}
+                    span 类型：#{@notification.notification_type}
+                div.content-body
+                    == @notification.content
+                button.btn.btn-obvious.obvious-default#go-back  返回

@@ -1,0 +1,44 @@
+#filter-forms
+    - is_shop_owner = params[:members_grid].blank?
+    = form_tag(backstage_members_path,method:'get',class:'filter-form')
+        = hidden_field_tag :"members_grid[role]",params[:members_grid].present?? params[:members_grid][:role] : ''
+        .filter-group
+            = text_field_tag :"members_grid[mobile]"
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    - if is_shop_owner
+        = form_tag(backstage_members_path,method:'get',class:'filter-form')
+            = hidden_field_tag :"members_grid[role]",params[:members_grid].present?? params[:members_grid][:role] : ''
+            .filter-group
+                ul.filter-list
+                    - MemberRule.all.each do |member_rule|
+                        li
+                            = check_box_tag :"members_grid[level][]",member_rule.level,false
+                            = label_tag :"members_grid[level][]",member_rule.title
+            button.btn.btn-primary.filter-submit type="submit" 确定
+    - else 
+        = form_tag(backstage_members_path,method:'get',class:'filter-form')
+            = hidden_field_tag :"members_grid[role]",params[:members_grid].present?? params[:members_grid][:role] : ''
+            .filter-group
+                ul.filter-list
+                    - CreditLevelRule.all.each do |rule|
+                        li
+                            = check_box_tag :"members_grid[credit_level][]",rule.level,false
+                            = label_tag :"members_grid[credit_level][]",rule.title
+            button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(backstage_members_path,method:'get',class:'filter-form')
+        = hidden_field_tag :"members_grid[role]",params[:members_grid].present?? params[:members_grid][:role] : ''
+        .filter-group
+            = text_field_tag :"members_grid[created_at][]",'',class:'time-filter'
+            span.between-text 至
+            = text_field_tag :"members_grid[created_at][]",'',class:'time-filter'
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(backstage_members_path,method:'get',class:'filter-form')
+        = hidden_field_tag :"members_grid[role]",params[:members_grid].present?? params[:members_grid][:role] : ''
+        .filter-group
+            = text_field_tag :"members_grid[last_transaction_time][]",'',class:'time-filter'
+            span.between-text 至
+            = text_field_tag :"members_grid[last_transaction_time][]",'',class:'time-filter'
+        button.btn.btn-primary.filter-submit type="submit" 确定

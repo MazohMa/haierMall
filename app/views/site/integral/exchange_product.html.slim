@@ -1,0 +1,60 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.exchange-gift
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.integral-content
+				.integral-hd
+					span.cuttent-integral
+						| 您当前的积分是
+						label #{@member.integration}
+						| 分
+					/ span.overdue-integral
+					/ 	| 年底将有
+					/ 	label 0
+					/ 	| 积分过去至
+					/ 	label 2015年12月31日
+					span.search-integral-box
+						label 按积分范围搜索：
+						input type="text"
+						label &nbsp;至&nbsp;
+						input type="text"
+						a.nav-btn.active.search-btn 搜索
+				.nav
+					a.nav-btn.btn-alone.active href="/site/integral/exchange_product?type=1" 兑换礼品
+					a.nav-btn.btn-alone href="/site/integral/exchange_product?type=2" 兑换优惠券
+					a.nav-btn.btn-alone.active.exchange-shop href="/site/integral/" 返回积分列表
+				- if @product_type == "1"
+					ul.gift-list
+						- @exchange_products.each do |exchange_gift|
+							li
+								img src="http://placehold.it/160x120"
+								p.gift-name #{exchange_gift.title}
+								p.integral-value
+									label #{exchange_gift.integration}积分
+								a.nav-btn.btn-alone.active.exchange-btn href="javascript:void(0)" data-id="#{exchange_gift.id}" 立即兑换
+				- else
+					ul.coupon-list
+						- @exchange_products.each do |exchange_coupon|
+							li
+								.coupon-upper
+									span.price-symbol ￥
+									span.amount #{exchange_coupon.coupon.price}
+									span.scope 优惠券
+									p
+										label.lb-use-cond 使用条件：
+										span.use-cond 满#{exchange_coupon.coupon.condition_usage}
+									p
+										label.lb-valid-date 有效时间：
+										span.valid-date #{exchange_coupon.validity_time.strftime("%Y-%m-%d")}至#{exchange_coupon.invalidity_time.strftime("%Y-%m-%d")}
+								p.dealer-name #{exchange_coupon.dealer.company_name}
+								/ a.now-exchange-btn 立即兑换
+								-if exchange_coupon.has_received_all(current_user) == false
+									a.nav-btn.btn-alone.active.exchange-btn href="javascript:void(0)" data-id="#{exchange_coupon.id}" 立即兑换
+								- else
+									a.nav-btn.btn-alone.active.have-exchanged-btn  已兑换
+								span.integral-value
+									label 需要#{exchange_coupon.integration}积分
+		= render partial: 'shared/pagination',locals: {assets: @exchange_products}

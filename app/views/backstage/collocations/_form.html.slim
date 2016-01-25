@@ -1,0 +1,77 @@
+= form_for @collocations,{:url=>@collocations.new_record? ? backstage_collocations_create_path : backstage_collocations_update_path,:html=>{:class=>'resource-form collocations-form',:id=>'collocations-form'}} do |f|
+    p.form-title 设置搭配套餐
+
+    =f.hidden_field :id
+    .form-group
+        =f.label :title,"<i>*</i>套餐标题：".html_safe,class:"control-label"
+        =f.text_field :title,class:"lg"
+    .form-group
+        label.control-label.pull-left 
+            i *
+            |搭配商品：
+        table.selected-product-grid
+            thead
+                tr
+                    th 搭配商品名
+                    th 数量
+                    th 原价
+                    th 操作
+            tbody#selected-tbody
+                tr.no-data
+                    td colspan="100%" ——
+
+        button.btn.btn-default.btn-add-product 添加搭配商品
+        span.help-inline.obvious 你最多可以添加5件商品
+        = hidden_field_tag :collocation_content,"#{@format_content.to_json}",id:"collocation-content"
+    .form-group
+        label.control-label 套餐原价：
+        = f.text_field :original_price,class:"sm",id:"origin-price",readonly:"true"
+        span.follow-text 元
+    .form-group
+        = f.label :price,"<i>*</i>套餐一口价：".html_safe,class:"control-label"
+        = f.text_field :price,class:"sm"
+        span.help-inline.obvious 搭配总价不能高于商品原价总和。
+    .form-group
+        / = hidden_field_tag "product-images","",name:"images"
+        / label.control-label 套餐图片：
+        / .webuploader-wrapper.block-indent
+        /     .uploader-list.clearfix
+        /         - (0..4).each do |item|
+        /             .file-item.thumbnail
+        /                 .picker
+        /                     span.add-btn
+        /     button.btn.btn-sm.btn-default#upload 开始上传
+        = hidden_field_tag "product-images","",name:"images"
+        label.control-label 套餐图片：
+        span.help-inline.obvious 为保证最佳效果，请上传分辨率为300*300以上的图片
+        .webuploader-wrapper.block-indent
+            .uploader-list.clearfix
+                - if @collocations.new_record?
+                    - (0..4).each do |item|
+                        .file-item.thumbnail
+                            .picker
+                                span.add-btn
+                - else
+                    - @collocations.package_pictures.each do |picture|
+                        .file-item.thumbnail data-value="#{picture.id}"
+                            span.close.remove-this &times;
+                            = image_tag(picture.image.thumb.url)
+                    - if @collocations.package_pictures.count < 5
+                        - (@collocations.package_pictures.count..4).each do |item|
+                            .file-item.thumbnail
+                                .picker
+                                    span.add-btn
+            .uploader-btns
+                button.btn.btn-sm.btn-default#upload 开始上传
+    .form-group
+        label.control-label.pull-left 套餐描述：
+        .ueditor-wrapper
+            = f.hidden_field(:graphic_information)
+            <!-- 加载编辑器的容器 -->
+            script id="ueditor-container" name="collocation_package[graphic_information]" type="text/plain"
+    .bottom-buttons
+        input.btn.btn-obvious.obvious-primary#submit-btn type="submit" value="#{@collocations.new_record? ? '完成创建':'保存'}"
+        a.btn.btn-obvious.obvious-default href="/backstage/collocations" 取消
+
+
+

@@ -1,0 +1,48 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",backstage_admin_messages_list_path,class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content.admin-message-content
+        dl.list-user-info
+            dt 注册账号
+            dd #{@user.mobile}
+            dt 身份
+            dd #{@user_role_name}
+            dt 注册时间
+            dd #{@user.created_at.strftime('%Y-%m-%d %H:%M:%S')}
+        p.info-tips 注册信息
+        .register-info
+            .info-group
+                span.title 公司名称：
+                |#{@user_info.company_name}
+            .info-group
+                span.title 负责人：
+                |#{@user_info.user_name}
+            .info-group
+                span.title 地址：
+                |#{@user_info.user_address}
+            .info-inline
+                .info-group 
+                    span.title 座机：
+                    |#{@user_info.user_phone}
+                .info-group
+                    span.title 传真：
+                    |#{@user_info.user_fax}
+                .info-group
+                    span.title 邮箱：
+                    |#{@user_info.user_email}
+            .info-group
+                span.title 代理厂商：
+                -  @user_info.user_manufacturer.split(',').each do |item|
+                    | #{item}&nbsp;&nbsp;
+            .info-group
+                span.title 认证信息：
+                .authorization-pictures
+                    - @user.user_authorization_pics.each do |picture|
+                        .picture-item
+                            = image_tag("#{picture.image}",class:'picture')
+                            p.item-tips 点击查看大图
+        - if @user.string == '待审核'
+            button.btn.btn-obvious.obvious-outline.btn-pass data-value="#{@user.id}" 通过
+            button.btn.btn-obvious.obvious-default.btn-unpass data-value="#{@user.id}" 不通过
+        - else 
+            = link_to "返回列表",backstage_admin_messages_list_path,class:"btn btn-obvious obvious-default btn-back"

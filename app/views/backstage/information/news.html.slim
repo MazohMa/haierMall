@@ -1,0 +1,17 @@
+= content_for(:content)
+	.content-header
+		.link-inline
+		    .status-link
+				= link_to "信息推送", backstage_information_message_path
+		.link-inline
+		    .status-link.active
+				= link_to "广告资讯", backstage_information_news_path
+	.grid-operations
+		button.operation-btn type="button" 添加资讯
+		button.operation-btn type="button" 授权管理
+		button.operation-btn type="button" 分类管理
+		button.operation-btn type="button" 批量删除
+
+	.grid-content
+		= datagrid_table @news_grid
+		= render partial: '/shared/pagination',locals: {assets:@news_grid.assets}

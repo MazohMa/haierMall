@@ -1,0 +1,14 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.favorite
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.goods-dealer-nav.nav
+				a.nav-btn.btn-alone.active href="/site/favorite/goods/" 收藏的商品
+				/ a.nav-btn.btn-alone href="/site/favorite/dealer/" 收藏的经销商
+				.operations
+					a 全选
+					a 加入采购单
+					a 删除

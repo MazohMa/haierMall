@@ -1,0 +1,47 @@
+#filter-forms
+	- url= params[:action]=='self'||params[:action]=='search'? '/backstage/product/search': '/backstage/product/search_shared'
+	= form_tag(url,method:'get',class:'filter-form')
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			= text_field_tag :name
+		button.btn.btn-primary.filter-submit type="submit" 确定
+
+	= form_tag(url,method:'get',class:'filter-form')
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			ul.filter-list
+				- Brand.all.each do |brand|
+					li
+						= check_box_tag :brand,brand.id,false,name:'brand[]'
+						= label_tag :brand,brand.name
+		button.btn.btn-primary.filter-submit type="submit" 确定
+
+	= form_tag(url,method:'get',class:"filter-form")
+		= hidden_field_tag :status,params[:status]
+		.filter-group
+			ul.filter-list
+				- Category.all.each do |category|
+					li
+						= check_box_tag :category,category.id,false,name:'category[]'
+						= label_tag :category,category.category_name
+		button.btn.btn-primary.filter-submit type="submit" 确定
+	= form_tag(url,method:'get',class:"filter-form",id:"validityForm")
+		= hidden_field_tag :status,params[:status]
+		= hidden_field_tag :name,params[:name]
+		.filter-group
+			ul.filter-list
+				- Unit.get_specifications_unit.each do |unit|
+					li
+						= check_box_tag :specifications,unit.first,checked=(!params[:specifications_unit].blank? and params[:specifications_unit].include? unit.first.to_s),name:'specifications_unit[]'
+		.filter-group
+			ul.filter-list
+				- Brand.all.each do |brand|
+					li
+						= check_box_tag :brand,brand.id,checked=(!params[:brand].blank? and params[:brand].include? brand.id.to_s),name:'brand[]'
+		.filter-group
+			ul.filter-list
+				- Category.all.each do |category|
+					li
+						= check_box_tag :category,category.id,checked=(!params[:category].blank? and params[:category].include? category.id.to_s),name:'category[]'
+		= hidden_field_tag :validity,params[:validity].blank?? 'desc':params[:validity].to_s=="desc"? "asc": "desc"
+		button.btn.filter-submit type="submit" 确定

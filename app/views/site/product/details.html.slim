@@ -1,0 +1,51 @@
+
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo.png"
+			/h1.site-name 掌上阅冰订购商城
+	.dealer-info
+		.info-group
+			p
+				a.company-name
+					= image_tag "web-1_21.png"
+					| #{@product.dealer.company_name}
+			/ p.dealer-address #{@product.dealer.user_address}
+			/a href="#" #{@product.dealer.company_name}
+			/span.dealer-address #{@product.dealer.user_address}
+		.info-group.contact data-senderId="#{@product.dealer.user_id}" data-sender="#{@product.dealer.company_name}"
+		 	p 联系
+		 	= image_tag "web-1_23.png"
+		/ .info-group.collection
+		/ 	p 收藏
+		/ 	= image_tag "web-1_25.png"
+			/span.dealer-age #{(Time.now.utc.year - @product.dealer.created_at.year) +1 }年
+			/span.favorite 收藏商家
+			/label 所在地
+			/span.dealer-address #{@product.dealer.user_address}
+	.search-panel
+		input.form-control.search-box id="search_keyword" type="text"
+			button.btn.search_goods id="search_goods" 搜商品
+			/ button.btn.search_vendor style="margin-left: 10px;" id="search_vendor" 搜商家
+	/ .qrcode
+	/ 	span.close ×
+	/ 	span.qrcode-text 手机掌上阅冰
+	/ 	=image_tag "u795.png"
+= content_for(:nav_top)
+	= render 'site/shared/nav_dealer'
+= content_for(:content)
+	= render partial: 'details',locals: {product: @product,wll_count:@wll_count,wll_price:@wll_price,payment:@payment,category:@category,category_list:@category_list}
+
+= content_for(:footer_js)
+	=javascript_include_tag "/unslider/unslider.min.js" 
+	=javascript_include_tag "/fly/jquery.fly.min.js" 
+	=javascript_include_tag "/fly/requestAnimationFrame.js" 
+
+
+
+
+
+
+
+
+

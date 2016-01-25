@@ -1,0 +1,6 @@
+.pagination-container
+	= paginate assets
+	span.pages-num 共#{assets.num_pages}页
+	/ |到第
+	/ input.page-to-go type="text" id="page_num" 页
+	/ button.btn id="search_page" 确定

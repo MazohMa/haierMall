@@ -1,0 +1,10 @@
+= content_for(:grid_operations)
+	= link_to '创建用户',backstage_admin_messages_new_user_path,class:"operation-btn"
+    = link_to '批量删除',"javascript:void(0)",class:"operation-btn",id:"batch-delete"
+    / = link_to '批量导入',"#",class:"operation-btn"
+    .search-panel
+			= render partial: 'backstage/shared/search_form',locals: {search_url:"/backstage/admin_messages/list",search_txt:"搜用户"}
+= content_for(:grid_content)
+    .grid-content
+        = datagrid_table @grid
+        = render partial: '/shared/pagination',locals: {assets:@grid.assets}

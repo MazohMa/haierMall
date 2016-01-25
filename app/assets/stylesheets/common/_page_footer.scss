@@ -1,0 +1,35 @@
+.footer{
+	//height: $footer-height;
+	margin: 50px 0;
+	border-top: 1px solid #ccc;
+	text-align: center;
+	color:#666;
+	.footer-hd {
+		margin-top:25px;
+		ul.link {
+			list-style:none;
+			padding:0;
+			margin:0;
+			li {
+				display:inline-block;
+				padding:0 10px;
+			}
+			li + li {
+				border-left:#666 1px solid;
+			}
+			a {
+				color:#666;
+				cursor:pointer;
+				&:hover {
+					color:$color-base;
+				}
+			}
+		}
+	}
+	.footer-ft {
+		margin-top:20px;
+		a + a {
+			margin-left:10px;
+		}
+	}
+}

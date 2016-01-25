@@ -1,0 +1,45 @@
+= content_for(:marketing_content) 
+    .marketing-content
+        div.content-tips.tips-indent
+            span 你可以设置多个满就送：
+            a.btn.btn-default href="/backstage/premiums/new" 设置满就送
+        - @premiums.each do |premium|
+            - status = convert_status(premium)
+            .premiums-box
+                .premiums-box-content
+                    = image_tag('backstage/premiums.png',class:"premiums-img")
+                    .premiums-info
+                        span.state class="#{get_premiums_style(premium)}" #{get_premiums_status_text(premium)}
+                        h3 #{premium.title}
+                        - premium.premium_zon_contents.each do |premium_content|
+                            - if !premium_content.decrease_cash.blank?
+                                p.discount 单笔订单满#{premium_content.price}元减#{premium_content.decrease_cash.to_i}元
+                            - elsif !premium_content.give_gifts.blank?
+                                p.discount 单笔订单满#{premium_content.price}元送#{premium_content.give_gifts}
+                            - elsif !premium_content.integration.blank?
+                                p.discount 单笔订单满#{premium_content.price}元送#{premium_content.integration}积分
+                            - else
+                                p.discount 单笔订单满#{premium_content.price}元送#{Coupon.find_by_id(premium_content.coupon_id).price.to_i}元优惠券
+                        .time
+                            - if status=="standby"
+                                p 
+                                    span.countdown-title 离活动开始还有：
+                                    span.countdown #{premium.validity_time.strftime('%Y-%m-%d %H:%M')}
+                            p 活动时间：#{premium.validity_time.strftime('%Y/%m/%d')}&nbsp;-&nbsp;#{premium.invalidity_time.strftime('%Y/%m/%d')}
+                .remark 备注：#{premium.remark}
+                .buttons
+                    - if status == 'standby'
+                        a.btn.btn-primary href="/backstage/premiums/edit/#{premium.id}" 更改设置
+                        button.btn.btn-primary.btn-delete data-value="#{premium.id}" type="button" 删除
+                    - elsif status == 'underway'
+                        button.btn.btn-primary.btn-disable data-value="#{premium.id}" type="button" 取消优惠
+                    - else
+                        button.btn.btn-primary.btn-delete type="button" data-value="#{premium.id}" 删除
+        =render partial: '/shared/pagination',locals: {assets:@premiums} 
+
+= content_for(:footer_js)
+    = javascript_include_tag '/jquery-countdown/jquery.countdown.js'
+
+
+
+                

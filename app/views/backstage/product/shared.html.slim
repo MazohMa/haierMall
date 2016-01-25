@@ -1,0 +1,19 @@
+= content_for(:content)
+	.content-header
+		.search-panel
+			= render partial: 'backstage/shared/search_form',locals: {search_url:"/backstage/product/search_shared",search_txt:"搜商品"}
+	.grid-content.shared-grid
+		.grid-header
+			|商品收录（#{@grid.assets.total_count}）
+			.introduce-header#introduce-selected 
+				span.text 批量引入
+
+			
+		= datagrid_table @grid
+		= render partial: '/shared/pagination',locals: {assets:@grid.assets}
+		.filter-box
+			= render 'filter_form'
+= content_for(:footer_js)
+	javascript:
+			//为ueditor指定根目录
+			window.UEDITOR_HOME_URL = "/ueditor/";

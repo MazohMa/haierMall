@@ -1,0 +1,327 @@
+// // Place all the styles related to the backstage::Marketing controller here.
+// // They will automatically be included in application.css.
+// // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import '_variables';
+
+.marketing-activity{
+	margin: 40px $content-horizonal-padding;
+	padding-bottom: 100px;
+	overflow: hidden;
+	border: 1px solid $gray-color;
+	border-top: none;
+
+	.activity-summary{
+		height: 40px;
+		line-height: 40px;
+		margin-bottom: 20px;
+		background-color: $base-color;
+		color: #fff;
+
+		.summary-item{
+			width: 175px;
+			display: inline-block;
+			text-align: center;
+		}
+
+		.summary-item.current{
+			background-color: #0a6dc4;
+		}
+	}
+
+	.activity-panel{
+		margin-bottom: 15px;
+		width: 451px;
+		padding: 20px;
+		border: 1px solid $gray-color;
+
+		$img-width: 154px;
+		.describe{
+			margin-left: $img-width + 20px;
+			height: 154px;
+			position: relative;
+			overflow: hidden;
+			font-size: 15px;
+		}
+
+		.activity-name{
+			margin-top: 8px;
+			font-weight: bold;
+		}
+
+		.activity-detail{
+			color: #9b9b9b;
+			font-size: 14px;
+			line-height: 1.5;
+		}
+
+		.rules{
+			text-align: right;
+			font-size: 14px;
+			color: #f00;
+		}
+
+		.filter-link{
+			margin-top: 0px;
+			font-size: 13px;
+			color: $base-color;
+
+			a{
+				display: inline-block;
+				width: 90px;
+			}
+
+			a:hover{
+				text-decoration: underline;
+			}
+		}
+
+		.buttons{
+			position: absolute;
+			bottom: 0px;
+		}
+
+		.btn{
+			line-height: 1.2;
+			border-radius: 4px;
+		}
+
+		.btn + .btn {
+			margin-left: 20px;
+		}
+
+		img{
+			width: $img-width;
+			height: $img-width;
+			float: left;
+		}
+
+		&.left{
+			float: left;
+			margin-left: 10px;
+		}
+
+		&.right{
+			float: right;
+			margin-right: 10px;
+		}
+	}
+}
+
+.marketing-content{
+	margin: 20px 24px;
+	position: relative;
+
+	.content-tips{
+		.btn{
+			font-size: 13px;
+			line-height: 1.2;
+			padding: 7px 30px; 
+		}
+
+	}
+
+	.tips-indent{
+		margin-left: 26px;
+	}
+
+	.question,.status{
+		font-size:small;
+		color:red;
+		display:inline-block;
+		margin:0 15px;
+	}
+
+	.activity-pre{
+		display: inline-block;
+		float: left;
+	}
+
+	.activity-detail{
+		border: 1px;
+		border-style: solid;
+		border-color: #dddddd;
+		margin: 10px 0;
+		width: 80%;
+		padding: 10px;
+	}
+	.activity-opt{
+		overflow: hidden;
+	}
+
+	.resource-form{
+		border: 1px solid $gray-color;
+	    padding: 0px 0px 40px 10px;
+	}
+
+	//优惠券和限时打折列表
+	.activity-list{
+		margin: 0px;
+		padding: 0px;
+	    margin-top: 30px;
+	    li {
+	        margin-bottom: 30px;
+	        list-style: none;
+	    }
+	}
+
+	.list-box{
+
+	}
+	.list-box-header{
+	    height: 60px;
+	    line-height: 60px;
+	    background-color: $base-color;
+
+	    .state,.title{
+	        font-size: 18px;
+	        color: #fff;
+	    }
+
+	    .state{
+	        padding: 0px 10px;
+	        text-align: center;
+	    }
+
+	    .state-valid{
+	        background-color: #e2055d;
+	    }
+
+	    .state-invalid{
+	        background-color: #5b5b5b;
+	    }
+
+	    .state-standby{
+	        background-color: #eba316;
+	    }
+	}
+
+	.list-box-content{
+	    padding-left: 45px;
+	    position: relative;
+	    border: 1px solid $gray-color;
+	    border-top: none;
+	    color: #727272;
+	    overflow: hidden;
+	    
+	    .product{
+	        float: left;
+	        margin-bottom: 20px;
+
+	        img{
+	            width: 100px;
+	            height: 100px;
+	        }
+
+	        span{
+	            display: inline-block;
+	            text-overflow: ellipsis;
+	            overflow: hidden;
+	            white-space: nowrap;
+	        }
+
+	        .title{
+	            color: $base-color;
+	            margin-top: 15px;
+	            font-weight: bold;
+	            text-align: center;
+	        }
+
+	        .origin-price{
+	            text-align: center;
+	            font-size: 12px;
+	            margin-top: 8px;
+	        }
+	    }
+	}
+
+	.list-box-bottom{
+	    padding-left: 45px;
+	    line-height: 80px;
+
+	    .btn{
+	        width: 82px;
+	        border-radius: 4px;
+	        line-height: 1.2;
+	        box-sizing: border-box;
+	    }
+
+	    .btn + .btn {
+	        margin-left: 20px;
+	    }
+	}
+}
+
+.selected-product-grid{
+	th{
+	    height: 40px;
+	    line-height: 40px;
+	}
+
+	thead{
+	    border-bottom: 1px solid $gray-color;
+	}
+
+	td{
+	    padding: 10px;
+	    border-bottom: 1px solid #ccc;
+	}
+
+	.name{
+	    width: 300px;
+
+	    img{
+	        width: 60px;
+	        height: 60px;
+	        margin-right: 10px;
+	        float: left;
+	    }
+	}
+
+	.count,.price,.operation{
+	    width: 100px;
+	}
+
+	.price,.operation,.discount,.limit-num{
+	    text-align: center;
+	}
+
+	.btn{
+	    padding: 4px 20px;
+	}
+
+	tr.no-data{
+	    height: 50px;
+	    line-height: 50px;
+	    text-align: center;
+	}
+
+	.wholesales,.discount-price{
+	    width: 150px;
+	    padding-top: 5px;
+	    padding-bottom: 5px;
+
+	    .text-bold{
+	    	width: 48px;
+	    	display: inline-block;
+	    }
+
+	    >span{
+	    	width: 65px;
+	        display: inline-block;
+	    }
+	}
+
+	.discount{
+	    width: 100px;
+	}
+	
+	.price-num{
+	    margin-bottom: 5px;
+	    text-align: right;
+	    color: #c40000;
+	    font-weight: bold;
+	}
+}
+
+

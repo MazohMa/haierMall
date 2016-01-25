@@ -1,0 +1,394 @@
+@import '_variables';
+.comment,.commented {
+	.right {
+		.integral-role-tips {
+			list-style:none;
+			padding:15px;
+			margin:0 0 10px 0;
+			color:#fff;
+			background-color:#6DBFF7;
+			a {
+				color:#E5DB45;
+				cursor:pointer;
+			}
+		}
+		.comment-item-hd {
+			height:40px;
+			line-height:40px;
+			padding-left:10px;
+			background-color:$color-base;
+			color:#fff;
+			span {
+				font-size:14px;
+			}
+			a {
+				margin-left: 20px;
+				font-size: 14px;
+				color: #fff;
+				cursor:pointer;
+			}
+			img.contact-merchant {
+				vertical-align: middle;
+				margin-left: 5px;
+				width: 23px;
+				height: 17px;
+			}
+		}
+		.comment-item-bd {
+			margin-bottom: 30px;
+			position:relative;
+			ul {
+				list-style:none;
+				padding:0;
+				margin:0;
+				li {
+					position:relative;
+					overflow:hidden;
+					padding:10px;
+					border:#ccc thin solid;
+					.product-info {
+						position:absolute;
+						top:10px;
+						left:10px;
+						display:inline-block;
+						vertical-align:top;
+						img {
+							padding:0 20px;
+							width: 200px;
+							height: 147px;
+						}
+						.product-name {
+							margin:0;
+							max-width:220px;
+						}
+					}
+					.comment-content,.comment-info {
+						position:relative;
+						padding-left:240px;
+						p {
+							margin:5px 0;
+							.icon-complete {
+								vertical-align:middle;
+								width:40px;
+							}
+							.complete-text {
+								font-size:20px;
+								margin-left:6px;
+							}
+						}
+						&.edit {
+							display:none;
+						}
+						.comment-integral {
+							color:#FD9A00;
+						}
+						.comment-star {
+							label {
+								display:inline-block;
+								vertical-align:middle;
+							}
+							.star-list {
+								margin-left:10px;
+								.star {
+									img {
+										vertical-align:middle;
+										background-color:#000;
+									}
+									display:inline-block;
+									width:42px;
+									height:42px;
+									background:image-url('icon_score_1.png') no-repeat;
+									background-size:100% 100%;
+									cursor:pointer;
+									&.active,&.hover {
+										background-image:image-url('icon_score_2.png');
+									}
+								}
+							}
+						}
+						.text-input {
+							width:620px;
+							textarea {
+								width:598px;
+								height:110px;
+								padding:10px;
+								resize:none;
+							}
+							.input-tips {
+								vertical-align:middle;
+								.word-limit {
+									float:right;
+									line-height:18px;
+								}
+							}
+							
+						}
+					}
+					.comment-btn {
+						position:absolute;
+						top:0px;
+						right:0px;
+						padding:8px 10px;
+						color:#fff;
+						background-color:$color-base;
+						cursor:pointer;
+					}
+					.comment-info {
+						position:relative;
+						min-height:200px;
+						p {
+							overflow:hidden;
+						}
+						.comment-text>label {
+							font-size:16px;
+						}
+						.btn-group {
+							position:absolute;
+							bottom:0px;
+							right:0px;
+							cursor:pointer;
+							a {
+								padding:0 10px;
+								color:$color-base;
+							}
+							a + a {
+								border-left:#ccc thin solid;
+							}
+						}
+					}
+					&.edit-comment {
+						.comment-info {
+							display:none;
+						}
+						.comment-content {
+							display:block;
+						}
+					}
+				}
+				li + li {
+					margin-top:10px;
+					border-top:#ccc thin solid;
+				}
+			}
+		}
+	}
+}
+
+
+//menu-tree
+.menu-tree {
+	background-color:#F3F6FB;
+	p {
+		margin:0;
+	}
+	.user-info {
+		padding:10px 10px 0 10px;
+		border-bottom:#ccc thin solid;
+		.u-pic {
+			float:left;
+			display:inline-block;
+			padding:5px;
+			img {
+				vertical-align:middle;
+				width:60px;
+				height:60px;
+				-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				-ms-border-radius: 30px;
+				-o-border-radius: 30px;
+				border-radius: 30px;
+			}
+		}
+		.u-info {
+			float:left;
+			display:inline-block;
+			padding:5px;
+			margin-top:5px;
+			.u-name {
+				max-width:90px;
+				min-height:32px;
+				span {
+					text-indent:10px;
+					color:$color-base;
+				}
+			}
+			.u-level {
+				.circle {
+					display:inline-block;
+					width:20px;
+					height:20px;
+					line-height:20px;
+					-webkit-border-radius: 10px;
+					-moz-border-radius: 10px;
+					-ms-border-radius: 10px;
+					-o-border-radius: 10px;
+					border-radius: 10px;
+					text-align:center;
+					color:#fff;
+					font-size:14px;
+					font-weight:bolder;
+					background-color:$color-base;
+				}
+				.member-icon {
+					max-width: 30px;
+					max-height: 40px;
+					margin: 0 3px;
+				}
+			}
+		}
+		.u-operation {
+			clear:both;
+			text-align:center;
+			padding:10px 0;
+			a {
+				color:$color-base;
+			}
+			a + a {
+				margin-left:30px;
+			}
+		}
+		.u-bonus {
+			clear:both;
+			padding:10px 0;
+			border-top:#ccc thin solid;
+			text-algin:center;
+			.u-integral,.u-coupon {
+				text-align:left;
+				img {
+					vertical-align:middle;
+					width:30px;
+					height:30px;
+				}
+				label {
+					margin-left:5px;
+				}
+			}
+			.u-coupon {
+				margin-top:10px;
+			}
+		}
+	}
+	.menu {
+		padding:10px 0 10px 5px;
+		ul {
+			list-style:none;
+			padding-left:10pt;
+			margin:10px 0;
+			li {
+				line-height:20px;
+				background-color:transparent;
+				a {
+					font-size:14px;
+					color:#777;
+				}
+				a:hover {
+					color:$color-base;
+				}
+			}
+		}
+		.menu-item {
+			background-color:transparent;
+			.menu-hd {
+				text-indent:10pt;
+			}
+		}
+		.menu-item:hover {
+			background-color:transparent;
+		}
+		.menu-hd {
+			font-weight: bolder;
+			font-size:14px;
+		}
+	}
+}
+//收藏夹、我的订单、待评价、已评价
+.favorite,.my-order,.comment,.commented,.integral,.exchange-gift,.exchange-coupon,.coupon,.user-level,.user-operate,.user-address-manage,.user-message {
+	overflow:hidden;
+	.left {
+		float: left;
+		width: 190px;
+	}
+	.right {
+		float: right;
+		width: 1000px;
+	}
+}
+//表格
+
+.table {
+	width:100%;
+	text-align:center;
+	th,td {
+		border:#ccc thin solid;
+		line-height:35px;
+	}
+}
+
+//优惠券样式
+.coupon-list {
+	list-style:none;
+	padding:0;
+	margin:0 -12px 0 0;
+	overflow:hidden;
+	li {
+		width:235px;
+		float:left;
+		display:inline-block;
+		margin:10px 12px 10px 0;
+		p {
+			margin:5px 0;
+		}
+		.coupon-upper {
+			padding:8px;
+			height:148px;
+			background:#fff image-url("coupon-background.png");
+			background-size:100% 100%;
+			color:#fff;
+			.discount-money {
+				margin-top:18px;
+			}
+			.price-symbol {
+				font-size:16px;
+			}
+			.amount {
+				margin:0;
+				padding:0;
+				font-size:50px;
+				font-weight:500;
+			}
+			.scope {
+				float:right;
+				font-size:20px;
+				vertical-align:middle;
+				line-height:75px;
+			}
+			.use-cond,.valid-date {
+				display:inline-block;
+				max-width:148px;
+			}
+			p>label {
+				display:inline-block;
+				width:70px;
+				vertical-align: top;
+			}
+		}
+		.dealer-name {
+			height:18px;
+		}
+		.now-exchange-btn,.now-use-btn {
+			display: inline-block;
+			padding:2px 5px;
+			cursor: pointer;
+			color:#fff;
+			background-color: $color-base;
+			border: #6B8CB0 thin solid;
+		}
+		.integral-value {
+			float:right;
+			padding:3px;
+			label {
+				color:$color-base;
+			}
+		}
+	}
+}

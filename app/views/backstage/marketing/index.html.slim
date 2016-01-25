@@ -1,0 +1,66 @@
+= content_for(:content)
+	.marketing-activity
+		.activity-summary
+			.summary-item 进行中的活动（#{@activity_count}）
+			.summary-item 未开始的活动（#{@not_at_activity}）
+			.summary-item 已结束的活动（#{@end_of_activity}）
+		.activity-panel.left
+			=image_tag "backstage/m-premiums.png"
+			div.describe
+				p.activity-name 满就送	
+				p.activity-detail 活动描述：可满就送（满就减，满就送礼，满就送积分，满就免邮）
+				p.filter-link
+					- if @activity_count_premiums != 0
+						= link_to "进行中（#{@activity_count_premiums}）",backstage_premiums_path(:status=>1)
+					- if @not_at_activity_premiuns != 0
+						= link_to "未开始（#{@not_at_activity_premiuns}）",backstage_premiums_path(:status=>0)
+					- if @end_of_activity_premiums != 0
+						= link_to "已结束（#{@end_of_activity_premiums}）",backstage_premiums_path(:status=>2)
+				.buttons
+			   		= link_to '创建活动','/backstage/premiums/new',{:class=>'btn btn-primary'}
+			    	= link_to '查看活动列表','/backstage/premiums',{:class=>'btn btn-primary'}
+		.activity-panel.right 
+			=image_tag "backstage/m-discounts.png"
+			div.describe
+				p.activity-name 限时打折
+				p.activity-detail 活动描述：可对选中商品设置折扣、限购数量以及折扣活动有效时间
+				p.filter-link
+					- if @activity_count_discounts != 0
+						= link_to "进行中（#{@activity_count_discounts}）",backstage_discounts_path(:status=>1)
+					- if @not_at_activity_discounts != 0
+						= link_to "未开始（#{@not_at_activity_discounts}）",backstage_discounts_path(:status=>0)
+					- if @end_of_activity_discounts != 0
+						= link_to "已结束（#{@end_of_activity_discounts}）",backstage_discounts_path(:status=>2)
+				.buttons
+			   		= link_to '创建促销','/backstage/discounts/new',{:class=>'btn btn-primary'}
+			   		= link_to '查看活动列表','/backstage/discounts',{:class=>'btn btn-primary'}
+	    .activity-panel.left 
+			=image_tag "backstage/m-collocations.png"
+			div.describe
+				p.activity-name 搭配套餐	
+				p.activity-detail 活动描述：可将多件商品组成一个套餐组，设置套餐价格、套餐图片、套餐描述
+				p.filter-link
+					- if @activity_count_collocations != 0
+						= link_to "进行中（#{@activity_count_collocations}）",backstage_collocations_path(:status=>1)
+					- if @not_at_activity_collocations != 0
+						= link_to "未开始（#{@not_at_activity_collocations}）",backstage_collocations_path(:status=>0)
+					- if @end_of_activity_collocations != 0
+						= link_to "已结束（#{@end_of_activity_collocations}）",backstage_collocations_path(:status=>2)
+				.buttons
+					= link_to '创建套餐','/backstage/collocations/new',{:class=>'btn btn-primary'}
+					= link_to '查看活动列表','/backstage/collocations',{:class=>'btn btn-primary'}
+		.activity-panel.right 
+			=image_tag "backstage/m-coupons.png"
+			div.describe
+				p.activity-name 店铺优惠卷
+				p.activity-detail 活动描述：设置优惠券使用条件并且可以生成对应的二维码，用户领取并在结算时使用
+				p.filter-link
+					- if @activity_count_coupons != 0
+						= link_to "进行中（#{@activity_count_coupons}）",backstage_coupons_path(:status=>1)
+					- if @not_at_activity_coupons != 0
+						= link_to "未开始（#{@not_at_activity_coupons}）",backstage_coupons_path(:status=>0)
+					- if @end_of_activity_coupons != 0
+						= link_to "已结束（#{@end_of_activity_coupons}）",backstage_coupons_path(:status=>2)
+				.buttons
+					= link_to '创建优惠券','/backstage/coupons/new',{:class=>'btn btn-primary'}
+					= link_to '查看活动列表','/backstage/coupons',{:class=>'btn btn-primary'}

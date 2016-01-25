@@ -1,0 +1,14 @@
+#filter-forms
+    = form_tag(backstage_integrations_path,method:'get',class:'filter-form')
+        .filter-group
+            = text_field_tag :"members_grid[mobile]"
+        button.btn.btn-primary.filter-submit type="submit" 确定
+
+    = form_tag(backstage_integrations_path,method:'get',class:'filter-form')
+        .filter-group
+            ul.filter-list
+                - MemberRule.all.each do |member_rule|
+                    li
+                        = check_box_tag :"members_grid[level][]",member_rule.level,false
+                        = label_tag :"members_grid[level][]",member_rule.title
+        button.btn.btn-primary.filter-submit type="submit" 确定

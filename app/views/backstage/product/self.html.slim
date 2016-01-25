@@ -1,0 +1,50 @@
+= content_for(:grid_operations)
+	- if @product_status == 1
+			button.operation-btn#off-shelf 批量下架
+	- if @product_status == 2
+			button.operation-btn#on-shelf 批量上架
+	- unless @product_status == 3
+			button.operation-btn#trash-product 批量删除
+			/ .grid-operation.dropdown
+			/ 	button.operation-btn 批量编辑;
+			/ 		span.caret.btn-icon
+			/ 	ul.dropdown-menu
+			/ 		li.menu-item 商品名称
+			/ 		li.menu-item 品牌
+			/ 		li.menu-item 商品类型
+			/ 		li.menu-item 供货总量
+			/ button.operation-btn 批量导入
+	- if @product_status == 3
+			button.operation-btn#restore-product 还原商品
+			button.operation-btn#delete-product 永久删除商品
+
+= content_for(:grid_content)
+	.grid-content
+		ul.tabs
+			li.tab-item
+				a.active href="#tab1" 所有商品（#{@grid.assets.total_count}）
+			/ - if @product_status == 1
+			/ 	li.tab-item 
+			/ 		a href="#tab2" 更改过的商品
+			/ - if @product_status == 2
+			/ 	li.tab-item 
+			/ 		a href="#tab3" 上传失败的商品
+		.tab-content
+			#tab1 
+				= datagrid_table @grid
+				= render partial: '/shared/pagination',locals: {assets:@grid.assets}
+				.filter-box
+					= render partial: 'filter_form'
+
+
+
+
+
+
+
+
+
+
+
+
+

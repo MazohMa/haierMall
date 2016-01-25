@@ -1,0 +1,57 @@
+//variables
+
+$color-base: #000;
+$font-base: 13px;
+$divider-color: #e5e5e5;
+
+//==form
+$form-group-vertical-margin: 30px;
+$control-label-width: 80px;
+$control-label-horizontal-margin: 15px;
+$form-group-text-box-width: 250px;
+
+$input-height-base: 34px;
+
+$help-inline-color: lighten($color-base,20%);
+$help-block-color: lighten($color-base,20%);
+
+$search-form-height: 40px;
+
+//==buttons
+$btn-font-weight: 500;
+$padding-base-vertical: 6px;
+$padding-base-horizontal: 12px;
+$padding-small-vertical:    4px;
+$padding-small-horizontal:  10px;
+
+$font-size-base: 14px;
+$font-size-small: ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$line-height-base: 1.5;
+$line-height-small: 1.5 !default;
+
+$btn-inline-horizontal-margin: 10px;
+
+//btn-default
+$btn-default-color: #fff;
+$btn-default-background-color: #009dd9;
+$btn-default-border-color: #009dd9;
+
+//pagination
+$pagination-color:#0491e3;
+$pagination-border: #ddd;
+$pagination-radius: 3px;
+$pagination-font-size: 13px;
+$pagination-color-active: #fff;
+$pagination-background-active: $pagination-color;
+
+//box
+$box-background: #ccc;
+$box-border: #ccc;
+
+
+//list
+$list-horizontal-margin-vertical: 20px;
+$list-vertical-margin-vertical: 20px;
+$list-vertical-margin-horizontal: 15px;
+

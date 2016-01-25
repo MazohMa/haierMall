@@ -1,0 +1,105 @@
+= content_for(:grid_operations)
+    = link_to "返回供应商会员列表",backstage_members_path(:"members_grid[role]"=>'dealer'),class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content.member-content
+        = link_to "采购商会员设置",backstage_member_rules_new_path,class:"btn nav-btn"
+        a.btn.nav-btn.active 供应商信用设置
+        .rules-content
+            / button.btn.btn-primary#new-credit-rule-btn 新增信用等级
+            table.rules-table#credit-rules-table
+                thead
+                    th.title 等级名称
+                    th.icon 所属图标
+                    th.condition 满足条件
+                    th.benefit 会员权益
+                    th.actions 操作
+                tbody
+                    - CreditLevelRule.all.each_with_index do |rule,index|
+                        tr
+                            td.title #{rule.title}
+                            td.icon
+                                = image_tag("#{rule.icon.small}")
+                            td.condition
+                                - if rule.level == 'V0'
+                                    |注册即为#{rule.title}
+                                - elsif rule.max_credit_value.blank?
+                                    |信用范围#{rule.min_credit_value}以上
+                                - else
+                                    |信用范围#{rule.min_credit_value} - #{rule.max_credit_value}分
+                                    input type="hidden" class="max-credit-value" value="#{rule.max_credit_value}"
+                            td.benefit
+                                - if rule.shopwindow.blank?
+                                    | 可发布的商品数无限制
+                                - else 
+                                    | 可发布#{rule.shopwindow}个商品
+                                    input type="hidden" class="shopwindow" value="#{rule.shopwindow}"
+                            td.action
+                                a.action-link.action-update href="javascript:void(0)" data-value="#{rule.id}" 修改
+
+            .form-box.credit-rule-box
+                .form-box-header 信用度计算规则
+                .form-box-content
+                    = form_tag(backstage_credit_rules_update_path,method: 'post',class:'credit-rule-form')
+                        - CreditRule.all.each_with_index do |rule,index|
+                            .group
+                                = hidden_field_tag :"credit_rule[#{index}][id]",rule.id
+                                |交易评价每#{rule.condition}星，等于&nbsp;&nbsp;
+                                = text_field_tag :"credit_rule[#{index}][credit_value]",rule.credit_value,class:'input-sm'
+                                |&nbsp;&nbsp;信用分
+                        button.btn.btn-primary 更新
+
+= content_for(:footer_js)
+    script id="credit-rule-form" type="x-tmpl-mustache"
+        <form accept-charset="UTF-8" action="{{url}}" method="post" class="rule-form" enctype='multipart/form-data'>
+            <input type="hidden" name="authenticity_token" value="{{token}}"/>
+            <input type="hidden" name="credit_level_rule[id]" value="{{id}}"/>
+            <div class="form-group">
+                <label class="control-label">等级名称： </label>
+                <input type="text" name="credit_level_rule[title]" value="{{title}}" class="lg"/>
+            </div>
+            <div class="form-group last-group">
+                <label class="control-label">所属图标： </label>
+                <input type="file" name="credit_level_rule[icon]" value="{{icon}}"/>
+                |{{#id}}
+                    <span class="help-inline">重新上传保存就可替换原来的图标</span>
+                |{{/id}}
+            </div>
+            <dl>
+                <dt> 满足条件 </dt>
+                <dd> 
+                    
+                    |{{#isLevelZero}}
+                        在掌上阅冰采购平台注册
+                    |{{/isLevelZero}}
+                    |{{^isLevelZero}}
+                        {{#isLevelOne}}
+                            <div class="group">
+                                信用分
+                                <input type="text" value="{{minCreditValue}}" name="credit_level_rule[min_credit_value]" class="sm"/> - <input type="text" value="{{maxCreditValue}}" name="credit_level_rule[max_credit_value]" class="sm"/>
+                                <span class="help-inline">不填写代表无上限</span>
+                            </div>
+                        {{/isLevelOne}}
+
+                        {{^isLevelOne}}
+                            <div class="group">
+                                信用分
+                                <input type="text" value="{{minCreditValue}}" readonly="readonly" name="credit_level_rule[min_credit_value]" class="sm"/> - <input type="text" value="{{maxCreditValue}}" name="credit_level_rule[max_credit_value]" class="sm"/>
+                                <span class="help-inline">不填写代表无上限</span>
+                            </div>
+                        {{/isLevelOne}}
+                    |{{/isLevelZero}}
+                </dd>
+            </dl>
+            <dl>
+                <dt> 会员权益 </dt>
+                <dd>
+                    <div class="group"> 
+                        |可发布
+                        <input type="text" value="{{shopwindow}}" name="credit_level_rule[shopwindow]" class="sm">
+                        |商品
+                        <span class="help-inline">不填写代表无限制</span>
+                    </div>
+                </dd>
+            </dl>
+        </form>
+        

@@ -1,0 +1,94 @@
+.integrations_grid{
+    th,td{
+        text-align: center;
+    }
+
+    .created_at{
+        width: 200px;
+    }
+    
+
+   .remaining_integration, .integration{
+        width: 100px;
+    }
+
+
+}
+.member-content {
+    .tips-message {
+        margin-left: 10px;
+        vertical-align: bottom;
+    }
+}
+.member-content + .member-content {
+	margin-top:20px;
+}
+.exchange_products_grid {
+    text-align: center;
+    thead th {
+        text-align: center;
+        &.product_type {
+            width: 60px;
+        }
+        &.image {
+            width: 120px;
+        }
+        &.received_num,&.integration {
+            width: 60px;
+        }
+        &.shipment {
+            width: 50px;
+        }
+        &.description {
+            width: 200px;
+        }
+        &.status {
+            width: 60px;
+        }
+        &.validity_time {
+            width: 150px;
+        }
+        &.actions {
+            width: 120px;
+        }
+    }
+    a.btn {
+        margin: 0;
+        color: #0491e3;
+        padding: 2px 5px;
+    }
+}
+.integral-expense {
+	margin:0;
+	padding:0;
+}
+.integral-exchange-form {
+    padding:0px 15px;
+    input[type='file'] {
+        outline: none;
+    }
+    .hysical-goods-extended,.coupons-extended {
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+    .form-group {
+        margin-top:20px;
+        .control-label {
+            width: 120px;
+        }
+    }
+    .use-instructions {
+        .control-label {
+            vertical-align: top;
+        }
+        textarea {
+            resize:one;
+            width: 500px;
+            height: 60px;
+            max-width: 500px;
+            max-height: 60px;
+        }
+    }
+}       

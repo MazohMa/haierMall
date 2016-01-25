@@ -1,0 +1,81 @@
+//列表
+.ad_informations_grid{
+    tr{
+        td,th{
+            text-align: center;
+        }
+
+        td{
+            padding-left: 10px;
+        }
+    }
+
+    .checked_all{
+        text-align: left;
+        width: 30px;
+    }
+
+    .ad_type{
+        width: 90px;
+        padding-left: 10px;
+
+        .filter-form{
+            text-align: left;
+        }
+    }
+
+    .title{
+        width: 284px;
+    }
+
+    .updated_at{
+        width: 130px;
+    }
+
+    .release_status,.approve_status,.admin_approve_status,{
+        width: 80px;
+    }
+
+    .actions,.admin_actions{
+        width: 110px;
+    }
+
+    .release_status,.approve_status,.admin_approve_status{
+        text-align: left;
+    }
+
+}
+
+//表单
+.ad_information-form{
+    .content-error-container{
+        margin-left: 75px;
+        margin-top: 20px;
+    }
+}
+
+.information-content{
+    margin: 50px 100px;
+    .title{
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .publish-info{
+        text-align: center;
+        margin-top: 30px;
+        span{
+            display: inline-block;
+            margin-right: 50px;
+        }
+    }
+
+    .content-body{
+        margin-top: 60px;
+    }
+
+    .btn{
+        margin-right: 30px;
+        margin-top: 30px;
+    }
+}

@@ -1,0 +1,24 @@
+- @page_title = title (@role.name + '角色详情')
+- @page_title_icon = 'add_admin_title'
+- breadcrumb [{url: roles_path, label: '角色列表'}, '详情']
+
+.add_info_box
+  .add_info_box_title 角色信息
+  .add_info_box_content
+    table class="add_info_box_table"
+      tr
+        th 名称：
+        td
+          = @role.name
+      tr
+        th 备注：
+        td
+          = @role.remark
+      tr
+        th 后台权限：
+        td
+          = @role.server_abilities_desc.html_safe
+      tr 
+        th 手机端权限：
+        td
+          = @role.mobile_abilities_desc.html_safe

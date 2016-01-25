@@ -1,0 +1,76 @@
+
+= form_for @coupon,{:url=>@coupon.new_record? ? backstage_coupons_create_path : backstage_coupons_update_path,:html=>{:class=>'resource-form coupon-form',:id=>'coupon-form'}} do |f|
+    p.form-title 设置优惠券
+    = f.hidden_field :id
+    .form-inline
+        = f.label :title,"<i>*</i>优惠券名称：".html_safe,class:"control-label"
+        = f.text_field :title,class:"lg"
+    .form-inline
+        = f.label :price,"<i>*</i>面额：".html_safe,class:"control-label"
+        = f.text_field :price,class:"sm",id:"coupon-price"
+        span.follow-text 元
+    .form-inline
+        .form-group
+            = f.label :nums,"<i>*</i>总领用量：".html_safe,class:"control-label"
+            = f.text_field :nums,class:"sm",id:"coupon-nums"
+        .form-group
+            label.control-label 总额：
+            input.sm#coupon-total-price type="text" readonly="true"
+            span.follow-text 元
+    .form-inline
+        = f.label :validity_time ,"<i>*</i>生效时间：".html_safe,class:"control-label"
+        = f.text_field :validity_time,class:"md",id:"validity-time"
+        span.help-inline.obvious 活动开始之前，不能领用，不能使用。
+    .form-inline
+        = f.label :invalidity_time ,"<i>*</i>失效时间：".html_safe,class:"control-label"
+        = f.text_field :invalidity_time,class:"md",id:"invalidity-time"
+    .form-inline
+        = f.label :user_get_quantity,"每人限领：".html_safe,class:"control-label "
+        = f.select :user_get_quantity,options_for_select([['不限',0],['1张',1],['2张',2],['3张',3],['4张',4]],@coupon.new_record?? '1': @coupon.user_get_quantity),{},{:class=>"sm"}
+    .form-inline
+        = f.label :get_type,"领取方式：",class:"control-label"
+        = f.select :get_type,options_for_select([['推广活动',0],['满就送',1],['积分兑换',2],['优惠券礼包',3]],@coupon.get_type),{},{:class=>"sm",id:"get-type"}
+        span.help-inline.obvious.for-hide 优惠券礼包的优惠券保存之后不能再进行任何操作，请确认所填的数据。
+    .form-inline.radios-vertial
+        lable.control-label.pull-left 限制条件：
+        .radio
+            = radio_button_tag :"condition-usage",0,(@coupon.condition_usage.blank? and @coupon.specified_area.blank?)
+            = label_tag :condition_usage_0,"不限",class:"radio-label" 
+        .radio
+            = radio_button_tag :"condition-usage",1,(!@coupon.condition_usage.blank? or !@coupon.specified_area.blank?)
+            = label_tag :condition_usage_1,"限制条件",class:"radio-label",id:'condition-usage-radio'
+            .limit.checkboxes-vertial
+                .form-inline
+                    label 订单满&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    = f.text_field :condition_usage,class:"sm",id:'condition-usage'
+                    span.follow-text 元
+                / .form-inline
+                    / label 指定区域&nbsp;&nbsp;
+                    / = f.text_field :specified_area,class:"md",id:'specified-area'
+    / .form-inline
+    /     label.control-label 选择商品：
+    /     .checkbox
+    /         input type="checkbox" 
+    /         label 所有商品
+    /     input.btn.btn-default type="button" value="选择商品"
+    .form-inline
+        label.control-label.pull-left 优惠券预览：
+        .coupon-pre.block-indent
+            .pre-top
+                span.money-num#pre-money #{@coupon.price.to_i}
+                span.money-unit 元
+                |优惠券
+            .pre-bottom
+                span.text-title 使用条件： 
+                span.text-content#pre-condition-usage 不限
+                span.text-title 有效期：
+                span.text-content#pre-validity-time
+            span.get-button 点击领取
+    .bottom-buttons
+        input.btn.btn-obvious.obvious-primary type="submit" value="#{@coupon.new_record?? '完成创建':'保存'}"
+        a.btn.btn-obvious.obvious-default href="/backstage/coupons" 取消
+
+
+
+
+

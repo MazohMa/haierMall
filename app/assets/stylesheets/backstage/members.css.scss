@@ -1,0 +1,211 @@
+@import 'variables';
+
+.members_grid{
+    th,td{
+        text-align: center;
+    }
+
+    th{
+        padding-left: 10px;
+    }
+
+    td{
+        padding-left: 10px;
+    }
+
+    .row_number{
+        width: 40px;
+    }
+
+    .mobile{
+        width: 120px;
+    }
+
+    .created_at,.last_transaction_time{
+        width: 130px;
+    }
+
+    .integration,.transaction_num{
+        width: 90px;
+    }
+
+    .growth_value,.level{
+        width: 100px;
+    }
+
+}
+
+.member-content{
+    .member-info{
+        padding: 10px;
+        border: 1px solid $gray-color;
+
+        span{
+            display: inline-block;
+            width: 240px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+
+        }
+    }
+
+    .base-info{
+        padding: 10px;
+        margin-top: 20px;
+        border: 1px solid $gray-color;
+
+        .title{
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .info-group{
+            margin-left: 2em;
+            margin-bottom: 20px;
+            label{
+                width: 80px;
+                display: inline-block;
+            }
+        }
+
+        .group-inline{
+            width: 100%;
+            overflow: hidden;
+            .info-group{
+                float: left;
+                min-width: 200px;
+            }
+        }
+    }
+
+    .rules-table{
+        width: 100%;
+        th,td{
+            padding: 10px;
+            border: 1px solid $gray-color;
+            text-align: center;
+        }
+    }
+
+    #new-member-rule-btn{
+        margin-bottom: 30px;
+        line-height: 1;
+    }
+
+    .nav-btn{
+        line-height: 1;
+        border-color: #ccc;
+        margin-right: -1px;
+    }
+
+    .nav-btn.active{
+        background-color: $base-color;
+        border-color: $base-color;
+        color: #fff;
+        cursor: default;
+    }
+
+    .rules-content{
+        padding: 20px;
+        margin-top: -1px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+    }
+
+}
+
+.rule-form{
+    margin: 20px;
+
+    dt,dd{
+        display: inline-block;
+        height: 100%;
+    }
+
+    dl{
+        margin: 0px;
+        border: 1px solid #ccc;
+
+    }
+    dl + dl {
+        margin-top: -1px;
+    }
+
+    dt{
+        width: 80px;
+        padding-right: 10px;
+        border-right: 1px solid #ccc;
+        height: 100px;
+        line-height: 100px;
+        background-color: $gray-color;
+        text-align: right;
+    }
+
+    dd{
+        vertical-align: middle;
+    }
+
+    .last-group{
+        margin-bottom: 30px;
+        input{
+            padding-left: 0px;
+        }
+    }
+
+    .lg{
+        width: 200px;
+    }
+
+    .sm{
+        width: 80px;
+    }
+}
+
+//成长值计算等盒子
+.form-box{
+    width: 100%;
+    border: 1px solid $gray-color;
+}
+
+.form-box-header{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 15px;
+    border-bottom: 1px solid $gray-color;
+    background-color: #f3f3f3;
+}
+
+.form-box-content{
+    padding: 15px;
+
+    .checkbox-label{
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+
+    .group{
+        padding: 20px 0px;
+        border-bottom: 1px solid $gray-color;
+    }
+
+    .condition-title{
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .input-sm{
+        width: 60px;
+    }
+
+    .btn{
+        margin-top: 30px;
+        line-height: 1;
+    }
+}
+
+.growth-rule-box,.credit-rule-box{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+

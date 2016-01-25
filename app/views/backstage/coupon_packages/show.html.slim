@@ -1,0 +1,75 @@
+= content_for(:grid_operations)
+    = link_to "返回列表",backstage_coupon_packages_index_path,class:"operation-btn"
+= content_for(:grid_content)
+	.coupon-packages-content
+		ul
+			li
+				span.row-title 优惠券礼包名：
+				span.row-content #{@coupon_package.title}
+			li.list-inline
+				span.row-title 礼包价值：
+				span.row-content
+					label.gift-value #{@coupon_package.price.to_i}
+					label.unit 元
+				span.row-title 总额：
+				span.row-content
+					label.gift-total #{@coupon_package.price.to_i * @coupon_package.total_num}
+					label.unit 元
+			li
+				span.row-title 总领取量：
+				span.row-content
+					| #{@coupon_package.total_num}
+					label.unit 张
+					input type="hidden" value="" id="max-total_quantity"
+			li
+				span.row-title 生效时间：
+				span.row-content #{@coupon_package.validity_time.strftime('%Y/%m/%d')}
+			li
+				span.row-title 结束时间：
+				span.row-content #{@coupon_package.invalidity_time.strftime('%Y/%m/%d')}
+			li
+				span.row-title 每人限领：
+				span.row-content 
+					| #{@coupon_package.limit_get_number}
+					label.unit 张
+		- @coupons.each_with_index do |coupon,index|
+			.select-coupon-list
+				.coupon-item
+					span.delete-item ×
+					.info-title 添加优惠券#{index+1}
+					.info-inline
+						span.row-title 选择优惠券：
+						span.row-content #{coupon.title}
+						span.row-title 供应商：
+						span.row-content
+							label.dealer-name #{coupon.dealer.company_name}
+					.info-inline
+						span.row-title 优惠券面额：
+						span.row-content 
+							label.coupon-money #{coupon.price.to_i}
+							label.unit 元
+					.info-inline
+						span.row-title 限制条件：
+						span.row-content
+							label.lismit-condition #{coupon.condition_usage.to_i == 0 ? "不限" : "订单满"+coupon.condition_usage.to_s+"元"}
+					.info-inline
+						span.row-title 领取量：
+						span.row-content
+							label.user-get-quantity #{coupon.nums - coupon.received_num}张
+					.info-inline
+						span.row-title 生效时间：
+						span.row-content
+							label.validity_time #{coupon.validity_time.strftime('%Y/%m/%d')}
+						span.row-title 失效时间：
+						span.row-content
+							label.invalidity_time #{coupon.invalidity_time.strftime('%Y/%m/%d')}
+		p.form-title 已领取用户
+		.grid-content
+	        = datagrid_table @user_coupon_package_grid
+	        = render partial: '/shared/pagination',locals: {assets:@user_coupon_package_grid.assets}
+		.bottom-buttons
+			a.btn.btn-obvious.obvious-primary href="/backstage/coupon_packages/edit/#{@coupon_package.id}" 编辑
+		    a.btn.btn-obvious.obvious-default href="/backstage/coupon_packages/index" 取消
+
+
+		    

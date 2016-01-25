@@ -1,0 +1,3 @@
+=link_to "查看", role_path(@role), class:'list_btn'
+=link_to "修改", edit_role_path(@role), class:'list_btn'
+a.delete_action.list_btn href="#" data-url="#{role_path(@role)}" data-method="delete" redirect-to="/roles" 删除

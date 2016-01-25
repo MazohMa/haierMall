@@ -1,0 +1,27 @@
+h1 Listing order_addresses
+
+table
+  thead
+    tr
+      th Order
+      th Name
+      th Mobile
+      th Address
+      th Zip code
+      th
+      th
+      th
+
+  tbody
+    - @order_addresses.each do |order_address|
+      tr
+        td = order_address.order_id
+        td = order_address.name
+        td = order_address.mobile
+        td = order_address.address
+        td = order_address.zip_code
+        td = link_to 'Edit', edit_site_order_address_path(order_address)
+
+br
+
+= link_to 'New Order address', new_site_order_address_path

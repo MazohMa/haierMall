@@ -1,0 +1,90 @@
+@import '_variables';
+
+.introduce-box{
+	position: absolute;
+	display: none;
+	top: 100%;
+	right: 0px;
+	padding: 15px 20px;
+	border: 1px solid $gray-color;
+	border-top: none;
+	background-color: #fff;
+
+	.clear-all{
+		display: inline-block;
+		margin-left: 10px;
+		margin-right: 10px;
+		color: $base-color;
+	}
+
+	.box-bottom{
+		border-top: 1px solid $gray-color;
+		padding-top: 20px;
+		font-size: 12px;
+	}
+
+	.selected-list{
+		width: 250px;
+		min-height: 50px;
+		padding: 0px 0px 10px 0px;
+		margin: 0px;
+		font-size: 12px;
+
+		.info{
+			float: right;
+			width: 200px;
+			padding: 5px 0px;
+		}
+
+		.name,.specification{
+			display: block;
+			height: 18px;
+			line-height: 18px;
+		}
+
+		.name{
+			color: #000;
+		}
+
+		.specification{
+			color: #666;
+		}
+	}
+
+	li{
+		height: 40px;
+		list-style: none;
+
+		img{
+			width: 40px;
+			height: 40px;
+		}
+	}
+
+	li + li {
+		margin-top: 15px;
+	}
+
+	.close{
+		position: absolute;
+		font-size: 16px;
+		margin-left: -4px;
+		margin-top: -4px;
+		filter: alpha(opacity = 0.5);
+		opacity: 0.5;
+		cursor: pointer;
+	}
+
+	.close:hover{
+    	filter: alpha(opacity=100);
+    	opacity: 1;
+    }
+
+    .introduct-btn{
+    	padding: 2px 10px;
+    	color: #fff;
+    	font-weight: bold;
+    	border-radius: 2px;
+    	background-color: $base-color;
+    }
+}

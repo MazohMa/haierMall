@@ -1,0 +1,11 @@
+.nav-top
+	.nav-wrapper
+		ul.nav
+			li.nav-item class="#{'active' if params[:new_product].blank?}"
+				a href="/" 所有商品
+			li.nav-item class="#{'active' if params[:new_product].present?}"
+				a href="/site/home/search_of_products?new_product=1" 最新商品
+			/ li.nav-item
+			/ 	a href="#" 优惠推荐
+			/ li.nav-item
+			/ 	a href="#" 精选商家

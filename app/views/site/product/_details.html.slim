@@ -1,0 +1,192 @@
+h3.product-name #{product.title}
+.product-grid.clearfix
+	.preview
+		.banner
+			ul
+				- if product.pictures.blank?
+					li
+						img src="/no_image310x320.png"
+					li
+						img src="/no_image310x320.png"
+					li
+						img src="/no_image310x320.png"
+				- else
+					- product.pictures.each do |item|
+						li
+							img src="#{ item.image.url(:large)}"
+		p
+			/ a.share 
+			/ 	= image_tag "web-1_29.png"
+			/ 	span 分享
+			- has_in_wishlist = !(current_user.blank? or UserProductWishlist.where(:product_id=>product.id,:user_id => current_user.id).length == 0)
+			a.collection-goods#collection-goods class="#{'wishlist_hide' if has_in_wishlist}"
+				= image_tag "web-1_31.png"
+				span 收藏商品
+			a#delete-collection-goods class="#{'wishlist_hide' if !has_in_wishlist}"
+				= image_tag "web-1_31.png"
+				span 取消收藏
+
+			span.show_count
+				| (#{UserProductWishlist.where(:product_id=>product.id).count}人气)
+
+			input type="hidden" id="userproductwishlistcount" value="#{UserProductWishlist.where(:product_id=>product.id).count}"
+	.price-infos
+		dl.sales-num
+			dt 起批量
+			- wll_count.each do |item|
+				dd #{item}&nbsp;&nbsp;件
+		dl.price
+			dt 价格
+			- wll_price.each do |item|
+				dd &yen;&nbsp;#{item}
+		.group.packaging-specifications
+			label 包装规格
+			span #{product.specifications.to_s + product.specifications_unit_desc + '*' +product.pack_inside_num.to_s if !product.specifications.nil?&&!product.specifications_unit_desc.nil?&&!product.pack_inside_num.nil? }
+		.group.monthly-sales
+			label 月销量
+			span #{product.sale}
+		
+		= form_tag({controller:"cart",action:"post_order"}, method: "post",onsubmit:"return checkMinNum()",id:"buyNowForm")
+		  .group.product-tastes
+		  	label 口味
+		  	span.tastes-select
+		  		- product.tastes.each_with_index do |item,i|
+		  			- if i == 0
+		  				span.active data-id="#{item.id}" data-shipments="#{item.shipments}" #{item.title}
+		  			- else
+		  				span data-id="#{item.id}" data-shipments="#{item.shipments}" #{item.title}
+		  		input type="hidden" name="taste_id" value="#{product.tastes.first.id}"
+		  .group.purchase-quantity
+			  label 订购数量
+			  span.count-nums
+			  	a.num-reduce.disable-reduce -
+			  	input id="details_count_nums" name="num" value="1"
+			  	a.num-increase +
+			  | &nbsp;&nbsp;件
+			  input type="hidden" name="min_num" value="#{product.wholesales.order("count ASC").first.count}"
+			  span.product-stock 
+			  	|(库存
+			  	label #{product.tastes.first.shipments}
+			  	|件)
+			  input type="hidden" name="product_id" value="#{product.id}"
+		  .group.purchase-info
+		  	  label 价格
+		  	  span.details_buy_price
+		  	  	| &yen;
+		  	  	label#details_buy_price #{sprintf("%0.2f",(wll_price.first.to_i))}
+		  .group.btn-buy-group
+			  = token_field
+			  button.btn type="submit" 立即购买
+			  button.btn type="button" id="add_cart" 加入采购单
+
+		  	  img src="#{ product.pictures.first.nil? ? '/no_image170x170.png' : product.pictures.first.image.url(:thumb)}" id="fly-to-cart" style="display:none;"
+		  	  - if @product.dealer.coupons.where("status = 1 and invalidity_time >= ? and get_type = 0",Time.now).count > 0
+				a.receive-coupon href="/site/coupon/receive?dealer_id=#{@product.dealer.id}" 领取优惠券 
+		  	  p.min-num-error
+		  	  	label !
+		  	  	span 数量不满足商家批发规则
+	.payment-list
+		ul
+			li
+				div
+					=image_tag "web-1_33.png"
+				.descript
+					p.payment-method 支付方式
+					p #{payment.join('、')}
+			li
+				div
+					=image_tag "web-1_35.png"
+				.descript
+					p.payment-method 交易方式
+					p 全店满1000元或2箱可混批采购
+			li
+				div
+					=image_tag "web-1_37.png"
+				.descript
+					p.payment-method 买家保障
+					p 卖家支持先行赔付，保障买家交易安全
+.product-details
+	.left
+		/ .box
+		/ 	.box-header #{product.dealer.company_name}
+		/ 	.box-content
+		/ 		.info-group.contact
+		/ 			p 联系
+		/ 			= image_tag "web-1_23.png"
+		/ 		.info-group.collection
+		/ 			p 收藏
+		/ 			= image_tag "web-1_25.png"
+		/ 		p
+		/ 			a.btn.btn-outline 逛本店
+		/ 			a.btn.btn-outline 收藏本店
+		.box.box-product-category
+			.box-header 商品分类
+			.box-content
+				ul.list.list-vertical 
+					- category_list.each do |item|
+						li
+						 	a href="/site/home/search_of_products?category_id=#{item.id}"
+						 		| #{item.category_name}
+						 		label >
+	.right
+		ul.anchor-nav
+			li.active
+				a.btn.anchor-link.active href="#details-text" 商品详情
+				span.caret
+			li
+				a.btn.anchor-link href="#deal-records" 成交
+				span.caret
+		.details-text#details-text
+			ul.list.list-horizontal.attributes-list.clearfix
+				li
+					|品牌：
+					label.brand-name #{product.brand.name}
+				li 种类：#{category}
+				li 生产许可证编号：#{product.production_license_num}
+				li 产品标准号：#{product.product_standard_num}
+				li 生产日期：#{product.date_of_production.blank? ? '-- ' : product.date_of_production.strftime("%Y-%m-%d")}
+				li 原产地：#{product.country_of_origin}
+				li 保质期：#{product.exp_desc}
+				li 原料与配料：#{product.material}
+				li 生产厂家：#{product.manufacturer_message}
+				li 是否新品：#{product.new_product?? "是" : "否"}
+		.details-image ==product.graphic_information
+		-if !@snapshootproduct_list.nil?
+			.deal-records 
+				p.deal-header id="deal-records"
+					| 成交记录#{@snapshootproduct_list.sum('snapshoot_products.order_product_num').to_i}件
+					label.statistic-tips （以下为90天数据，统计结果截止到昨天）
+				ul.statistic-summary.clearfix
+					li
+						span
+							lable 重复采购率：
+							p.number #{@repeat_rate}%
+							span 人均采购数：#{@average_num}件
+					li
+						span
+							lable 采购人数：
+							p.number #{@user_num}
+				table.records-table#records-table
+					thead
+						tr
+							th 采购单
+							th 成交单价
+							th 数量
+							th 成交时间
+					tbody
+						- @product_list.each do |item|
+							tr
+								td #{item.order.order_num.sub(/\d......./,'******')}
+								td #{fmt_dollars(item.order_product_discount)}
+								td #{item.order_product_num}件
+								td 
+									p #{item.order.paytime.strftime("%Y-%m-%d")}
+									p #{item.order.paytime.strftime("%H:%M:%S")}
+				= render partial: 'shared/pagination',locals: {assets: @product_list}
+					/tr
+						/td 彬彬
+						/td 258
+						/td 852件
+						/d 
+							/p 2015-4-1
+							/p 03:50:00

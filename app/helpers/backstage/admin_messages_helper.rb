@@ -1,0 +1,2 @@
+module Backstage::AdminMessagesHelper
+end

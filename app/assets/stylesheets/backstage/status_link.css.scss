@@ -1,0 +1,31 @@
+@import '_variables';
+
+.status-link {
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	height: 38px;
+	&.active {
+		border-bottom: 2px solid $base-color;
+		color: $base-color;
+	}
+
+	a {
+		display: block;
+		padding: 0 15px;
+	}
+
+	& + & {
+		a {
+			border-left: 1px solid $gray-color;
+		}
+	}
+
+}
+
+.link-inline {
+	.status-link{
+		float: left;
+	}
+}

@@ -1,0 +1,82 @@
+@import '_variables';
+@import './mixins/_clearfix';
+
+.text-center{
+	text-align: center;
+}
+
+.text-left{
+	text-align: left;
+}
+
+.text-right{
+	text-align: right;
+}
+
+.text-bold{
+	font-weight: bold;
+}
+
+.divider{
+	width: 100%;
+	display:inline-block;
+	height: 1px;
+	background-color: $divider-color;
+}
+
+.close{
+	float: right;
+    font-size: 19px;
+    font-weight: 700;
+    font-family: sns-serif;
+    line-height: 1;
+    color: #000;
+    filter: alpha(opacity=20);
+    opacity: .2;
+    cursor: pointer;
+
+    &:hover{
+    	filter: alpha(opacity=100);
+    	opacity: 1;
+    }
+}
+
+button.close{
+	webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: 0 0;
+	border: 0;
+}
+
+.clearfix{
+	@include clearfix;
+}
+
+@mixin caret(){
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	
+}
+.caret{
+	@include caret();
+	border-top: 6px solid;
+}
+
+.caret-up{
+	@include caret();
+	border-bottom: 6px solid;
+}
+
+.pull-right{
+    float: right;
+}
+
+.pull-left{
+    float: left;
+}

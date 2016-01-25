@@ -1,0 +1,5 @@
+=form_tag(search_url,method:'get',id:'search-form')
+	.input-group
+		input type="hidden" name="status" value="#{params[:status]}"
+		input.form-control.search-box name="keyword" type="text"
+		button.btn.search-box-btn.input-group-addon  type="submit" #{search_txt}

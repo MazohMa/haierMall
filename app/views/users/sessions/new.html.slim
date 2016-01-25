@@ -1,0 +1,46 @@
+doctype 5
+html lang='zh_CN'
+  head
+    title 掌上阅冰管理平台
+    meta charset="utf-8"
+      meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE"
+    = stylesheet_link_tag 'site', media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body id="#{controller_name}-#{action_name}"
+    .header
+      .logo-line
+        .logo-line-content
+          .logo
+            a href="/site/home/index"
+              =image_tag "logo-2.png"
+              /h1.site-name 掌上阅冰订购商城
+    .content.clearfix
+      .login-wrapper
+        .login-logo
+          =image_tag "login_logo.png"
+        .login-box
+          h2
+            | 用户登录
+            a.register-link href="/users/sign_up/" 立即注册
+          = form_for(resource, as: resource_name, url: session_path(resource_name),html:{id:'login-form', autocomplete: "off"}) do |f|
+            .form-item.account
+              label.text-field-icon.account-icon for="user_name"
+              = f.text_field :mobile,:placeholder=>"请输入登录名",class:"account-input"
+            .form-item.password
+              label.text-field-icon.password-icon for="user_password"
+              = f.password_field :password,:placeholder=>"请输入密码",class:"password-input"
+            .form-item.operate
+              /label
+                input type="checkbox"
+                | 自动登录
+              a.forgot-password href="/site/user/forget_password_verify" 找回密码
+            .form-item
+              button.login-btn type="submit" 登录
+              -if flash
+                - flash.each do |key, value|
+                  - if key == "alert"
+                    p.response-error-info
+                      label ×
+                      span #{value}
+    .footer
+      = render 'shared/footer'

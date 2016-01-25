@@ -1,0 +1,105 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.user-operate
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			= form_tag('/site/user/operate/update',method:'post', id: 'user-operate-form')
+				.login-info-item
+					.user-info
+						ul
+							li.user-name
+								span #{current_user.username}，欢迎您！
+							/ li.user-level
+							/ 	span V1 会员
+							/ 	a href="/site/user/level/" 查看成长值
+							li.user-identity
+								span 您的身份是：#{current_user.role == "shop_owner" ? "采购商" : current_user.role == "dealer" ? "供应商" : "普通用户"}
+								- if current_user.string == "审核通过"
+									label 已认证
+						p.last-login-time
+							- if !current_user.current_sign_in_at.blank?
+								label 上次登录：
+								span #{current_user.current_sign_in_at.strftime("%Y年%m月%d日 %H:%M:%S")}
+				.user-info-item
+					.item-hd 基本信息
+					.item-bd
+						- user_info = check_user_info(current_user)
+						ul
+							- if current_user.string.blank? || current_user.string == "审核不通过"
+								li
+									label 店铺名
+									input type="text" value="#{user_info.company_name}"
+								li
+									label 店主姓名
+									input type="text" value="#{user_info.user_name}"
+								li
+									label 地址
+									input type="text" value="#{user_info.user_address}"
+							- else
+								li
+									label 店铺名
+									input.lg type="text" disabled="disabled" value="#{user_info.company_name}"
+								li
+									label 店主姓名
+									input type="text" disabled="disabled" value="#{user_info.user_name}"
+								li
+									label 地址
+									input.lg type="text" disabled="disabled" value="#{user_info.user_address}"
+							li.phone-number
+								label 移动电话
+								div 
+									input type="text" name="mobile" value="#{user_info.user_phone}" onkeyup="this.value=this.value.replace(/\D/g,'')"
+								label 联系电话
+								div 
+									input type="text" name="cellphone" value="#{user_info.user_tel}" onkeyup="this.value=this.value.replace(/\D/g,'')"
+								label 传真
+								div 
+									input type="text" name="fax" value="#{user_info.user_fax}"
+							li
+								label 联系邮箱
+								input type="text" name="email" value="#{user_info.user_email}"
+				.company-info-item
+					.item-hd 企业信息
+					.item-bd
+						ul
+							li
+								label 所选厂商
+								span.manufacturers
+									- @selected_manufacturers.each do |item|
+										a href="javascript:void(0)"
+											span.manufacturer-name #{item}
+											label.detele-manufacturer 一
+									span.add-manufacturer
+										button type="button"
+											em +
+									- if @selected_manufacturers.length > 0
+										label.error.tips-manufacturers
+									- else
+										label.error.tips-manufacturers 请选择代理厂商
+								input type="hidden" name="manufacturers" value=""
+							li
+								label 认证信息
+								span.authorization
+									span.authorization-text #{current_user.string}
+									- if !current_user.user_authorization_pics.first.blank?
+										/ img src="http://placehold.it/150x100"
+										img src="#{current_user.user_authorization_pics.first.image.url}"
+					.operate-btn-group
+						button.save-user-info 保存
+					.add-manufacturer-box
+						.manufacturer-box
+							.box-hd
+								| 请选择新厂商（可多选）
+								label.close-box ×
+							.box-bd
+								.manufacturer-list
+									- @manufacturers.each do |item|
+										span #{item.name}
+								.other-manufacturer
+									| 其他：
+									input type="text" name="otherManufacturer"
+							.box-ft
+								button.cancle type="button" 取消
+								button.sure type="button" 确定

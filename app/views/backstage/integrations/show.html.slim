@@ -1,0 +1,18 @@
+= content_for(:grid_operations)
+    = link_to '返回积分列表',backstage_integrations_path,class:"operation-btn"
+    = link_to '积分规则设置',backstage_integrations_new_path,class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content.member-content
+        .member-info style="margin-bottom: 20px"
+            span 会员ID：#{@user.mobile}
+            span 会员等级：#{MemberRule.where('level = ?',@user.member.level).first.title}
+            span 当前积分：#{@user.member.integration}
+            span 消费积分：#{@user.member.used_integration}
+            span 兑换次数：#{@user.member.exchange_num}
+        ul.tabs
+            li.tab-item
+                a.active href="#tab1" 详细记录（#{@integration_grid.assets.total_count}）
+        .tab-content
+            #tab1
+                = datagrid_table @integration_grid
+                = render partial: '/shared/pagination',locals: {assets:@integration_grid.assets}

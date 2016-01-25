@@ -1,0 +1,60 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.user-address-manage
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			.address-manage
+				.item-hd
+					| 管理收货地址
+					- if @list_addresses.length >= 20
+						button#addAddress disabled="disabled"
+							em +
+							| 新增收货地址
+					- else
+						button#addAddress
+							em +
+							| 新增收货地址
+							label.right-caret
+				span.tips 您已创建#{@list_addresses.length}个收货地址，最多可创建20个。
+				span.operate-tips
+					label !
+					| 如果您要修改下面任意一个地址，请单击 “编辑”按钮。
+				.item-bd
+					- if @list_addresses.length >= 20
+						label.error-msg 您目前收货地址已经到达极限！
+					- @list_addresses.each do |item|
+						.address-item
+							.address-title
+								span.address-alias-name #{item.alias_address}
+								- if item.status == 1
+									span.default-addr-flag
+										| 默认
+										label
+								- else
+									a.set-default data-addr-id="#{item.id}" href="javascript:void(0)" 设为默认
+							ul
+								li
+									label 收货人
+									span #{item.name}
+								li
+									label 所在地区
+									span #{item.zone_name}
+								li
+									label 地址
+									span #{item.address}
+								li
+									label 手机
+									span #{item.cellphone}
+								li
+									label 电话
+									span #{item.mobile}
+								li
+									label 电子邮箱
+									span #{item.email}
+									span.opearte-btn
+										a.editAddress data-addr-id="#{item.id}" href="javascript:void(0)" 编辑
+										a.deleteAddress data-addr-id="#{item.id}" href="javascript:void(0)" 删除
+											
+	= render 'address_form'

@@ -1,0 +1,12 @@
+= content_for (:content)
+    .content-header
+        .link-inline
+            .status-link class="#{current_controller('backstage/ad_banners','active')}"
+                = link_to " 广告位",backstage_ad_banners_index_path
+            .status-link class="#{current_controller('backstage/coupon_packages','active')}"
+                = link_to " 优惠券礼包",backstage_coupon_packages_index_path
+    = yield(:ad_content)
+    .grid-operations
+        = yield(:grid_operations)
+    = yield(:grid_content)
+= render template: "backstage/layouts/backstage"

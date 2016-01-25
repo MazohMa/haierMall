@@ -1,0 +1,25 @@
+= content_for(:content)
+	.content-header
+		.link-inline
+            .status-link.active
+				= link_to "信息推送", backstage_information_message_path
+		.link-inline
+            .status-link
+				= link_to "广告资讯", backstage_information_news_path
+	.grid-operations
+		button.operation-btn  type="button" 推送新通知
+
+		button.operation-btn type="button" 批量删除
+	.grid-content
+		ul.tabs
+			li.tab-item
+				a.active href="#tab-information" 通知（#{@informations_grid.assets.total_count}）
+			li.tab-item
+				a href="#tab-chat" 点对点（#{@chats_grid.assets.total_count}）
+		.tab-content
+			#tab-information
+				= datagrid_table @informations_grid
+				= render partial: '/shared/pagination',locals: {assets:@informations_grid.assets}
+			#tab-chat
+				= datagrid_table @chats_grid
+				= render partial: '/shared/pagination',locals: {assets:@chats_grid.assets}

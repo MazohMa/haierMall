@@ -1,0 +1,65 @@
+//jquery-step.js style
+
+$step-title-width: 200px;
+$step-content-width: $step-title-width * 3;
+
+.step-wrapper{
+	position: relative;
+
+	li{
+		list-style: none;
+	}
+
+	.divider{
+		position: absolute;
+		top:30px;
+		height: 2px;
+		z-index: -1;
+	}
+}
+
+.steps{
+	width: $step-content-width;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.step-titles{
+	text-align: center;
+	font-size: 0px;
+}
+
+.step-titles, .step-contents{
+	padding: 0px;
+	margin: 0px;
+}
+
+.step-title-item{
+	width: $step-title-width;
+	display: inline-block;
+	padding-bottom: 10px;
+	text-align: center;
+	font-size: 18px;
+
+	&.active{
+		border-bottom: 6px solid #009dd9;
+	}
+}
+
+.step-contents{
+	position: relative;
+}
+
+.step-content-item{
+	width: $step-content-width;
+	float: left;
+	margin-top: 60px;
+	margin-bottom: 100px;
+
+	form{
+		width:450px;
+		min-width:450px;
+		margin: 0 auto;
+	}
+}
+

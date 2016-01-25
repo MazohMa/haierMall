@@ -1,0 +1,128 @@
+= content_for(:content)
+	.home-wrapper
+		.metro-box
+			.metro-head
+				| 本周基本概况
+			.metro-content
+				ul.cake-list
+					li
+						p 来访人数
+						p.value #{@num_of_visitors}
+						/ p.ratio
+						/ 	span
+						/ 		| 同比
+						/ 		label 2%↑
+						/ 	span
+						/ 		| 环比
+						/ 		label 1%↓
+					li
+						p 确认订单人数
+						p.value #{@confirm_order_count}
+						/ p.ratio
+						/ 	span
+						/ 		| 同比
+						/ 		label 2%↑
+						/ 	span
+						/ 		| 环比
+						/ 		label 1%↓
+					li
+						p 成交数
+						p.value #{ @delivery_order_count}
+						/ p.ratio
+						/ 	span
+						/ 		| 同比
+						/ 		label 2%↑
+						/ 	span
+						/ 		| 环比
+						/ 		label 1%↓
+					li
+						p 收藏数
+						p.value #{@wishlists }
+						/ p.ratio
+						/ 	span
+						/ 		| 同比
+						/ 		label 2%↑
+						/ 	span
+						/ 		| 环比
+						/ 		label 1%↓
+					li
+						p 商品上架数
+						p.value #{@on_line_products}
+						/ p.ratio
+						/ 	span
+						/ 		| 同比
+						/ 		label 2%↑
+						/ 	span
+						/ 		| 环比
+						/ 		label 1%↓
+		.chat-wrapper
+			.metro-box.product-type
+				.metro-head
+					| 商品类型销量环比
+				.metro-content
+					.chat-tools
+						ul.chat-date data-type="productType"
+							li.active data-value="last_seven" 最近7天
+							li data-value="last_thirty" 最近30天
+							li data-value="last_half_year" 最近半年
+							li data-value="year"全年
+					.chat-content
+						#product-type-sales style="height:285px; padding-top:15px;"
+			.metro-box
+				.metro-head
+					| 商品销量排行榜
+				.metro-content
+					.chat-tools
+						ul.chat-date data-type="productSales"
+							li.active data-value="last_seven" 最近7天
+							li data-value="last_thirty" 最近30天
+							li data-value="last_half_year" 最近半年
+							li data-value="year"全年
+					.chat-content
+						#product-sales style="height:300px;"
+			.metro-box
+				.metro-head
+					| 销量金额柱形图
+				.metro-content
+					.chat-tools
+						/ ul.chat-date data-type="salesAmount"
+						/ 	li.active data-value="today" 当天
+						/ 	li data-value="last_seven" 最近7天
+						/ 	li data-value="last_thirty" 最近30天
+						/ 	li data-value="last_half_year" 最近半年
+						/ 	li data-value="year"全年
+						/ .date-range
+						/ 	| 日期范围：
+						/ 	input type="text" value=""
+						/ 	| &nbsp;-&nbsp;
+						/ 	input type="text" value=""
+						/ 	button 确定
+						ul.chat-date data-type="salesAmount"
+							li.active data-value="day" 日
+							li data-value="week" 周
+							li data-value="month" 月
+							li data-value="quarter" 季
+							li data-value="year"年
+						/ ul.cycle-list
+						/ 	li 日
+						/ 	li.active 周
+						/ 	li 月
+						/ 	li 季
+						/ 	li 年
+					.chat-content
+						#sales-amount style="height:300px; "
+			.metro-box
+				.metro-head
+					| 采购商排行榜
+				.metro-content
+					.chat-tools
+						ul.chat-date data-type="buyer"
+							li.active data-value="last_seven" 最近7天
+							li data-value="last_thirty" 最近30天
+							li data-value="last_half_year" 最近半年
+							li data-value="year"全年
+					.chat-content
+						#buyer style="height:300px;"
+= content_for(:footer_js)
+	= javascript_include_tag '/echarts-2.2.7/build/dist/echarts.js'
+

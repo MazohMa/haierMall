@@ -1,0 +1,56 @@
+// Place all the styles related to the Backstage::ad_banners controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.hide-product-div{
+	// visibility:hidden
+	display:none;
+}
+
+#selected_product_text{
+    margin: 10px 20px 5px 20px;
+	font-size: 16px;
+	#selected_product {
+		color: #0491e3;
+	}
+}
+
+#selected_product{
+	width:500px;
+}
+
+.show-select-product {
+	margin-left:10px;
+}
+.ad-content-info {
+	margin: 20px 24px;
+	padding:10px;
+	border: #ccc thin solid;
+	.info-title {
+		margin-top: 10px;
+		margin-bottom: 20px;
+	    font-size: 18px;
+	    font-weight: bold;
+	    color: #0491e3;
+	}
+	.info-group {
+		padding: 10px 0;
+		span {
+			display: inline-block;
+			width: 120px;
+			text-align: right;
+			&.image {
+				vertical-align: top;
+			}
+		}
+		&.bottom-buttons {
+			.btn + .btn {
+				margin-left: 30px;
+			}
+		}
+	}
+}
+
+.for-full-tip{
+	// display : none;
+}

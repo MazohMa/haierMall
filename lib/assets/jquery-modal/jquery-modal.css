@@ -1,0 +1,45 @@
+.jquery-modal-overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+
+.jquery-modal {
+    position:absolute;
+    background:#009dd9;
+    border-radius:4px;
+    padding:8px;
+    padding-top: 0px;
+}
+
+.jquery-modal-title {
+	margin-top: 7px;
+	margin-bottom: 7px;
+	font-size: 14px;
+	font-weight: normal;
+	
+}
+
+.jquery-modal-content {
+	height: 100%;
+	width: 100%;
+    border-radius:3px;
+    background:#fff;
+}
+
+.jquery-modal-close {
+    position: absolute;
+	top: 1px;
+	right: 10px;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	text-decoration: none
+}

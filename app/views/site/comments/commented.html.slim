@@ -1,0 +1,60 @@
+= content_for(:logo_line)
+	= render 'site/shared/logo_line'
+= content_for(:content)
+	.comment
+		.left
+			= render 'site/shared/menu_tree'
+		.right
+			- if @commented_list.blank?
+				p 暂无相关数据
+			- else
+				- @commented_list.each do |item|
+					.comment-item-hd
+						span 订单号：#{item.order.order_num}
+						a #{item.order.snapshoot_products.first.nil? ? '--':item.order.snapshoot_products.first.dealer}
+						= image_tag "icon_call_1.png",class:"contact-merchant"
+					.comment-item-bd
+						ul
+							li
+								.product-info
+									image src="#{item.order.snapshoot_products.first.picture == nil ? '/no_image310x320.png' : (item.order.snapshoot_products.first.picture.image.middle.url)}"
+									/p.product-name 批发牛奶 八喜全脂纯牛奶1L*12盒星巴克咖啡专用牛奶 1000ml*12 原味
+								.comment-info
+									p 
+										=image_tag "icon_complete.png",class:"icon-complete"
+										label.complete-text 评价成功
+										/| &nbsp;&nbsp;已获得112积分，评价正在审核中.
+									p.comment-star
+										label 我的总体评价
+										span.star-list
+											label.star class="#{'active' if item.stars >= 1}"
+											label.star class="#{'active' if item.stars >= 2}"
+											label.star class="#{'active' if item.stars >= 3}"
+											label.star class="#{'active' if item.stars >= 4}"
+											label.star class="#{'active' if item.stars >= 5}"
+									p.comment-text
+										| 评价:
+										span #{item.comment}
+									span.btn-group
+											a.edit-comment data-id="#{item.id}" 修改
+											a.delete-comment data-id="#{item.id}" 删除
+								.comment-content.edit
+									/p.comment-integral 评价可得100积分奖励
+									p.comment-star
+										label 我的总体评价
+										span.star-list
+											label.star class="#{'active' if item.stars >= 1}"
+											label.star class="#{'active' if item.stars >= 2}"
+											label.star class="#{'active' if item.stars >= 3}"
+											label.star class="#{'active' if item.stars >= 4}"
+											label.star class="#{'active' if item.stars >= 5}"
+									.text-input
+										textarea placehold="输入" maxlength="50" #{item.comment}
+										p.input-tips 
+											/ | * 请上传原创、真实、合法的图片，如果发现用户上传的图片有侵权内容，海尔有权先行删除
+											label.word-limit
+												em #{item.comment.length}
+												| /50
+									a.comment-btn 发表评论
+				= render partial: 'shared/pagination',locals: {assets: @commented_list}
+					

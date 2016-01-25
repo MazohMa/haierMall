@@ -1,0 +1,8 @@
+= content_for(:grid_operations)
+	/= link_to '创建角色',backstage_ability_new_path,class:"operation-btn"
+    /= link_to '批量删除',"#",class:"operation-btn",id:"batch-delete"
+    /= link_to '批量导入',"#",class:"operation-btn"
+= content_for(:grid_content)
+    .grid-content
+        = datagrid_table @grid
+        = render partial: '/shared/pagination',locals: {assets:@grid.assets}

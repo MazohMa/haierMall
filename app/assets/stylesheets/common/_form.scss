@@ -1,0 +1,132 @@
+//form
+
+@import '_variables';
+
+.form-group{
+	width: 100%;
+
+	&.no-describe{
+		margin-left: $control-label-width + $control-label-horizontal-margin;
+	}
+}
+
+.form-inline{
+	.form-group{
+		display: inline-block;
+		width: auto;
+	}
+
+	.form-group + .form-group {
+		margin-left: 30px;
+		margin-top: 0px;
+	}
+
+	& + & {
+		margin-top: 20px;
+	}
+
+}
+
+.control-label{
+	width: $control-label-width;
+	display: inline-block;
+	margin-right: 15px;
+	text-align: right;
+}
+
+.form-group + .form-group{
+	margin-top: $form-group-vertical-margin;
+}
+
+.form-control {
+  height: $input-height-base; 
+  padding: $padding-base-vertical $padding-base-horizontal;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  background-image: none; 
+  box-sizing: border-box;
+}
+
+.help-inline{
+	margin-left: 15px;
+	font-size: 0.8em;
+	color: $help-inline-color;
+
+	a{
+		color: inherit;
+	}
+
+	.btn{
+		font-size: inherit;
+	}
+}
+
+.help-block{
+	display: block;
+	margin: 5px 0 0 ($control-label-width+$control-label-horizontal-margin);
+	color: $help-block-color;
+	font-size: 0.8em;
+}
+
+.checkbox,.radio{
+	display: inline-block;
+
+	label{
+		margin-left: 6px;
+		cursor: pointer;
+	}
+
+	& + & {
+		margin-left: 30px;
+	}
+
+}
+
+.checkboxes-vertial,.radios-vertial{
+	.checkbox,.radio{
+		display: block;
+	}
+
+	.checkbox + .checkbox {
+		margin-top: 10px;
+		margin-left: 0px;
+	}
+
+	.radio + .radio{
+		margin-top: 10px;
+		margin-left: 0px;
+	}
+
+}
+
+.input-group-addon{
+	margin-left: -1px;
+}
+
+.search-form{
+	height: $search-form-height;
+	.form-control {
+		height: 100%;
+	}
+
+	.btn{
+		height: 100%;
+	}
+
+	.btn + .btn{
+		margin-left: 20px;
+	}
+}
+
+input{
+	padding: 6px 12px;
+	box-sizing: border-box;
+
+	.input-sm{
+		padding: 4px 8px;
+	}
+	
+}
+
+
+

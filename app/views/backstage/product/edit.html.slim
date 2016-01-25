@@ -1,0 +1,18 @@
+= content_for(:header_css)
+	= stylesheet_link_tag '/webuploader/webuploader.css'
+= content_for(:content)
+	.content-header
+		.link-inline
+			.status-link.active
+				a 编辑商品
+	.grid-content.product-form-wrapper
+		= render 'form'
+		.buttons
+			button.btn.btn-obvious.obvious-primary#update-product 保存
+			a.btn.btn-obvious.obvious-outline#cancel-edit  href="javascript:void(0)" 取消
+			a.btn.btn-obvious.obvious-default href=backstage_preview_path(params[:product_id]) 预览
+
+= content_for(:footer_js)
+	= javascript_include_tag '/ueditor/ueditor.config.js' 
+	= javascript_include_tag '/ueditor/ueditor.all.js'
+	= javascript_include_tag '/webuploader/webuploader.min.js'

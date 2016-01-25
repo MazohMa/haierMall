@@ -1,0 +1,12 @@
+= content_for(:grid_operations)
+    = link_to '新增礼包',backstage_coupon_packages_new_path,class:"operation-btn"
+    = link_to '批量结束',"javascript:void(0)",class:"operation-btn",id:"batch-delete"
+= content_for(:grid_content)
+    .grid-content
+        = datagrid_table @grid
+        = render partial: '/shared/pagination',locals: {assets:@grid.assets}
+
+        #qrcode
+            span.close &times;
+            img.qrcode-image
+            a.copy-link href="#" 下载此优惠券二维码进行推广

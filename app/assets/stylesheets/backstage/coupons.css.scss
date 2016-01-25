@@ -1,0 +1,193 @@
+// Place all the styles related to the backstage::coupons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+
+.coupon-content{
+    padding-left: 26px;
+}
+
+.coupon-form{
+
+    .checkboxes-vertial{
+        margin-left: 23px;
+        margin-top: 10px;
+    }
+
+    .radios-vertial{
+        .radio{
+            margin-left: 105px;
+        }
+    }
+
+    .limit{
+        display: none;
+    }
+
+}
+
+.coupon-pre{
+    width: 273px;
+    height: 218px;
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+    background: image_url('coupon-background.png') no-repeat;
+}
+
+.pre-top{
+    height: 58px;
+    padding-top: 28px;
+    line-height: 58px;
+    font-size: 20px;
+    text-align: center;
+
+    .money-num{
+        font-size: 58px;
+        font-weight: bold;
+    }
+    .money-unit{
+        font-size: 30px;
+        margin-right: 20px;
+    }
+}
+
+.pre-bottom{
+    margin: 0px 20px;
+    margin-top: 25px;
+    line-height: 20px;
+
+    .text-title{
+        display: inline-block;
+        width: 29%;
+        text-align: right;
+        vertical-align: top;
+    }
+
+    .text-content{
+        width: 71%;
+        display: inline-block;
+        text-align: left;
+    }
+}
+
+.get-button{
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    margin-left: -62px;
+    padding: 7px 30px;
+    border: 2px solid #fff;
+}
+
+.coupon-list{
+    overflow: hidden;
+    margin-top: 30px;
+
+    .list-item {
+        width: 300px;
+        margin-right: 30px;
+        margin-bottom: 50px;
+        padding-bottom: 15px;
+        float: left;
+        border: 1px solid $gray-color;
+    }
+
+    .item-header{
+        height: 50px;
+        line-height: 50px;
+        text-indent: 20px;
+        font-size: 17px;
+        border-bottom: 1px solid $gray-color;
+    }
+
+    .coupon-status{
+        color: $base-color;
+        margin-left: 15px;
+    }
+
+    .coupon-infos{
+        padding: 0px;
+        margin: 20px 10px;
+        list-style: none;
+
+        li{
+            span{
+                width: 70px;
+                display: inline-block;
+                text-align: right;
+            }
+        }
+
+        li + li {
+            margin-top: 10px;
+        }
+
+    }
+
+    .functions{
+        height: 38px;
+        text-align: right;
+        margin: 0 10px 10px 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $gray-color;
+
+        .btn{
+            margin-right: 10px;
+            border: 1px solid $gray-color;
+            line-height: 1;
+            font-size: inherit;
+            color: #9b9b9b;
+        }
+    }
+
+    .coupon-pre{
+        margin: 0 auto;
+    }
+}
+
+#qrcode{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    margin-left: -164px;
+    margin-top: -164px;
+    display: none;
+    border: 3px solid #4b4b4b;
+    background-color: #fff;
+
+    img{
+        margin: 50px;
+        margin-top: 30px;
+    }
+
+    .close{
+        margin-right: -14px;
+        margin-top: -14px;
+        font-size: 28px;
+        color: #f00;
+        font-family: "Microsoft YaHei",微软雅黑;
+        opacity: .5;
+        filter: alpha(opacity=50)
+    }
+
+    .close:hover{
+        opacity: 1;
+        filter: alpha(opacity=100)
+    }
+
+    .copy-link{
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        left: 0px;
+        text-align: center;
+        color: $base-color;
+    }
+}
+
+.for-hide{
+    display: none;
+}

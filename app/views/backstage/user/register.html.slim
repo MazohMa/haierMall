@@ -1,0 +1,74 @@
+= content_for :header
+	= render('shared/header');
+
+= content_for :content
+    p.tips
+		|注册账号
+		= link_to "已有账号，返回登录",backstage_user_login_path
+	.step-wrapper
+		.divider
+		.steps
+			ul.step-titles
+				li.step-title-item.active 设置手机号
+				li.step-title-item 填写企业信息
+				li.step-title-item 注册成功
+			ul.step-contents
+				li.step-content-item
+					form
+						.form-group
+							label.control-label 手机号码
+							input.form-control type="text" placeholder="请输入手机号码"
+							span.help-inline
+								button.btn.btn-default 获取验证码
+						.form-group
+							label.control-label 验证码
+							input.form-control type="text" placeholder="请输入验证码"
+							p.help-block 请输入手机收到的6位验证码
+						.form-group.no-describe
+							.checkbox
+								input type="checkbox" id="agreement"
+								label for="agreement" 同意《海尔掌上阅冰管理协议》
+
+						.form-group.no-describe
+							button.btn.btn-form-action.next-step type="submit" 下一步
+				li.step-content-item
+					form
+						.form-group
+							label.control-label 公司名称
+							input.form-control type="text" 
+						.form-group
+							label.control-label 法人
+							input.form-control type="text" 
+						.form-group
+							label.control-label 地址
+							input.form-control type="text" 
+						.form-group
+							label.control-label 座机
+							input.form-control type="text" 
+						.form-group
+							label.control-label 传真
+							input.form-control type="text" 
+						.form-group
+							label.control-label 营业执照
+							input type="file"
+						.form-group.no-describe
+							.license-preview
+								img src="http://placehold.it/150x150"
+							span.help-inline
+								button.btn.btn-default.btn-upload 上传
+						.form-group
+							label.control-label 设置密码
+							input.form-control type="text" 
+						.form-group
+							label.control-label 确认密码
+							input.form-control type="text" 
+						.form-group.no-describe
+							button.btn.btn-form-action.next-step type="submit" 下一步
+				li.step-content-item.text-center
+					p.success-register-message 恭喜你，已注册成为海尔掌上阅冰会员！
+					= link_to "登录进入后台",backstage_user_login_path,{:class =>"btn btn-form-action"}
+					
+
+
+
+

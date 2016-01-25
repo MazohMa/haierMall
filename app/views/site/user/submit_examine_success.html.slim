@@ -1,0 +1,33 @@
+= content_for(:logo_line)
+	.logo
+		a href="/site/home/index"
+			=image_tag "logo-2.png"
+			/h1.site-name 掌上阅冰订购商城
+	ul.step
+		li.active
+			span 1
+			label 设置手机号
+		li.active
+			span 2
+			label 完善信息
+		li.last.active
+			span 3
+			- if current_user.role == "shop_owner" && current_user.string == "审核通过"
+				label 已完善信息
+			- else
+				label 成功提交审核
+
+= content_for(:content)
+	.submited-examine
+		- if current_user.string == '审核失败'
+			p.submited-info
+				| 您提交了审核失败，请重新
+				a href="/site/user/perfect_information" 完善信息
+				| 审核
+		- elsif current_user.string == "待审核"
+			p.submited-info 您已经提交了审核资料，请等待审核通过
+		- if current_user.role == "shop_owner" && current_user.string == "审核通过"
+			p.submited-tips 已完成填写信息，祝君购物愉快
+		-else
+			p.submited-tips 在审核期间，您只能查看商品，没有购买商品的权限
+		button.now-get-into onclick="window.location.href = '/'" 现在进入
